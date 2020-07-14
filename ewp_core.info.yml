@@ -1,0 +1,11 @@
+name: 'EWP core'
+type: module
+description: 'EWP core data types and utilities'
+core: 8.x
+package: 'EWP'
+dependencies:
+  - drupal:field
+  - drupal:link
+  - drupal:options
+  - drupal:telephone
+  - drupal:text

@@ -1,0 +1,22 @@
+{
+  "name": "euf/ewp_core",
+  "type": "drupal-module",
+  "description": "EWP core data types and utilities",
+  "keywords": [
+  ],
+  "homepage": "",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "",
+    "source": ""
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    }
+  ],
+  "require": {
+    "drupal/languagefield": "^1.5"
+  }
+}

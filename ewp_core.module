@@ -1,0 +1,69 @@
+<?php
+
+/**
+ * @file
+ * Contains ewp_core.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function ewp_core_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the ewp_core module.
+    case 'help.page.ewp_core':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('EWP core data types and utilities') . '</p>';
+      $output .= '<p>' . t('Learn more at ') . '<a href="https://developers.erasmuswithoutpaper.eu" target="_blank">developers.erasmuswithoutpaper.eu</a>.</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_element_info_alter().
+ */
+function ewp_core_element_info_alter(array &$types) {
+  // Attach our extra CSS for toolbar icons.
+  if (isset($types['toolbar'])) {
+    $types['toolbar']['#attached']['library'][] = 'ewp_core/toolbar';
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ewp_core_theme() {
+  return [
+    'ewp_core' => [
+      'render element' => 'children',
+    ],
+  ];
+}
+
+/**
+ * Get ISO 639-1 language codes.
+ *
+ * Get associative array of two-letter language codes from a source file.
+ *
+ * @return array $options
+ */
+function ewp_core_get_language_codes() {
+  $source_file = 'includes/language_codes_iso639-1.inc';
+  include $source_file;
+
+  $options = [];
+  foreach ($language_codes as $top => $array) {
+    $group = [];
+    foreach ($array as $key => $value) {
+      $group[$key] = $value;
+    }
+    $options[$top] = $group;
+  }
+
+  return $options;
+}

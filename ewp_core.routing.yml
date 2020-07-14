@@ -1,0 +1,7 @@
+ewp_core.admin:
+  path: '/admin/ewp'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Erasmus Without Paper'
+  requirements:
+    _permission: 'access toolbar'

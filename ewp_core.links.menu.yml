@@ -1,0 +1,6 @@
+ewp_core.admin:
+  title: 'EWP'
+  description: 'Erasmus Without Paper.'
+  route_name: 'ewp_core.admin'
+  parent: 'system.admin'
+  weight: -7
