@@ -42,6 +42,9 @@ function ewp_core_theme() {
     'ewp_core' => [
       'render element' => 'children',
     ],
+    'ewp_string_lang_default' => [],
+    'ewp_multiline_lang_default' => [],
+    'ewp_http_lang_default' => [],
   ];
 }
 
@@ -63,6 +66,44 @@ function ewp_core_get_language_codes() {
       $group[$key] = $value;
     }
     $options[$top] = $group;
+  }
+
+  return $options;
+}
+
+/**
+ * Get ISO/IEC 5218 human sexes.
+ *
+ * Get associative array of single digit human sex codes from a source file.
+ *
+ * @return array $options
+ */
+function ewp_core_get_human_sexes() {
+  $source_file = 'includes/human_sexes_isoiec5218.inc';
+  include $source_file;
+
+  $options = [];
+  foreach ($human_sexes as $key => $value) {
+    $options[$key] = $value;
+  }
+
+  return $options;
+}
+
+/**
+ * Get EQF levels.
+ *
+ * Get associative array of single digit EQF levels from a source file.
+ *
+ * @return array $options
+ */
+function ewp_core_get_eqf_levels() {
+  $source_file = 'includes/eqf_levels.inc';
+  include $source_file;
+
+  $options = [];
+  foreach ($eqf_levels as $key => $value) {
+    $options[$key] = $value;
   }
 
   return $options;

@@ -2,13 +2,15 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldType;
 
-use Drupal\Core\Field\FieldDefinitionInterface;
-use Drupal\Core\Field\FieldItemBase;
+// use Drupal\Core\Field\FieldDefinitionInterface;
+// use Drupal\Core\Field\FieldItemBase;
+use Drupal\link\Plugin\Field\FieldType\LinkItem;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\Core\Url;
+
 
 /**
  * Plugin implementation of the 'ewp_http_lang' field type.
@@ -22,7 +24,7 @@ use Drupal\Core\Url;
  *   default_formatter = "ewp_http_lang_default"
  * )
  */
-class HttpWithOptionalLangItem extends FieldItemBase {
+class HttpWithOptionalLangItem extends LinkItem {
 
   /**
    * {@inheritdoc}
@@ -38,9 +40,10 @@ class HttpWithOptionalLangItem extends FieldItemBase {
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     // Prevent early t() calls by using the TranslatableMarkup.
-    $properties['uri'] = DataDefinition::create('uri')
-      ->setLabel(new TranslatableMarkup('URI'))
-      ->setRequired(TRUE);
+    // $properties['uri'] = DataDefinition::create('uri')
+    //   ->setLabel(new TranslatableMarkup('URI'))
+    //   ->setRequired(TRUE);
+    $properties = parent::propertyDefinitions($field_definition);
 
     $properties['lang'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Language code'))
@@ -53,23 +56,25 @@ class HttpWithOptionalLangItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
-    $schema = [
-      'columns' => [
-        'uri' => [
-          'type' => 'varchar',
-          'length' => 2048,
-        ],
-        'lang' => [
-          'type' => 'varchar_ascii',
-          'length' => 32,
-        ],
-      ],
-      'indexes' => [
-        'uri' => [['uri', 30]],
+    $schema = parent::schema($field_definition);
+
+    $schema['columns'] += [
+      'lang' => [
+        'type' => 'varchar_ascii',
+        'length' => 32,
       ],
     ];
 
     return $schema;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function fieldSettingsForm(array $form, FormStateInterface $form_state) {
+    $element = [];
+
+    return $element;
   }
 
   /**
