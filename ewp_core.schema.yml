@@ -18,3 +18,13 @@ field.widget.settings.ewp_multiline_lang_default:
     placeholder:
       type: textfield
       label: 'Placeholder'
+field.widget.settings.ascii_identifier_default:
+  type: mapping
+  label: 'Default widget settings'
+  mapping:
+    size:
+      type: integer
+      label: 'Size'
+    placeholder:
+      type: textfield
+      label: 'Placeholder'
