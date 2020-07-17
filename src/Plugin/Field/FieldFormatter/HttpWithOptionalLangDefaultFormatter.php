@@ -7,15 +7,13 @@ use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Url;
-use Drupal\Core\Link;
 
 /**
  * Plugin implementation of the 'ewp_http_lang_default' formatter.
  *
  * @FieldFormatter(
  *   id = "ewp_http_lang_default",
- *   label = @Translation("Default"),
+ *   label = @Translation("Default (plain text)"),
  *   field_types = {
  *     "ewp_http_lang"
  *   }
@@ -28,9 +26,7 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase {
    */
   public static function defaultSettings() {
     return [
-      // 'trim_length' => 80,
-      'rel' => 'nofollow',
-      'target' => '_blank',
+      //
     ] + parent::defaultSettings();
   }
 
@@ -77,11 +73,9 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase {
    *   The textual output generated.
    */
   protected function viewValue(FieldItemInterface $item) {
-    $url = '';
-    $link = Link::fromTextAndUrl('This is a link', $item->getUrl())->toString();
-    $output = $link;
-
-    return $output;
+    // The text value has no text format assigned to it, so the user input
+    // should equal the output, including newlines.
+    return nl2br(Html::escape($item->string));
   }
 
 }
