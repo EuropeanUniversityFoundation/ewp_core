@@ -25,13 +25,16 @@ class EqfLevelDefaultWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $eqf_levels = \ewp_core_get_eqf_levels();
-    $element['value'] = $element + [
-        '#type' => 'select',
-        '#options' => $eqf_levels,
-        '#empty_value' => '',
-        '#default_value' => isset($items[$delta]->value) ? $items[$delta]->value : NULL,
-        '#description' => t('Select the EQF level'),
-      ];
+    $element['value'] = [
+      '#type' => 'select',
+      '#options' => $eqf_levels,
+      '#empty_value' => '',
+      '#default_value' => isset($items[$delta]->value) ? $items[$delta]->value : NULL,
+    ];
+    // If cardinality is 1, ensure a proper label is output for the field.
+    if ($this->fieldDefinition->getFieldStorageDefinition()->getCardinality() == 1) {
+      $element['value']['#title'] = $element['#title'];
+    }
 
     return $element;
   }

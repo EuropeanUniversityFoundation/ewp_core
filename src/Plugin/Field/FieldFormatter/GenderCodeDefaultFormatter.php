@@ -24,7 +24,7 @@ class GenderCodeDefaultFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $gender_codes = \ewp_core_get_eqf_levels();
+    $gender_codes = \ewp_core_get_human_sexes();
     // Already a flat array
     // $options = OptGroup::flattenOptions($gender_codes);
     $elements = [];

@@ -25,13 +25,16 @@ class GenderCodeDefaultWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $gender_codes = \ewp_core_get_human_sexes();
-    $element['value'] = $element + [
-        '#type' => 'select',
-        '#options' => $gender_codes,
-        '#empty_value' => '',
-        '#default_value' => isset($items[$delta]->value) ? $items[$delta]->value : NULL,
-        '#description' => t('Select the Gender code'),
-      ];
+    $element['value'] = [
+      '#type' => 'select',
+      '#options' => $gender_codes,
+      '#empty_value' => '',
+      '#default_value' => isset($items[$delta]->value) ? $items[$delta]->value : NULL,
+    ];
+    // If cardinality is 1, ensure a proper label is output for the field.
+    if ($this->fieldDefinition->getFieldStorageDefinition()->getCardinality() == 1) {
+      $element['value']['#title'] = $element['#title'];
+    }
 
     return $element;
   }
