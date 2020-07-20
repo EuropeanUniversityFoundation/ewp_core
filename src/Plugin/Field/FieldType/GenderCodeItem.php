@@ -13,7 +13,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *   id = "gender_code",
  *   label = @Translation("Gender code"),
  *   description = @Translation("Gender codes as select options"),
- *   category = @Translation("EWP"),
+ *   category = @Translation("EWP select options"),
  *   default_widget = "gender_code_default",
  *   default_formatter = "gender_code_default",
  * )

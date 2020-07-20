@@ -13,7 +13,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *   id = "cefr_level",
  *   label = @Translation("CEFR level"),
  *   description = @Translation("CEFR levels as select options"),
- *   category = @Translation("EWP"),
+ *   category = @Translation("EWP select options"),
  *   default_widget = "cefr_level_default",
  *   default_formatter = "cefr_level_default",
  * )

@@ -13,7 +13,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *   id = "eqf_level",
  *   label = @Translation("EQF level"),
  *   description = @Translation("EQF levels as select options"),
- *   category = @Translation("EWP"),
+ *   category = @Translation("EWP select options"),
  *   default_widget = "eqf_level_default",
  *   default_formatter = "eqf_level_default",
  * )
