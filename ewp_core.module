@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_help().
@@ -91,6 +92,25 @@ function ewp_core_get_human_sexes() {
 }
 
 /**
+ * Get CEFR levels.
+ *
+ * Get associative array of CEFR levels from a source file.
+ *
+ * @return array $options
+ */
+function ewp_core_get_cefr_levels() {
+  $source_file = 'includes/cefr_levels.inc';
+  include $source_file;
+
+  $options = [];
+  foreach ($cefr_levels as $key => $value) {
+    $options[$key] = $value;
+  }
+
+  return $options;
+}
+
+/**
  * Get EQF levels.
  *
  * Get associative array of single digit EQF levels from a source file.
@@ -107,4 +127,12 @@ function ewp_core_get_eqf_levels() {
   }
 
   return $options;
+}
+
+/**
+ * Implements hook_form_alter
+ *
+ */
+function ewp_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Any necessary changes here
 }
