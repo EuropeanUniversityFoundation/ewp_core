@@ -17,6 +17,6 @@
     }
   ],
   "require": {
-    "drupal/languagefield": "^1.5"
+    "drupal/country": "^1.0@beta"
   }
 }

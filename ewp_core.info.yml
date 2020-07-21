@@ -7,5 +7,5 @@ dependencies:
   - drupal:field
   - drupal:link
   - drupal:options
-  - drupal:telephone
   - drupal:text
+  - country:country
