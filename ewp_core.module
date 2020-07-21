@@ -103,8 +103,12 @@ function ewp_core_get_cefr_levels() {
   include $source_file;
 
   $options = [];
-  foreach ($cefr_levels as $key => $value) {
-    $options[$key] = $value;
+  foreach ($cefr_levels as $top => $array) {
+    $group = [];
+    foreach ($array as $key => $value) {
+      $group[$key] = $value;
+    }
+    $options[$top] = $group;
   }
 
   return $options;
