@@ -5,7 +5,7 @@ namespace Drupal\ewp_core\Plugin\Field\FieldFormatter;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
-// use Drupal\Core\Form\OptGroup;
+use Drupal\Core\Form\OptGroup;
 
 /**
  * Plugin implementation of the 'cefr_level_default' formatter.
@@ -25,13 +25,11 @@ class CefrLevelDefaultFormatter extends FormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $cefr_levels = \ewp_core_get_cefr_levels();
-    // Already a flat array
-    // $options = OptGroup::flattenOptions($eqf_levels);
+    $options = OptGroup::flattenOptions($cefr_levels);
     $elements = [];
     foreach ($items as $delta => $item) {
       $value = $item->value;
-      // $elements[$delta] = ['#markup' => $options[$value]];
-      $elements[$delta] = ['#markup' => $cefr_levels[$value]];
+      $elements[$delta] = ['#markup' => $options[$value]];
     }
     return $elements;
   }
