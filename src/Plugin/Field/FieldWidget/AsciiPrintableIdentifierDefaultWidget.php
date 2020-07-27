@@ -82,7 +82,7 @@ class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
 
     // If cardinality is 1, ensure a proper label is output for the field.
     if ($this->fieldDefinition->getFieldStorageDefinition()->getCardinality() == 1) {
-      $element['uri']['#title'] = $element['#title'];
+      $element['value']['#title'] = $element['#title'];
     }
 
     return $element;
