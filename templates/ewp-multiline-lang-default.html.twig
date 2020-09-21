@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Default theme implementation of a Multiline String with Optional Lang element.
+ *
+ * Available variables:
+ * - multiline: the multiline string component.
+ * - langcode: the language code.
+ * - langname: the language name.
+ *
+ * @see template_preprocess()
+ *
+ * @ingroup themeable
+ */
+#}
+{{ multiline|nl2br }}
+{% if langcode %}<br><small><abbr title="{{ langname }}">{{ langcode }}</abbr></small>{% endif %}

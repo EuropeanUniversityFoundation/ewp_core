@@ -1,0 +1,17 @@
+{#
+/**
+ * @file
+ * Default theme implementation of an HTTP with Optional Lang element.
+ *
+ * Available variables:
+ * - url: the URL component.
+ * - langcode: the language code.
+ * - langname: the language name.
+ *
+ * @see template_preprocess()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if langcode %}<small><abbr title="{{ langname }}">{{ langcode }}</abbr></small>&nbsp;&nbsp;{% endif %}
+{{ url }}
