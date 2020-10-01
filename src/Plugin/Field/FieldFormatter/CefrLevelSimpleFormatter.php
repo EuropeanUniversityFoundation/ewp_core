@@ -12,7 +12,7 @@ use Drupal\Core\Form\OptGroup;
  *
  * @FieldFormatter(
  *   id = "cefr_level_simple",
- *   label = @Translation("Simple (plain text)"),
+ *   label = @Translation("Simple (code only)"),
  *   field_types = {
  *     "cefr_level"
  *   }

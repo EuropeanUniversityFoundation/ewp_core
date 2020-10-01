@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Default theme implementation of a CEFR Levels element.
+ *
+ * Available variables:
+ * - value: the CEFR level;
+ * - parent: the parent category.
+ *
+ * @see template_preprocess()
+ *
+ * @ingroup themeable
+ */
+#}
+{{ value }}{% if parent %} <small>({{ parent }})</small>{% endif %}

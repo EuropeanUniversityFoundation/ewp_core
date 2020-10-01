@@ -12,7 +12,7 @@ use Drupal\Core\Form\OptGroup;
  *
  * @FieldFormatter(
  *   id = "cefr_level_default",
- *   label = @Translation("Default"),
+ *   label = @Translation("Default (with parent category)"),
  *   field_types = {
  *     "cefr_level"
  *   }
@@ -29,7 +29,18 @@ class CefrLevelDefaultFormatter extends FormatterBase {
     $elements = [];
     foreach ($items as $delta => $item) {
       $value = $item->value;
-      $elements[$delta] = ['#markup' => $options[$value]];
+      # fetch the parent
+      $parent = NULL;
+      foreach ($cefr_levels as $key => $array) {
+        if (array_key_exists($value, $array)) {
+          $parent = $key;
+        }
+      }
+      $elements[$delta] = [
+        '#theme' => 'ewp_cefr_level_default',
+        '#value' => $options[$value],
+        '#parent' => $parent,
+      ];
     }
     return $elements;
   }
