@@ -46,6 +46,9 @@ function ewp_core_theme() {
     'ewp_cefr_level_default' => [
       'variables' => ['value' => NULL, 'parent' => NULL],
     ],
+    'ewp_eqf_level_default' => [
+      'variables' => ['value' => NULL],
+    ],
     'ewp_http_lang_default' => [
       'variables' => ['url' => NULL, 'langcode' => NULL, 'langname' => NULL],
     ],

@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Default theme implementation of a EQF Levels element.
+ *
+ * Available variables:
+ * - value: the EQF level.
+ *
+ * @see template_preprocess()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set components = value|split(' ') %}
+{{ components.0 }}{% if components.1 %} <small>{{ components.1 }}</small>{% endif %}
