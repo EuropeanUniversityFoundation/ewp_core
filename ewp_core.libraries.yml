@@ -5,3 +5,8 @@ toolbar:
       css/toolbar.icons.theme.css: {}
   dependencies:
     - 'toolbar/toolbar'
+ascii_id:
+  version: 'VERSION'
+  css:
+    theme:
+      css/ascii-id.css: {}

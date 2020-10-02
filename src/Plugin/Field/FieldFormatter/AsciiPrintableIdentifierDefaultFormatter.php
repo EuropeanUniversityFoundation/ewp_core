@@ -13,7 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @FieldFormatter(
  *   id = "ascii_identifier_default",
- *   label = @Translation("Default"),
+ *   label = @Translation("Default (monospace)"),
  *   field_types = {
  *     "ascii_identifier"
  *   }
@@ -56,25 +56,14 @@ class AsciiPrintableIdentifierDefaultFormatter extends FormatterBase {
     $elements = [];
 
     foreach ($items as $delta => $item) {
-      $elements[$delta] = ['#markup' => $this->viewValue($item)];
+      $value = $item->value;
+      $elements[$delta] = [
+        '#theme' => 'ewp_ascii_identifier_default',
+        '#value' => $value,
+      ];
     }
 
     return $elements;
-  }
-
-  /**
-   * Generate the output appropriate for one field item.
-   *
-   * @param \Drupal\Core\Field\FieldItemInterface $item
-   *   One field item.
-   *
-   * @return string
-   *   The textual output generated.
-   */
-  protected function viewValue(FieldItemInterface $item) {
-    // The text value has no text format assigned to it, so the user input
-    // should equal the output, including newlines.
-    return nl2br(Html::escape($item->value));
   }
 
 }

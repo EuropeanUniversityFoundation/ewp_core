@@ -1,0 +1,5 @@
+/* Preserve whitespace found in Erasmus codes and the like */
+.ascii-id {
+  white-space: pre-wrap;
+  color: inherit;
+}

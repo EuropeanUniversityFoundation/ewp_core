@@ -1,0 +1,15 @@
+{#
+/**
+ * @file
+ * Default theme implementation of an ASCII Printable Identifier element.
+ *
+ * Available variables:
+ * - value: the ASCII Identifier.
+ *
+ * @see template_preprocess()
+ *
+ * @ingroup themeable
+ */
+#}
+{{ attach_library('ewp_core/ascii_id') }}
+<code class="ascii-id">{{ value }}</code>

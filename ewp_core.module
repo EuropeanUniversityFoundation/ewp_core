@@ -43,6 +43,9 @@ function ewp_core_theme() {
     'ewp_core' => [
       'render element' => 'children',
     ],
+    'ewp_ascii_identifier_default' => [
+      'variables' => ['value' => NULL],
+    ],
     'ewp_cefr_level_default' => [
       'variables' => ['value' => NULL, 'parent' => NULL],
     ],
