@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Default theme implementation of an HTTPS element.
+ *
+ * Available variables:
+ * - url: the URL of the element;
+ * - title: the title for the link.
+ *
+ * @see template_preprocess()
+ *
+ * @ingroup themeable
+ */
+#}
+{% if title %}{% set text = title %}{% else %}{% set text = 'Open in new window'|t %}{% endif %}
+<a href="{{ url }}" target="_blank" rel="nofollow">{{ text }}</a>

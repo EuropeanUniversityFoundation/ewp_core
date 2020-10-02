@@ -55,6 +55,9 @@ function ewp_core_theme() {
     'ewp_gender_code_default' => [
       'variables' => ['value' => NULL],
     ],
+    'ewp_https_default' => [
+      'variables' => ['url' => NULL, 'title' => NULL],
+    ],
     'ewp_http_lang_default' => [
       'variables' => ['url' => NULL, 'langcode' => NULL, 'langname' => NULL],
     ],

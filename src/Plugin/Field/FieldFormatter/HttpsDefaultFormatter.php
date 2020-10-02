@@ -13,7 +13,7 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @FieldFormatter(
  *   id = "ewp_https_default",
- *   label = @Translation("Default (plain text)"),
+ *   label = @Translation("Link (clean URL)"),
  *   field_types = {
  *     "ewp_https"
  *   }
@@ -56,26 +56,20 @@ class HttpsDefaultFormatter extends FormatterBase {
     $elements = [];
 
     foreach ($items as $delta => $item) {
-      $elements[$delta] = ['#markup' => $this->viewValue($item)];
+      $url = Html::escape($item->uri);
+      # build a partial URL to use as title
+      $url_host = parse_url($url, PHP_URL_HOST);
+      $url_path = rtrim(parse_url($url, PHP_URL_PATH),"/");
+      $title = ($url_path) ? $url_host . $url_path : $url_host;
+      $elements[$delta] = [
+        '#theme' => 'ewp_https_default',
+        '#url' => $url,
+        '#title' => $title,
+      ];
     }
 
     // return $elements;
     return $elements;
-  }
-
-  /**
-   * Generate the output appropriate for one field item.
-   *
-   * @param \Drupal\Core\Field\FieldItemInterface $item
-   *   One field item.
-   *
-   * @return string
-   *   The textual output generated.
-   */
-  protected function viewValue(FieldItemInterface $item) {
-    // The text value has no text format assigned to it, so the user input
-    // should equal the output, including newlines.
-    return nl2br(Html::escape($item->uri));
   }
 
 }
