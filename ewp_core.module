@@ -59,7 +59,7 @@ function ewp_core_theme() {
       'variables' => ['url' => NULL, 'title' => NULL],
     ],
     'ewp_http_lang_default' => [
-      'variables' => ['url' => NULL, 'langcode' => NULL, 'langname' => NULL],
+      'variables' => ['url' => NULL, 'title' => NULL, 'langcode' => NULL, 'langname' => NULL],
     ],
     'ewp_multiline_lang_default' => [
       'variables' => ['multiline' => NULL, 'langcode' => NULL, 'langname' => NULL],
