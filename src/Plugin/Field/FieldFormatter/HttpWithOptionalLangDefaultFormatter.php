@@ -14,7 +14,7 @@ use Drupal\Core\Form\OptGroup;
  *
  * @FieldFormatter(
  *   id = "ewp_http_lang_default",
- *   label = @Translation("Default (plain text)"),
+ *   label = @Translation("Link (clean URL)"),
  *   field_types = {
  *     "ewp_http_lang"
  *   }
@@ -60,11 +60,16 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase {
 
     foreach ($items as $delta => $item) {
       $url = Html::escape($item->uri);
+      # build a partial URL to use as title
+      $url_host = parse_url($url, PHP_URL_HOST);
+      $url_path = rtrim(parse_url($url, PHP_URL_PATH),"/");
+      $title = ($url_path) ? $url_host . $url_path : $url_host;
       $langcode = $item->lang;
       $langname = $langcodes[$langcode]->render();
       $elements[$delta] = [
         '#theme' => 'ewp_http_lang_default',
         '#url' => $url,
+        '#title' => $title,
         '#langcode' => $langcode,
         '#langname' => $langname,
       ];

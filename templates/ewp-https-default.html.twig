@@ -12,5 +12,5 @@
  * @ingroup themeable
  */
 #}
-{% if title %}{% set text = title %}{% else %}{% set text = 'Open in new window'|t %}{% endif %}
+{% if title %}{% set text = title %}{% else %}{% set text = 'Open link in new window'|t %}{% endif %}
 <a href="{{ url }}" target="_blank" rel="nofollow">{{ text }}</a>

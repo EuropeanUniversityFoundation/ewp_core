@@ -4,8 +4,9 @@
  * Default theme implementation of an HTTP with Optional Lang element.
  *
  * Available variables:
- * - url: the URL component.
- * - langcode: the language code.
+ * - url: the URL of the element;
+ * - title: the title for the link;
+ * - langcode: the language code;
  * - langname: the language name.
  *
  * @see template_preprocess()
@@ -13,5 +14,6 @@
  * @ingroup themeable
  */
 #}
+{% if title %}{% set text = title %}{% else %}{% set text = 'Open link in new window'|t %}{% endif %}
 {% if langcode %}<small><abbr title="{{ langname }}">{{ langcode }}</abbr></small>&nbsp;&nbsp;{% endif %}
-{{ url }}
+<a href="{{ url }}" target="_blank" rel="nofollow">{{ text }}</a>
