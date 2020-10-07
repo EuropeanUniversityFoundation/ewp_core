@@ -64,8 +64,8 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase {
       $url_host = parse_url($url, PHP_URL_HOST);
       $url_path = rtrim(parse_url($url, PHP_URL_PATH),"/");
       $title = ($url_path) ? $url_host . $url_path : $url_host;
-      $langcode = $item->lang;
-      $langname = $langcodes[$langcode]->render();
+      $langcode = ($item->lang) ? $item->lang : NULL;
+      $langname = ($langcode) ? $langcodes[$langcode]->render() : NULL;
       $elements[$delta] = [
         '#theme' => 'ewp_http_lang_default',
         '#url' => $url,

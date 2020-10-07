@@ -60,8 +60,8 @@ class StringWithOptionalLangDefaultFormatter extends FormatterBase {
 
     foreach ($items as $delta => $item) {
       $string = $item->string;
-      $langcode = $item->lang;
-      $langname = $langcodes[$langcode]->render();
+      $langcode = ($item->lang) ? $item->lang : NULL;
+      $langname = ($langcode) ? $langcodes[$langcode]->render() : NULL;
       $elements[$delta] = [
         '#theme' => 'ewp_string_lang_default',
         '#string' => $string,
