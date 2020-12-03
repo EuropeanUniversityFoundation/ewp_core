@@ -1,0 +1,4 @@
+services:
+  ewp_core.langcode:
+    class: Drupal\ewp_core\LangCodeManager
+    arguments: []
