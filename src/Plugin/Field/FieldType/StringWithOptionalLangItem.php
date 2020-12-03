@@ -43,8 +43,7 @@ class StringWithOptionalLangItem extends FieldItemBase {
       ->setRequired(TRUE);
 
     $properties['lang'] = DataDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('Language code'))
-      ->setRequired(TRUE);
+      ->setLabel(new TranslatableMarkup('Language code'));
 
     return $properties;
   }
