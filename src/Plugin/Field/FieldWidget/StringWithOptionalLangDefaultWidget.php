@@ -78,15 +78,15 @@ class StringWithOptionalLangDefaultWidget extends WidgetBase {
       '#placeholder' => $this->getSetting('placeholder'),
       '#maxlength' => $this->getFieldSetting('max_length'),
     ];
+
     // If cardinality is 1, ensure a proper label is output for the field.
     if ($this->fieldDefinition->getFieldStorageDefinition()->getCardinality() == 1) {
       $element['string']['#title'] = $element['#title'];
     }
 
-    $language_codes = \ewp_core_get_language_codes();
     $element['lang'] = [
       '#type' => 'select',
-      '#options' => $language_codes,
+      '#options' => \Drupal::service('ewp_core.langcode')->getOptions(),
       '#empty_option' => '- '.t('Language').' -',
       '#empty_value' => '',
       '#default_value' => isset($items[$delta]->lang) ? $items[$delta]->lang : NULL,

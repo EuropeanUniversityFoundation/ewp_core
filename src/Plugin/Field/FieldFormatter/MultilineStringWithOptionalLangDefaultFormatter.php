@@ -54,7 +54,7 @@ class MultilineStringWithOptionalLangDefaultFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $language_codes = \ewp_core_get_language_codes();
+    $language_codes = \Drupal::service('ewp_core.langcode')->getOptions();
     $langcodes = OptGroup::flattenOptions($language_codes);
     $elements = [];
 

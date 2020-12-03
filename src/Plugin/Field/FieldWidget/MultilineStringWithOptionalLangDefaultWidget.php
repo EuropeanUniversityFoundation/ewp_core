@@ -81,10 +81,9 @@ class MultilineStringWithOptionalLangDefaultWidget extends WidgetBase {
       $element['multiline']['#title'] = $element['#title'];
     }
 
-    $language_codes = \ewp_core_get_language_codes();
     $element['lang'] = [
       '#type' => 'select',
-      '#options' => $language_codes,
+      '#options' => \Drupal::service('ewp_core.langcode')->getOptions(),
       '#empty_option' => '- '.t('Language').' -',
       '#empty_value' => '',
       '#default_value' => isset($items[$delta]->lang) ? $items[$delta]->lang : NULL,

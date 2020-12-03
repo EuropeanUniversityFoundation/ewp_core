@@ -71,29 +71,6 @@ function ewp_core_theme() {
 }
 
 /**
- * Get ISO 639-1 language codes.
- *
- * Get associative array of two-letter language codes from a source file.
- *
- * @return array $options
- */
-function ewp_core_get_language_codes() {
-  $source_file = 'includes/language_codes_iso639-1.inc';
-  include $source_file;
-
-  $options = [];
-  foreach ($language_codes as $top => $array) {
-    $group = [];
-    foreach ($array as $key => $value) {
-      $group[$key] = $value;
-    }
-    $options[$top] = $group;
-  }
-
-  return $options;
-}
-
-/**
  * Get ISO/IEC 5218 human sexes.
  *
  * Get associative array of single digit human sex codes from a source file.
