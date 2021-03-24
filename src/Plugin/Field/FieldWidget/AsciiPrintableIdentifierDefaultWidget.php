@@ -85,6 +85,9 @@ class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
       $element['value']['#title'] = $element['#title'];
     }
 
+    $element['value']['#attributes']['class'][] = 'ascii-widget';
+    $element['#attached']['library'][] = 'ewp_core/ascii_id';
+
     return $element;
   }
 

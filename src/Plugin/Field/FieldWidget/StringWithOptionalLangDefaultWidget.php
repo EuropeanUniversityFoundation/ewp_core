@@ -71,6 +71,12 @@ class StringWithOptionalLangDefaultWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
+    $element = $element + [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['inline-widget']],
+    ];
+    $element['#attached']['library'][] = 'ewp_core/inline_widget';
+
     $element['string'] = [
       '#type' => 'textfield',
       '#default_value' => isset($items[$delta]->string) ? $items[$delta]->string : NULL,

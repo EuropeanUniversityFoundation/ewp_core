@@ -1,0 +1,9 @@
+/* Use flexbox to align inline field widget elements */
+.inline-widget {
+  display: flex;
+}
+
+.inline-widget input,
+.inline-widget select {
+  margin-right: 0.5em;
+}

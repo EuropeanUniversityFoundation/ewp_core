@@ -3,3 +3,9 @@
   white-space: pre-wrap;
   color: inherit;
 }
+
+/* Differentiate text in the form widget */
+.ascii-widget.form-text {
+  font-family: monospace;
+  font-size: initial;
+}
