@@ -10,7 +10,7 @@ class LangCodeManager {
   /**
    * An array of language code => language name pairs.
    */
-  protected $language_codes;
+  protected $languageCodes;
 
   /**
    * Curated list of ISO 639-1 language codes.
@@ -90,12 +90,12 @@ class LangCodeManager {
    */
   public function getOptions() {
     // Populate the language code list if it is not already populated.
-    if (!isset($this->language_codes)) {
-      $this->language_codes = static::getList();
+    if (!isset($this->languageCodes)) {
+      $this->languageCodes = static::getList();
     }
 
     $options = [];
-    foreach ($this->language_codes as $category => $array) {
+    foreach ($this->languageCodes as $category => $array) {
       $group = [];
       foreach ($array as $key => $value) {
         $group[$key] = $value;

@@ -1,4 +1,13 @@
 services:
+  ewp_core.cefr:
+    class: Drupal\ewp_core\CefrLevelManager
+    arguments: []
+  ewp_core.eqf:
+    class: Drupal\ewp_core\EqfLevelManager
+    arguments: []
+  ewp_core.gender:
+    class: Drupal\ewp_core\GenderCodeManager
+    arguments: []
   ewp_core.langcode:
     class: Drupal\ewp_core\LangCodeManager
     arguments: []

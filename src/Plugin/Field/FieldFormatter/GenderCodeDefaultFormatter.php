@@ -23,7 +23,7 @@ class GenderCodeDefaultFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $gender_codes = \ewp_core_get_human_sexes();
+    $gender_codes = \Drupal::service('ewp_core.gender')->getOptions();
     $elements = [];
     foreach ($items as $delta => $item) {
       $value = $item->value;

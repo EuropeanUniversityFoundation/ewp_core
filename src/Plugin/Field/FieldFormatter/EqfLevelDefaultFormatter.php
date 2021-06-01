@@ -23,7 +23,7 @@ class EqfLevelDefaultFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $eqf_levels = \ewp_core_get_eqf_levels();
+    $eqf_levels = \Drupal::service('ewp_core.eqf')->getOptions();
     $elements = [];
     foreach ($items as $delta => $item) {
       $value = $item->value;

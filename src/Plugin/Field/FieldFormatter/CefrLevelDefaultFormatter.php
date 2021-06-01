@@ -24,7 +24,7 @@ class CefrLevelDefaultFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $cefr_levels = \ewp_core_get_cefr_levels();
+    $cefr_levels = \Drupal::service('ewp_core.cefr')->getOptions();
     $options = OptGroup::flattenOptions($cefr_levels);
     $elements = [];
     foreach ($items as $delta => $item) {

@@ -11,5 +11,5 @@
  * @ingroup themeable
  */
 #}
-{% set components = value|split(' ') %}
+{% set components = value|split(' ', 2) %}
 {{ components.0 }}{% if components.1 %} <small>{{ components.1 }}</small>{% endif %}
