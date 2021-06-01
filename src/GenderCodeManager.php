@@ -44,7 +44,10 @@ class GenderCodeManager {
       $this->genderCodes = static::getList();
     }
 
-    $options = $this->genderCodes;
+    $options = [];
+    foreach ($this->genderCodes as $key => $value) {
+      $options[$key] = $value;
+    }
 
     return $options;
   }

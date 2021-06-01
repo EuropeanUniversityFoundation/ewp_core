@@ -47,7 +47,10 @@ class EqfLevelManager {
       $this->eqfLevels = static::getList();
     }
 
-    $options = $this->eqfLevels;
+    $options = [];
+    foreach ($this->eqfLevels as $key => $value) {
+      $options[$key] = $value;
+    }
 
     return $options;
   }

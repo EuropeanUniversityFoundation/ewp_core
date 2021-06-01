@@ -71,67 +71,6 @@ function ewp_core_theme() {
 }
 
 /**
- * Get ISO/IEC 5218 human sexes.
- *
- * Get associative array of single digit human sex codes from a source file.
- *
- * @return array $options
- */
-function ewp_core_get_human_sexes() {
-  $source_file = 'includes/human_sexes_isoiec5218.inc';
-  include $source_file;
-
-  $options = [];
-  foreach ($human_sexes as $key => $value) {
-    $options[$key] = $value;
-  }
-
-  return $options;
-}
-
-/**
- * Get CEFR levels.
- *
- * Get associative array of CEFR levels from a source file.
- *
- * @return array $options
- */
-function ewp_core_get_cefr_levels() {
-  $source_file = 'includes/cefr_levels.inc';
-  include $source_file;
-
-  $options = [];
-  foreach ($cefr_levels as $top => $array) {
-    $group = [];
-    foreach ($array as $key => $value) {
-      $group[$key] = $value;
-    }
-    $options[$top] = $group;
-  }
-
-  return $options;
-}
-
-/**
- * Get EQF levels.
- *
- * Get associative array of single digit EQF levels from a source file.
- *
- * @return array $options
- */
-function ewp_core_get_eqf_levels() {
-  $source_file = 'includes/eqf_levels.inc';
-  include $source_file;
-
-  $options = [];
-  foreach ($eqf_levels as $key => $value) {
-    $options[$key] = $value;
-  }
-
-  return $options;
-}
-
-/**
  * Implements hook_form_alter
  *
  */

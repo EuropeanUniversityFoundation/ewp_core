@@ -52,12 +52,12 @@ class CefrLevelManager {
     }
 
     $options = [];
-    foreach ($this->cefrLevels as $category => $array) {
+    foreach ($this->cefrLevels as $top => $array) {
       $group = [];
       foreach ($array as $key => $value) {
         $group[$key] = $value;
       }
-      $options[$category] = $group;
+      $options[$top] = $group;
     }
 
     return $options;
