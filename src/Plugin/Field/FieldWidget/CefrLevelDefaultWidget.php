@@ -25,7 +25,7 @@ class CefrLevelDefaultWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $cefr_levels = \ewp_core_get_cefr_levels();
-    $element['value'] = [
+    $element['value'] = $element + [
       '#type' => 'select',
       '#options' => $cefr_levels,
       '#empty_value' => '',

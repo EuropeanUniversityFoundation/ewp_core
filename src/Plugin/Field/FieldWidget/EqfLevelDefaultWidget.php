@@ -25,7 +25,7 @@ class EqfLevelDefaultWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $eqf_levels = \ewp_core_get_eqf_levels();
-    $element['value'] = [
+    $element['value'] = $element + [
       '#type' => 'select',
       '#options' => $eqf_levels,
       '#empty_value' => '',
