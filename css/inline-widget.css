@@ -4,6 +4,7 @@
 }
 
 .inline-widget input,
-.inline-widget select {
+.inline-widget select,
+.inline-widget .form-textarea-wrapper {
   margin-right: 0.5em;
 }
