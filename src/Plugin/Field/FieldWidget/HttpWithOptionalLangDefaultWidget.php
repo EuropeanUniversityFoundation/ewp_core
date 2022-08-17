@@ -2,9 +2,13 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\ewp_core\LangCodeManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'ewp_http_lang_default' widget.
@@ -18,7 +22,43 @@ use Drupal\Core\Form\FormStateInterface;
  *   }
  * )
  */
-class HttpWithOptionalLangDefaultWidget extends WidgetBase {
+class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * Language code manager.
+   *
+   * @var \Drupal\ewp_core\LangCodeManager
+   */
+  protected $langCodeManager;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(
+      $plugin_id,
+      $plugin_definition,
+      FieldDefinitionInterface $field_definition,
+      array $settings,
+      array $third_party_settings,
+      LangCodeManager $lang_code_manager
+    ) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
+    $this->langCodeManager = $lang_code_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['third_party_settings'],
+      $container->get('ewp_core.langcode')
+    );
+  }
 
   /**
    * {@inheritdoc}
