@@ -110,7 +110,7 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
 
     $element['lang'] = [
       '#type' => 'select',
-      '#options' => \Drupal::service('ewp_core.langcode')->getOptions(),
+      '#options' => $this->langCodeManager->getOptions(),
       '#empty_option' => '- '.t('Language').' -',
       '#empty_value' => '',
       '#default_value' => isset($items[$delta]->lang) ? $items[$delta]->lang : NULL,

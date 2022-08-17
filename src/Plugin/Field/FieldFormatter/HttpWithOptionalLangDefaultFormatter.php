@@ -8,6 +8,9 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\OptGroup;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\ewp_core\LangCodeManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'ewp_http_lang_default' formatter.
@@ -20,7 +23,47 @@ use Drupal\Core\Form\OptGroup;
  *   }
  * )
  */
-class HttpWithOptionalLangDefaultFormatter extends FormatterBase {
+class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
+
+  /**
+   * Language code manager.
+   *
+   * @var \Drupal\ewp_core\LangCodeManager
+   */
+  protected $langCodeManager;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(
+      $plugin_id,
+      $plugin_definition,
+      FieldDefinitionInterface $field_definition,
+      array $settings,
+      $label,
+      $view_mode,
+      array $third_party_settings,
+      LangCodeManager $lang_code_manager
+    ) {
+    parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
+    $this->langCodeManager = $lang_code_manager;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['label'],
+      $configuration['view_mode'],
+      $configuration['third_party_settings'],
+      $container->get('ewp_core.langcode')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -54,7 +97,7 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $language_codes = \Drupal::service('ewp_core.langcode')->getOptions();
+    $language_codes = $this->langCodeManager->getOptions();
     $langcodes = OptGroup::flattenOptions($language_codes);
     $elements = [];
 
