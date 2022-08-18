@@ -2,17 +2,17 @@
  * Main menu icons.
  */
 .toolbar-icon-ewp-core-admin:before {
-    background-image: url(../images/icons/787878/toolbar.svg);
+  background-image: url(../images/icons/787878/toolbar.svg);
 }
 .toolbar-icon-ewp-core-admin:active:before,
 .toolbar-icon-ewp-core-admin.is-active:before {
-    background-image: url(../images/icons/000000/toolbar.svg);
+  background-image: url(../images/icons/000000/toolbar.svg);
 }
 .adminimal-admin-toolbar .toolbar-icon-ewp-core-admin:before {
-    background-image: url(../images/icons/acacac/toolbar.svg);
+  background-image: url(../images/icons/acacac/toolbar.svg);
 }
 .adminimal-admin-toolbar .toolbar-icon-ewp-core-admin:active:before,
 .adminimal-admin-toolbar .toolbar-icon-ewp-core-admin:hover:before,
 .adminimal-admin-toolbar .hover-intent .toolbar-icon-ewp-core-admin:before {
-    background-image: url(../images/icons/ffffff/toolbar.svg);
+  background-image: url(../images/icons/ffffff/toolbar.svg);
 }

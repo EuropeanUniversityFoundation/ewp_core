@@ -40,41 +40,61 @@ function ewp_core_element_info_alter(array &$types) {
  */
 function ewp_core_theme() {
   return [
-    'ewp_core' => [
-      'render element' => 'children',
-    ],
     'ewp_ascii_identifier_default' => [
-      'variables' => ['value' => NULL],
+      'variables' => [
+        'value' => NULL
+      ],
     ],
     'ewp_cefr_level_default' => [
-      'variables' => ['value' => NULL, 'parent' => NULL],
+      'variables' => [
+        'value' => NULL,
+        'parent' => NULL,
+      ],
     ],
     'ewp_eqf_level_default' => [
-      'variables' => ['value' => NULL],
+      'variables' => [
+        'value' => NULL,
+      ],
     ],
     'ewp_gender_code_default' => [
-      'variables' => ['value' => NULL],
+      'variables' => [
+        'value' => NULL,
+      ],
     ],
     'ewp_https_default' => [
-      'variables' => ['url' => NULL, 'title' => NULL],
+      'variables' => [
+        'url' => NULL,
+        'title' => NULL,
+      ],
     ],
     'ewp_http_lang_default' => [
-      'variables' => ['url' => NULL, 'title' => NULL, 'langcode' => NULL, 'langname' => NULL],
+      'variables' => [
+        'url' => NULL,
+        'title' => NULL,
+        'langcode' => NULL,
+        'langname' => NULL,
+      ],
     ],
     'ewp_multiline_lang_default' => [
-      'variables' => ['multiline' => NULL, 'langcode' => NULL, 'langname' => NULL],
+      'variables' => [
+        'multiline' => NULL,
+        'langcode' => NULL,
+        'langname' => NULL,
+      ],
     ],
     'ewp_string_lang_default' => [
-      'variables' => ['string' => NULL, 'langcode' => NULL, 'langname' => NULL],
+      'variables' => [
+        'string' => NULL,
+        'langcode' => NULL,
+        'langname' => NULL,
+      ],
     ],
   ];
 }
 
 /**
- * Implements hook_form_alter
- *
+ * Implements hook_form_alter().
  */
 function ewp_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Any necessary changes here
-  // dpm($form);
+  // Any necessary changes here.
 }

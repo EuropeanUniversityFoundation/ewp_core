@@ -1,7 +1,7 @@
 name: 'EWP core'
 type: module
 description: 'EWP core data types and utilities'
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 package: 'EWP'
 dependencies:
   - drupal:field
