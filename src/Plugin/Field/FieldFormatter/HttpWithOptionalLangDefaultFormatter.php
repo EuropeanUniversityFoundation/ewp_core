@@ -106,7 +106,7 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements Cont
       $url = Html::escape($item->uri);
       # build a partial URL to use as title
       $url_host = parse_url($url, PHP_URL_HOST);
-      $url_path = rtrim(parse_url($url, PHP_URL_PATH),"/");
+      $url_path = rtrim(parse_url($url, PHP_URL_PATH) ?? '', "/");
       $title = ($url_path) ? $url_host . $url_path : $url_host;
       $langcode = ($item->lang) ? $item->lang : NULL;
       $langname = ($langcode) ? $langcodes[$langcode]->render() : NULL;
