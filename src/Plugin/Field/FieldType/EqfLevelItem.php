@@ -4,6 +4,7 @@ namespace Drupal\ewp_core\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 
 /**
@@ -25,7 +26,7 @@ class EqfLevelItem extends FieldItemBase {
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties['value'] = DataDefinition::create('string')
-      ->setLabel(t('EQF level'));
+      ->setLabel(new TranslatableMarkup('EQF level'));
 
     return $properties;
   }

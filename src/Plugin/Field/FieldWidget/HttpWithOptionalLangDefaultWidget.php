@@ -128,7 +128,7 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
 
     if (!empty($default_lang) && !$lang_exists) {
       $extra_option = [$default_lang => $default_lang];
-      $extra_group = [t('Current value') => $extra_option];
+      $extra_group = [$this->t('Current value')->render() => $extra_option];
 
       $lang_options = \array_merge($extra_group, $lang_options);
     }
@@ -136,10 +136,10 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
     $element['lang'] = [
       '#type' => 'select',
       '#options' => $lang_options,
-      '#empty_option' => '- ' . t('Language') . ' -',
+      '#empty_option' => '- ' . $this->t('Language') . ' -',
       '#empty_value' => '',
       '#default_value' => $default_lang,
-      '#description' => t('Optional'),
+      '#description' => $this->t('Optional'),
     ];
 
     return $element;

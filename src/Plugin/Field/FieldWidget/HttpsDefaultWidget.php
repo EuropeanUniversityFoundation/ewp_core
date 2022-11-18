@@ -75,11 +75,14 @@ class HttpsDefaultWidget extends WidgetBase {
    */
   public function validateHttps($element, FormStateInterface $form_state) {
     $uri = $element['#value'];
+
     if (strlen($uri) === 0) {
       return;
     }
-    if (\parse_url($uri, PHP_URL_SCHEME) != 'https') {
-      $form_state->setError($element, $this->t('The URL scheme must be HTTPS.'));
+
+    if (\parse_url($uri, PHP_URL_SCHEME) !== 'https') {
+      $message = $this->t('The URL scheme must be HTTPS.');
+      $form_state->setError($element, $message);
     }
   }
 

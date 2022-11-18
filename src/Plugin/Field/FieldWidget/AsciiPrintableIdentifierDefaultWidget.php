@@ -38,7 +38,7 @@ class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
 
     $elements['size'] = [
       '#type' => 'number',
-      '#title' => t('Size of textfield'),
+      '#title' => $this->t('Size of textfield'),
       '#default_value' => $this->getSetting('size'),
       '#required' => TRUE,
       '#min' => 1,
@@ -46,9 +46,9 @@ class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
 
     $elements['placeholder'] = [
       '#type' => 'textfield',
-      '#title' => t('Placeholder'),
+      '#title' => $this->t('Placeholder'),
       '#default_value' => $this->getSetting('placeholder'),
-      '#description' => t('Text that will be shown inside the field until a value is entered. This hint is usually a sample value or a brief description of the expected format.'),
+      '#description' => $this->t('Text that will be shown inside the field until a value is entered. This hint is usually a sample value or a brief description of the expected format.'),
     ];
 
     return $elements;
@@ -60,12 +60,12 @@ class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
   public function settingsSummary() {
     $summary = [];
 
-    $summary[] = t('Textfield size: @size', [
+    $summary[] = $this->t('Textfield size: @size', [
       '@size' => $this->getSetting('size')
     ]);
 
     if (!empty($this->getSetting('placeholder'))) {
-      $summary[] = t('Placeholder: @placeholder', [
+      $summary[] = $this->t('Placeholder: @placeholder', [
         '@placeholder' => $this->getSetting('placeholder')
       ]);
     }
@@ -106,12 +106,14 @@ class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
    */
   public function validateAscii($element, FormStateInterface $form_state) {
     $value = $element['#value'];
+
     if (strlen($value) === 0) {
       return;
     }
 
     if (!\ctype_print($value)) {
-      $form_state->setError($element, $this->t('The identifier must only contain printable ASCII characters.'));
+      $message = $this->t('The identifier must only contain printable ASCII characters.');
+      $form_state->setError($element, $message);
     }
   }
 

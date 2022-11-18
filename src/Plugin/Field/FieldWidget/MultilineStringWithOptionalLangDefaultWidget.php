@@ -76,7 +76,7 @@ class MultilineStringWithOptionalLangDefaultWidget extends WidgetBase implements
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $element['rows'] = [
       '#type' => 'number',
-      '#title' => t('Rows'),
+      '#title' => $this->t('Rows'),
       '#default_value' => $this->getSetting('rows'),
       '#required' => TRUE,
       '#min' => 1,
@@ -84,9 +84,9 @@ class MultilineStringWithOptionalLangDefaultWidget extends WidgetBase implements
 
     $element['placeholder'] = [
       '#type' => 'textfield',
-      '#title' => t('Placeholder'),
+      '#title' => $this->t('Placeholder'),
       '#default_value' => $this->getSetting('placeholder'),
-      '#description' => t('Text that will be shown inside the field until a value is entered. This hint is usually a sample value or a brief description of the expected format.'),
+      '#description' => $this->t('Text that will be shown inside the field until a value is entered. This hint is usually a sample value or a brief description of the expected format.'),
     ];
 
     return $element;
@@ -98,14 +98,14 @@ class MultilineStringWithOptionalLangDefaultWidget extends WidgetBase implements
   public function settingsSummary() {
     $summary = [];
 
-    $summary[] = t('Number of rows: @rows', [
+    $summary[] = $this->t('Number of rows: @rows', [
       '@rows' => $this->getSetting('rows')
     ]);
 
     $placeholder = $this->getSetting('placeholder');
 
     if (!empty($placeholder)) {
-      $summary[] = t('Placeholder: @placeholder', [
+      $summary[] = $this->t('Placeholder: @placeholder', [
         '@placeholder' => $placeholder
       ]);
     }
@@ -156,7 +156,7 @@ class MultilineStringWithOptionalLangDefaultWidget extends WidgetBase implements
 
     if (!empty($default_lang) && !$lang_exists) {
       $extra_option = [$default_lang => $default_lang];
-      $extra_group = [t('Current value') => $extra_option];
+      $extra_group = [$this->t('Current value')->render() => $extra_option];
 
       $lang_options = \array_merge($extra_group, $lang_options);
     }
@@ -164,11 +164,13 @@ class MultilineStringWithOptionalLangDefaultWidget extends WidgetBase implements
     $element['lang'] = [
       '#type' => 'select',
       '#options' => $lang_options,
-      '#empty_option' => '- ' . t('Language') . ' -',
+      '#empty_option' => '- ' . $this->t('Language') . ' -',
       '#empty_value' => '',
       '#default_value' => $default_lang,
-      '#description' => t('Optional'),
+      '#description' => $this->t('Optional'),
     ];
+
+    dpm($this);
 
     return $element;
   }

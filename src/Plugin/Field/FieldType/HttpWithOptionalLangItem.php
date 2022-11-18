@@ -2,8 +2,6 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldType;
 
-// use Drupal\Core\Field\FieldDefinitionInterface;
-// use Drupal\Core\Field\FieldItemBase;
 use Drupal\link\Plugin\Field\FieldType\LinkItem;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -39,10 +37,6 @@ class HttpWithOptionalLangItem extends LinkItem {
    * {@inheritdoc}
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
-    // Prevent early t() calls by using the TranslatableMarkup.
-    // $properties['uri'] = DataDefinition::create('uri')
-    //   ->setLabel(new TranslatableMarkup('URI'))
-    //   ->setRequired(TRUE);
     $properties = parent::propertyDefinitions($field_definition);
 
     $properties['lang'] = DataDefinition::create('string')

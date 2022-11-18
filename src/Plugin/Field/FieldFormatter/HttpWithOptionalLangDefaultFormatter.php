@@ -112,7 +112,7 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements Cont
       $title = ($url_path) ? $url_host . $url_path : $url_host;
 
       $code = $item->lang ?? NULL;
-      $name = (!empty($code) && !\array_key_exists($code, $language_codes))
+      $name = (!empty($code) && \array_key_exists($code, $language_codes))
         ? $language_codes[$code]->render()
         : $code;
 

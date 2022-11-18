@@ -2,8 +2,6 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldType;
 
-use Drupal\Component\Utility\Random;
-use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -31,6 +29,25 @@ class StringWithOptionalLangItem extends FieldItemBase {
     return [
       'max_length' => 255,
     ] + parent::defaultStorageSettings();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function storageSettingsForm(array &$form, FormStateInterface $form_state, $has_data) {
+    $elements = [];
+
+    $elements['max_length'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Maximum length'),
+      '#default_value' => $this->getSetting('max_length'),
+      '#required' => TRUE,
+      '#description' => $this->t('The maximum length of the field in characters.'),
+      '#min' => 1,
+      '#disabled' => $has_data,
+    ];
+
+    return $elements;
   }
 
   /**
@@ -71,20 +88,29 @@ class StringWithOptionalLangItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public function storageSettingsForm(array &$form, FormStateInterface $form_state, $has_data) {
-    $elements = [];
+  public function getConstraints() {
+    $constraints = parent::getConstraints();
 
-    $elements['max_length'] = [
-      '#type' => 'number',
-      '#title' => t('Maximum length'),
-      '#default_value' => $this->getSetting('max_length'),
-      '#required' => TRUE,
-      '#description' => t('The maximum length of the field in characters.'),
-      '#min' => 1,
-      '#disabled' => $has_data,
-    ];
+    if ($max_length = $this->getSetting('max_length')) {
+      $message = $this->t('%name: may not be longer than @max characters.', [
+        '%name' => $this->getFieldDefinition()->getLabel(),
+        '@max' => $max_length
+      ]);
 
-    return $elements;
+      $constraint_manager = \Drupal::typedDataManager()
+        ->getValidationConstraintManager();
+
+      $constraints[] = $constraint_manager->create('ComplexData', [
+        'string' => [
+          'Length' => [
+            'max' => $max_length,
+            'maxMessage' => $message,
+          ],
+        ],
+      ]);
+    }
+
+    return $constraints;
   }
 
   /**
