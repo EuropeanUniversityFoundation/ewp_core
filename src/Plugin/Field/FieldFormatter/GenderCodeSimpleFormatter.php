@@ -24,11 +24,12 @@ class GenderCodeSimpleFormatter extends FormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
+
     foreach ($items as $delta => $item) {
-      $value = $item->value;
-      // print only the key which is the Gender code
-      $elements[$delta] = ['#markup' => $value];
+      // Print only the key which is the Gender code.
+      $elements[$delta] = ['#markup' => $item->value];
     }
+
     return $elements;
   }
 

@@ -35,15 +35,15 @@ class CefrLevelDefaultFormatter extends FormatterBase implements ContainerFactor
    * {@inheritdoc}
    */
   public function __construct(
-      $plugin_id,
-      $plugin_definition,
-      FieldDefinitionInterface $field_definition,
-      array $settings,
-      $label,
-      $view_mode,
-      array $third_party_settings,
-      CefrLevelManager $cefr_level_manager
-    ) {
+    $plugin_id,
+    $plugin_definition,
+    FieldDefinitionInterface $field_definition,
+    array $settings,
+    $label,
+    $view_mode,
+    array $third_party_settings,
+    CefrLevelManager $cefr_level_manager
+  ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->cefrLevelManager = $cefr_level_manager;
   }
@@ -69,23 +69,28 @@ class CefrLevelDefaultFormatter extends FormatterBase implements ContainerFactor
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $cefr_levels = $this->cefrLevelManager->getOptions();
+
     $options = OptGroup::flattenOptions($cefr_levels);
+
     $elements = [];
+
     foreach ($items as $delta => $item) {
       $value = $item->value;
-      # fetch the parent
       $parent = NULL;
+
       foreach ($cefr_levels as $key => $array) {
         if (array_key_exists($value, $array)) {
           $parent = $key;
         }
       }
+
       $elements[$delta] = [
         '#theme' => 'ewp_cefr_level_default',
         '#value' => $options[$value],
         '#parent' => $parent,
       ];
     }
+
     return $elements;
   }
 

@@ -35,13 +35,13 @@ class MultilineStringWithOptionalLangDefaultWidget extends WidgetBase implements
    * {@inheritdoc}
    */
   public function __construct(
-      $plugin_id,
-      $plugin_definition,
-      FieldDefinitionInterface $field_definition,
-      array $settings,
-      array $third_party_settings,
-      LangCodeManager $lang_code_manager
-    ) {
+    $plugin_id,
+    $plugin_definition,
+    FieldDefinitionInterface $field_definition,
+    array $settings,
+    array $third_party_settings,
+    LangCodeManager $lang_code_manager
+  ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
     $this->langCodeManager = $lang_code_manager;
   }
@@ -81,12 +81,14 @@ class MultilineStringWithOptionalLangDefaultWidget extends WidgetBase implements
       '#required' => TRUE,
       '#min' => 1,
     ];
+
     $element['placeholder'] = [
       '#type' => 'textfield',
       '#title' => t('Placeholder'),
       '#default_value' => $this->getSetting('placeholder'),
       '#description' => t('Text that will be shown inside the field until a value is entered. This hint is usually a sample value or a brief description of the expected format.'),
     ];
+
     return $element;
   }
 
@@ -96,10 +98,16 @@ class MultilineStringWithOptionalLangDefaultWidget extends WidgetBase implements
   public function settingsSummary() {
     $summary = [];
 
-    $summary[] = t('Number of rows: @rows', ['@rows' => $this->getSetting('rows')]);
+    $summary[] = t('Number of rows: @rows', [
+      '@rows' => $this->getSetting('rows')
+    ]);
+
     $placeholder = $this->getSetting('placeholder');
+
     if (!empty($placeholder)) {
-      $summary[] = t('Placeholder: @placeholder', ['@placeholder' => $placeholder]);
+      $summary[] = t('Placeholder: @placeholder', [
+        '@placeholder' => $placeholder
+      ]);
     }
 
     return $summary;
@@ -113,26 +121,52 @@ class MultilineStringWithOptionalLangDefaultWidget extends WidgetBase implements
       '#type' => 'container',
       '#attributes' => ['class' => ['inline-widget']],
     ];
+
     $element['#attached']['library'][] = 'ewp_core/inline_widget';
 
     $element['multiline'] = [
       '#type' => 'textarea',
-      '#default_value' => isset($items[$delta]->multiline) ? $items[$delta]->multiline : NULL,
+      '#default_value' => $items[$delta]->multiline ?? NULL,
       '#rows' => $this->getSetting('rows'),
       '#placeholder' => $this->getSetting('placeholder'),
     ];
 
     // If cardinality is 1, ensure a proper label is output for the field.
-    if ($this->fieldDefinition->getFieldStorageDefinition()->getCardinality() == 1) {
+    $cardinality = $this->fieldDefinition
+      ->getFieldStorageDefinition()
+      ->getCardinality();
+
+    if ($cardinality === 1) {
       $element['multiline']['#title'] = $element['#title'];
+    }
+
+    $lang_options = $this->langCodeManager->getOptions();
+    $lang_exists = FALSE;
+
+    $default_lang = $items[$delta]->lang ?? NULL;
+
+    if (!empty($default_lang)) {
+      foreach ($lang_options as $group => $list) {
+        if (\array_key_exists($default_lang, $list)) {
+          $lang_exists = TRUE;
+          break;
+        }
+      }
+    }
+
+    if (!empty($default_lang) && !$lang_exists) {
+      $extra_option = [$default_lang => $default_lang];
+      $extra_group = [t('Current value') => $extra_option];
+
+      $lang_options = \array_merge($extra_group, $lang_options);
     }
 
     $element['lang'] = [
       '#type' => 'select',
-      '#options' => $this->langCodeManager->getOptions(),
-      '#empty_option' => '- '.t('Language').' -',
+      '#options' => $lang_options,
+      '#empty_option' => '- ' . t('Language') . ' -',
       '#empty_value' => '',
-      '#default_value' => isset($items[$delta]->lang) ? $items[$delta]->lang : NULL,
+      '#default_value' => $default_lang,
       '#description' => t('Optional'),
     ];
 

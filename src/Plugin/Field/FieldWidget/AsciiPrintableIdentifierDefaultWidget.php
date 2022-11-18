@@ -43,6 +43,7 @@ class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
       '#required' => TRUE,
       '#min' => 1,
     ];
+
     $elements['placeholder'] = [
       '#type' => 'textfield',
       '#title' => t('Placeholder'),
@@ -59,9 +60,14 @@ class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
   public function settingsSummary() {
     $summary = [];
 
-    $summary[] = t('Textfield size: @size', ['@size' => $this->getSetting('size')]);
+    $summary[] = t('Textfield size: @size', [
+      '@size' => $this->getSetting('size')
+    ]);
+
     if (!empty($this->getSetting('placeholder'))) {
-      $summary[] = t('Placeholder: @placeholder', ['@placeholder' => $this->getSetting('placeholder')]);
+      $summary[] = t('Placeholder: @placeholder', [
+        '@placeholder' => $this->getSetting('placeholder')
+      ]);
     }
 
     return $summary;
@@ -73,7 +79,7 @@ class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element['value'] = $element + [
       '#type' => 'textfield',
-      '#default_value' => isset($items[$delta]->value) ? $items[$delta]->value : NULL,
+      '#default_value' => $items[$delta]->value ?? NULL,
       '#size' => $this->getSetting('size'),
       '#placeholder' => $this->getSetting('placeholder'),
       '#maxlength' => $this->getFieldSetting('max_length'),
@@ -81,7 +87,11 @@ class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
     ];
 
     // If cardinality is 1, ensure a proper label is output for the field.
-    if ($this->fieldDefinition->getFieldStorageDefinition()->getCardinality() == 1) {
+    $cardinality = $this->fieldDefinition
+      ->getFieldStorageDefinition()
+      ->getCardinality();
+
+    if ($cardinality === 1) {
       $element['value']['#title'] = $element['#title'];
     }
 
@@ -92,13 +102,14 @@ class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
   }
 
   /**
-   * Validate ASCII string
+   * Validate ASCII string.
    */
   public function validateAscii($element, FormStateInterface $form_state) {
     $value = $element['#value'];
     if (strlen($value) === 0) {
       return;
     }
+
     if (!\ctype_print($value)) {
       $form_state->setError($element, $this->t('The identifier must only contain printable ASCII characters.'));
     }

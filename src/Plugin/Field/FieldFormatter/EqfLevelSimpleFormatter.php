@@ -24,11 +24,12 @@ class EqfLevelSimpleFormatter extends FormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
+
     foreach ($items as $delta => $item) {
-      $value = $item->value;
-      // print only the key which is the EQF level number
-      $elements[$delta] = ['#markup' => $value];
+      // Print only the key which is the EQF level number.
+      $elements[$delta] = ['#markup' => $item->value];
     }
+
     return $elements;
   }
 

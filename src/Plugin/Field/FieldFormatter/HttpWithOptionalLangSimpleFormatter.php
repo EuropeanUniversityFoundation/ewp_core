@@ -59,7 +59,6 @@ class HttpWithOptionalLangSimpleFormatter extends FormatterBase {
       $elements[$delta] = ['#markup' => $this->viewValue($item)];
     }
 
-    // return $elements;
     return $elements;
   }
 

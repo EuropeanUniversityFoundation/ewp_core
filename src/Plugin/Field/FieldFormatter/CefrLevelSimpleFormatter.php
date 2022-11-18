@@ -69,12 +69,15 @@ class CefrLevelSimpleFormatter extends FormatterBase implements ContainerFactory
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $cefr_levels = $this->cefrLevelManager->getOptions();
+
     $options = OptGroup::flattenOptions($cefr_levels);
+
     $elements = [];
+
     foreach ($items as $delta => $item) {
-      $value = $item->value;
-      $elements[$delta] = ['#markup' => $options[$value]];
+      $elements[$delta] = ['#markup' => $options[$item->value]];
     }
+
     return $elements;
   }
 

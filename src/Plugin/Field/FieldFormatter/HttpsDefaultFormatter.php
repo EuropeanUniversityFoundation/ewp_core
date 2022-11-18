@@ -57,10 +57,12 @@ class HttpsDefaultFormatter extends FormatterBase {
 
     foreach ($items as $delta => $item) {
       $url = Html::escape($item->uri);
-      # build a partial URL to use as title
+      // Build a partial URL to use as title.
       $url_host = parse_url($url, PHP_URL_HOST);
       $url_path = rtrim(parse_url($url, PHP_URL_PATH),"/");
+
       $title = ($url_path) ? $url_host . $url_path : $url_host;
+
       $elements[$delta] = [
         '#theme' => 'ewp_https_default',
         '#url' => $url,
@@ -68,7 +70,6 @@ class HttpsDefaultFormatter extends FormatterBase {
       ];
     }
 
-    // return $elements;
     return $elements;
   }
 

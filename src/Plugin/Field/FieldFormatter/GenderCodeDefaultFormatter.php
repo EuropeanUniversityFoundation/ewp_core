@@ -34,15 +34,15 @@ class GenderCodeDefaultFormatter extends FormatterBase implements ContainerFacto
    * {@inheritdoc}
    */
   public function __construct(
-      $plugin_id,
-      $plugin_definition,
-      FieldDefinitionInterface $field_definition,
-      array $settings,
-      $label,
-      $view_mode,
-      array $third_party_settings,
-      GenderCodeManager $gender_code_manager
-    ) {
+    $plugin_id,
+    $plugin_definition,
+    FieldDefinitionInterface $field_definition,
+    array $settings,
+    $label,
+    $view_mode,
+    array $third_party_settings,
+    GenderCodeManager $gender_code_manager
+  ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->genderCodeManager = $gender_code_manager;
   }
@@ -68,14 +68,16 @@ class GenderCodeDefaultFormatter extends FormatterBase implements ContainerFacto
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $gender_codes = $this->genderCodeManager->getOptions();
+
     $elements = [];
+
     foreach ($items as $delta => $item) {
-      $value = $item->value;
       $elements[$delta] = [
         '#theme' => 'ewp_gender_code_default',
-        '#value' => $gender_codes[$value],
+        '#value' => ($item->value) ? $gender_codes[$item->value] : NULL,
       ];
     }
+
     return $elements;
   }
 

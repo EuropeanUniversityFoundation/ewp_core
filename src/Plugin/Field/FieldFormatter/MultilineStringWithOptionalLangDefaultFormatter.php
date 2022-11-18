@@ -37,15 +37,15 @@ class MultilineStringWithOptionalLangDefaultFormatter extends FormatterBase impl
    * {@inheritdoc}
    */
   public function __construct(
-      $plugin_id,
-      $plugin_definition,
-      FieldDefinitionInterface $field_definition,
-      array $settings,
-      $label,
-      $view_mode,
-      array $third_party_settings,
-      LangCodeManager $lang_code_manager
-    ) {
+    $plugin_id,
+    $plugin_definition,
+    FieldDefinitionInterface $field_definition,
+    array $settings,
+    $label,
+    $view_mode,
+    array $third_party_settings,
+    LangCodeManager $lang_code_manager
+  ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->langCodeManager = $lang_code_manager;
   }
@@ -98,19 +98,22 @@ class MultilineStringWithOptionalLangDefaultFormatter extends FormatterBase impl
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $language_codes = $this->langCodeManager->getOptions();
-    $langcodes = OptGroup::flattenOptions($language_codes);
+    $language_options = $this->langCodeManager->getOptions();
+    $language_codes = OptGroup::flattenOptions($language_options);
+
     $elements = [];
 
     foreach ($items as $delta => $item) {
-      $multiline = $item->multiline;
-      $langcode = ($item->lang) ? $item->lang : NULL;
-      $langname = ($langcode) ? $langcodes[$langcode]->render() : NULL;
+      $code = $item->lang ?? NULL;
+      $name = (!empty($code) && !\array_key_exists($code, $language_codes))
+        ? $language_codes[$code]->render()
+        : $code;
+
       $elements[$delta] = [
         '#theme' => 'ewp_multiline_lang_default',
-        '#multiline' => $multiline,
-        '#langcode' => $langcode,
-        '#langname' => $langname,
+        '#string' => $item->multiline,
+        '#langcode' => $code,
+        '#langname' => $name,
       ];
     }
 

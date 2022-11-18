@@ -56,10 +56,9 @@ class AsciiPrintableIdentifierDefaultFormatter extends FormatterBase {
     $elements = [];
 
     foreach ($items as $delta => $item) {
-      $value = $item->value;
       $elements[$delta] = [
         '#theme' => 'ewp_ascii_identifier_default',
-        '#value' => $value,
+        '#value' => $item->value,
       ];
     }
 

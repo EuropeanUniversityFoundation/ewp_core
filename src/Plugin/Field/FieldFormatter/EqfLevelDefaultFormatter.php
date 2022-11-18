@@ -34,15 +34,15 @@ class EqfLevelDefaultFormatter extends FormatterBase implements ContainerFactory
    * {@inheritdoc}
    */
   public function __construct(
-      $plugin_id,
-      $plugin_definition,
-      FieldDefinitionInterface $field_definition,
-      array $settings,
-      $label,
-      $view_mode,
-      array $third_party_settings,
-      EqfLevelManager $eqf_level_manager
-    ) {
+    $plugin_id,
+    $plugin_definition,
+    FieldDefinitionInterface $field_definition,
+    array $settings,
+    $label,
+    $view_mode,
+    array $third_party_settings,
+    EqfLevelManager $eqf_level_manager
+  ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->eqfLevelManager = $eqf_level_manager;
   }
@@ -68,14 +68,16 @@ class EqfLevelDefaultFormatter extends FormatterBase implements ContainerFactory
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $eqf_levels = $this->eqfLevelManager->getOptions();
+
     $elements = [];
+
     foreach ($items as $delta => $item) {
-      $value = $item->value;
       $elements[$delta] = [
         '#theme' => 'ewp_eqf_level_default',
-        '#value' => $eqf_levels[$value],
+        '#value' => ($item->value) ? $eqf_levels[$item->value] : NULL,
       ];
     }
+
     return $elements;
   }
 

@@ -35,13 +35,13 @@ class CefrLevelDefaultWidget extends WidgetBase implements ContainerFactoryPlugi
    * {@inheritdoc}
    */
   public function __construct(
-      $plugin_id,
-      $plugin_definition,
-      FieldDefinitionInterface $field_definition,
-      array $settings,
-      array $third_party_settings,
-      CefrLevelManager $cefr_level_manager
-    ) {
+    $plugin_id,
+    $plugin_definition,
+    FieldDefinitionInterface $field_definition,
+    array $settings,
+    array $third_party_settings,
+    CefrLevelManager $cefr_level_manager
+  ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
     $this->cefrLevelManager = $cefr_level_manager;
   }
@@ -68,10 +68,15 @@ class CefrLevelDefaultWidget extends WidgetBase implements ContainerFactoryPlugi
       '#type' => 'select',
       '#options' => $this->cefrLevelManager->getOptions(),
       '#empty_value' => '',
-      '#default_value' => isset($items[$delta]->value) ? $items[$delta]->value : NULL,
+      '#default_value' => $items[$delta]->value ?? NULL,
     ];
+
     // If cardinality is 1, ensure a proper label is output for the field.
-    if ($this->fieldDefinition->getFieldStorageDefinition()->getCardinality() == 1) {
+    $cardinality = $this->fieldDefinition
+      ->getFieldStorageDefinition()
+      ->getCardinality();
+
+    if ($cardinality === 1) {
       $element['value']['#title'] = $element['#title'];
     }
 
