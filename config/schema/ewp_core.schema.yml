@@ -84,3 +84,29 @@ field.widget.settings.ewp_string_lang_default:
     placeholder:
       type: label
       label: 'Placeholder'
+
+# Schema for the configuration files of the EWP core module.
+ewp_core.settings:
+  type: config_object
+  label: 'EWP core settings'
+  mapping:
+    lang_primary_group_label:
+      type: string
+      translatable: true
+      label: 'Primary language group label'
+    lang_primary_list:
+      type: sequence
+      label: 'Primary language options'
+      sequence:
+        type: string
+        translatable: true
+    lang_secondary_group_label:
+      type: string
+      translatable: true
+      label: 'Secondary language group label'
+    lang_secondary_list:
+      type: sequence
+      label: 'Secondary language options'
+      sequence:
+        type: string
+        translatable: true

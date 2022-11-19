@@ -4,3 +4,17 @@ ewp_core.admin:
   route_name: 'ewp_core.admin'
   parent: 'system.admin'
   weight: -7
+
+ewp_core.settings:
+  title: 'EWP core settings'
+  description: 'Settings for EWP core'
+  route_name: 'ewp_core.settings'
+  parent: 'ewp_core.admin'
+  weight: 100
+
+ewp_core.settings.lang:
+  title: 'Language settings'
+  description: 'Settings for language typed fields'
+  route_name: 'ewp_core.settings.lang'
+  parent: 'ewp_core.settings'
+  weight: 1

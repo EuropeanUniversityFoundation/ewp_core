@@ -5,3 +5,19 @@ ewp_core.admin:
     _title: 'Erasmus Without Paper'
   requirements:
     _permission: 'access toolbar'
+
+ewp_core.settings:
+  path: '/admin/ewp/settings'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'EWP core settings'
+  requirements:
+    _permission: 'administer ewp lang settings'
+
+ewp_core.settings.lang:
+  path: '/admin/ewp/settings/lang'
+  defaults:
+    _title: 'Language settings'
+    _form: 'Drupal\ewp_core\Form\LanguageSettingsForm'
+  requirements:
+    _permission: 'administer ewp lang settings'
