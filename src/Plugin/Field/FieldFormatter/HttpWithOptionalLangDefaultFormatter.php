@@ -4,7 +4,6 @@ namespace Drupal\ewp_core\Plugin\Field\FieldFormatter;
 
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Field\FieldDefinitionInterface;
-use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -98,7 +97,7 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements Cont
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $language_options = $this->langCodeManager->getOptions();
+    $language_options = $this->langCodeManager->getConfigOptions();
     $language_codes = OptGroup::flattenOptions($language_options);
 
     $elements = [];

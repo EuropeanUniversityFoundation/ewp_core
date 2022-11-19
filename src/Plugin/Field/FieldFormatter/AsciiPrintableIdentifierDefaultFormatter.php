@@ -3,7 +3,6 @@
 namespace Drupal\ewp_core\Plugin\Field\FieldFormatter;
 
 use Drupal\Component\Utility\Html;
-use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;

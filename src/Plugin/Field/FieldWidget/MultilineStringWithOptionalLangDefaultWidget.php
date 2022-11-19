@@ -140,7 +140,7 @@ class MultilineStringWithOptionalLangDefaultWidget extends WidgetBase implements
       $element['multiline']['#title'] = $element['#title'];
     }
 
-    $lang_options = $this->langCodeManager->getOptions();
+    $lang_options = $this->langCodeManager->getConfigOptions();
     $lang_exists = FALSE;
 
     $default_lang = $items[$delta]->lang ?? NULL;
@@ -168,9 +168,8 @@ class MultilineStringWithOptionalLangDefaultWidget extends WidgetBase implements
       '#empty_value' => '',
       '#default_value' => $default_lang,
       '#description' => $this->t('Optional'),
+      '#description_display' => ($cardinality === 1) ? 'before' : 'after',
     ];
-
-    dpm($this);
 
     return $element;
   }

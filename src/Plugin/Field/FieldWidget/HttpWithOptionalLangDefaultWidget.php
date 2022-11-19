@@ -112,7 +112,7 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
       $element['uri']['#title'] = $element['#title'];
     }
 
-    $lang_options = $this->langCodeManager->getOptions();
+    $lang_options = $this->langCodeManager->getConfigOptions();
     $lang_exists = FALSE;
 
     $default_lang = $items[$delta]->lang ?? NULL;
@@ -140,6 +140,7 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
       '#empty_value' => '',
       '#default_value' => $default_lang,
       '#description' => $this->t('Optional'),
+      '#description_display' => ($cardinality === 1) ? 'before' : 'after',
     ];
 
     return $element;

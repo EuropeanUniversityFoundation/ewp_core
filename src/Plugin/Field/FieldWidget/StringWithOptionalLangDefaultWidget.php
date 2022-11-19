@@ -141,7 +141,7 @@ class StringWithOptionalLangDefaultWidget extends WidgetBase implements Containe
       $element['string']['#title'] = $element['#title'];
     }
 
-    $lang_options = $this->langCodeManager->getOptions();
+    $lang_options = $this->langCodeManager->getConfigOptions();
     $lang_exists = FALSE;
 
     $default_lang = $items[$delta]->lang ?? NULL;
@@ -169,6 +169,7 @@ class StringWithOptionalLangDefaultWidget extends WidgetBase implements Containe
       '#empty_value' => '',
       '#default_value' => $default_lang,
       '#description' => $this->t('Optional'),
+      '#description_display' => ($cardinality === 1) ? 'before' : 'after',
     ];
 
     return $element;

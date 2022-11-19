@@ -10,4 +10,4 @@ services:
     arguments: []
   ewp_core.langcode:
     class: Drupal\ewp_core\LangCodeManager
-    arguments: []
+    arguments: ['@config.factory', '@string_translation']
