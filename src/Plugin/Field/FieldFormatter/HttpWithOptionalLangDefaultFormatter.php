@@ -112,7 +112,7 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements Cont
 
       $code = $item->lang ?? NULL;
       $name = (!empty($code) && \array_key_exists($code, $language_codes))
-        ? $language_codes[$code]->render()
+        ? $language_codes[$code]
         : $code;
 
       $elements[$delta] = [

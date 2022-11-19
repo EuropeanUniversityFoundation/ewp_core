@@ -103,15 +103,6 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
       '#maxlength' => 2048,
     ];
 
-    // If cardinality is 1, ensure a proper label is output for the field.
-    $cardinality = $this->fieldDefinition
-      ->getFieldStorageDefinition()
-      ->getCardinality();
-
-    if ($cardinality === 1) {
-      $element['uri']['#title'] = $element['#title'];
-    }
-
     $lang_options = $this->langCodeManager->getConfigOptions();
     $lang_exists = FALSE;
 
@@ -140,8 +131,17 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
       '#empty_value' => '',
       '#default_value' => $default_lang,
       '#description' => $this->t('Optional'),
-      '#description_display' => ($cardinality === 1) ? 'before' : 'after',
     ];
+
+    // If cardinality is 1, ensure a proper label is output for the field.
+    $cardinality = $this->fieldDefinition
+      ->getFieldStorageDefinition()
+      ->getCardinality();
+
+    if ($cardinality === 1) {
+      $element['uri']['#title'] = $element['#title'];
+      $element['lang']['#title'] = '&nbsp;';
+    }
 
     return $element;
   }

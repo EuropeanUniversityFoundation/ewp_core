@@ -104,7 +104,7 @@ class StringWithOptionalLangDefaultFormatter extends FormatterBase implements Co
     foreach ($items as $delta => $item) {
       $code = $item->lang ?? NULL;
       $name = (!empty($code) && \array_key_exists($code, $language_codes))
-        ? $language_codes[$code]->render()
+        ? $language_codes[$code]
         : $code;
 
       $elements[$delta] = [

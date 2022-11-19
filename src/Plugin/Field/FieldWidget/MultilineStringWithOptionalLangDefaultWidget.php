@@ -131,15 +131,6 @@ class MultilineStringWithOptionalLangDefaultWidget extends WidgetBase implements
       '#placeholder' => $this->getSetting('placeholder'),
     ];
 
-    // If cardinality is 1, ensure a proper label is output for the field.
-    $cardinality = $this->fieldDefinition
-      ->getFieldStorageDefinition()
-      ->getCardinality();
-
-    if ($cardinality === 1) {
-      $element['multiline']['#title'] = $element['#title'];
-    }
-
     $lang_options = $this->langCodeManager->getConfigOptions();
     $lang_exists = FALSE;
 
@@ -168,8 +159,17 @@ class MultilineStringWithOptionalLangDefaultWidget extends WidgetBase implements
       '#empty_value' => '',
       '#default_value' => $default_lang,
       '#description' => $this->t('Optional'),
-      '#description_display' => ($cardinality === 1) ? 'before' : 'after',
     ];
+
+    // If cardinality is 1, ensure a proper label is output for the field.
+    $cardinality = $this->fieldDefinition
+      ->getFieldStorageDefinition()
+      ->getCardinality();
+
+    if ($cardinality === 1) {
+      $element['multiline']['#title'] = $element['#title'];
+      $element['lang']['#title'] = '&nbsp;';
+    }
 
     return $element;
   }

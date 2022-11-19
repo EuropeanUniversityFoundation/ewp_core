@@ -104,12 +104,12 @@ class MultilineStringWithOptionalLangDefaultFormatter extends FormatterBase impl
     foreach ($items as $delta => $item) {
       $code = $item->lang ?? NULL;
       $name = (!empty($code) && \array_key_exists($code, $language_codes))
-        ? $language_codes[$code]->render()
+        ? $language_codes[$code]
         : $code;
 
       $elements[$delta] = [
         '#theme' => 'ewp_multiline_lang_default',
-        '#string' => $item->multiline,
+        '#multiline' => $item->multiline,
         '#langcode' => $code,
         '#langname' => $name,
       ];

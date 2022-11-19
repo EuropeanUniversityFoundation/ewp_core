@@ -132,15 +132,6 @@ class StringWithOptionalLangDefaultWidget extends WidgetBase implements Containe
       '#maxlength' => $this->getFieldSetting('max_length'),
     ];
 
-    // If cardinality is 1, ensure a proper label is output for the field.
-    $cardinality = $this->fieldDefinition
-      ->getFieldStorageDefinition()
-      ->getCardinality();
-
-    if ($cardinality === 1) {
-      $element['string']['#title'] = $element['#title'];
-    }
-
     $lang_options = $this->langCodeManager->getConfigOptions();
     $lang_exists = FALSE;
 
@@ -169,8 +160,17 @@ class StringWithOptionalLangDefaultWidget extends WidgetBase implements Containe
       '#empty_value' => '',
       '#default_value' => $default_lang,
       '#description' => $this->t('Optional'),
-      '#description_display' => ($cardinality === 1) ? 'before' : 'after',
     ];
+
+    // If cardinality is 1, ensure a proper label is output for the field.
+    $cardinality = $this->fieldDefinition
+      ->getFieldStorageDefinition()
+      ->getCardinality();
+
+    if ($cardinality === 1) {
+      $element['string']['#title'] = $element['#title'];
+      $element['lang']['#title'] = '&nbsp;';
+    }
 
     return $element;
   }
