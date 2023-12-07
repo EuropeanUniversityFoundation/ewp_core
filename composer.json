@@ -1,19 +1,24 @@
 {
-  "name": "euf/ewp_core",
-  "type": "drupal-module",
-  "description": "EWP core data types and utilities",
-  "keywords": [
-  ],
-  "homepage": "",
-  "minimum-stability": "dev",
-  "support": {
-    "issues": "",
-    "source": ""
-  },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://packages.drupal.org/8"
-    }
-  ]
+    "name": "euf/ewp_core",
+    "type": "drupal-module",
+    "description": "Implements EWP Common Datatypes as field types and provides related utilities.",
+    "keywords": [
+        "Drupal",
+        "Erasmus Without Paper",
+        "Field type"
+    ],
+    "homepage": "https://github.com/EuropeanUniversityFoundation/ewp_core",
+    "support": {
+        "issues": "https://github.com/EuropeanUniversityFoundation/ewp_core/issues",
+        "source": "https://github.com/EuropeanUniversityFoundation/ewp_core"
+    },
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Tiago Simões",
+            "email": "tiago.simoes@uni-foundation.eu",
+            "role": "Maintainer"
+        }
+    ],
+    "minimum-stability": "dev"
 }
