@@ -1,0 +1,18 @@
+ewp_core:
+  label: 'EWP core fields'
+  description: 'EWP data types with constraints.'
+  weight: 100
+
+ewp_lang:
+  label: 'EWP language typed fields'
+  description: 'EWP data types with optional language.'
+  weight: 101
+  libraries:
+    - text/drupal.text-icon
+
+ewp_selection_list:
+  label: 'EWP selection list'
+  description: 'EWP data types with with predefined options.'
+  weight: 102
+  libraries:
+    - options/drupal.options-icon
