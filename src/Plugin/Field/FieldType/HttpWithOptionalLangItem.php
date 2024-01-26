@@ -16,8 +16,13 @@ use Drupal\Core\Url;
  * @FieldType(
  *   id = "ewp_http_lang",
  *   label = @Translation("HTTP with optional lang"),
- *   description = @Translation("EWP data type HTTPWithOptionalLang"),
- *   category = @Translation("EWP"),
+ *   description = {
+ *     @Translation("Stores a URL string"),
+ *     @Translation("Allows http:// and https:// protocols"),
+ *     @Translation("Stores an optional language code"),
+ *     @Translation("For example, 'en' => 'English'"),
+ *   },
+ *   category = "ewp_lang",
  *   default_widget = "ewp_http_lang_default",
  *   default_formatter = "ewp_http_lang_default"
  * )

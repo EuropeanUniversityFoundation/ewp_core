@@ -14,8 +14,12 @@ use Drupal\Core\TypedData\DataDefinition;
  * @FieldType(
  *   id = "ewp_string_lang",
  *   label = @Translation("String with optional lang"),
- *   description = @Translation("EWP data type StringWithOptionalLang"),
- *   category = @Translation("EWP"),
+ *   description = {
+ *     @Translation("Stores a short string"),
+ *     @Translation("Stores an optional language code"),
+ *     @Translation("For example, 'en' => 'English'"),
+ *   },
+ *   category = "ewp_lang",
  *   default_widget = "ewp_string_lang_default",
  *   default_formatter = "ewp_string_lang_default"
  * )
