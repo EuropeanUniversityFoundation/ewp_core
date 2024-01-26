@@ -18,10 +18,10 @@ inline_widget:
     component:
       css/inline-widget.css: {}
 
-options-icon:
+field_ui:
   version: VERSION
   css:
     theme:
-      css/options.icon.theme.css: {}
+      css/field_ui.icons.theme.css: {}
   dependencies:
     - field_ui/drupal.field_ui.manage_fields

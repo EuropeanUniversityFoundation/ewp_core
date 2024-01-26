@@ -2,13 +2,19 @@ ewp_core:
   label: 'EWP core fields'
   description: 'EWP data types with constraints.'
   weight: 100
+  libraries:
+    - ewp_core/field_ui
 
 ewp_lang:
   label: 'EWP language typed fields'
   description: 'EWP data types with optional language.'
   weight: 101
+  libraries:
+    - ewp_core/field_ui
 
 ewp_selection_list:
   label: 'EWP selection list'
   description: 'EWP data types with predefined options.'
   weight: 102
+  libraries:
+    - ewp_core/field_ui
