@@ -10,5 +10,5 @@ ewp_lang:
 
 ewp_selection_list:
   label: 'EWP selection list'
-  description: 'EWP data types with with predefined options.'
+  description: 'EWP data types with predefined options.'
   weight: 102
