@@ -109,5 +109,8 @@ function ewp_core_field_info_alter(array &$info): void {
   if (\version_compare(\Drupal::VERSION, '10.1.9999', '<')) {
     $info['ascii_identifier']['category'] = t("EWP");
     $info['ewp_https']['category'] = t("EWP");
+    $info['cefr_level']['category'] = t("EWP select options");
+    $info['eqf_level']['category'] = t("EWP select options");
+    $info['gender_code']['category'] = t("EWP select options");
   }
 }

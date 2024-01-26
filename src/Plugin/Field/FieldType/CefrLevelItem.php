@@ -13,8 +13,13 @@ use Drupal\Core\TypedData\DataDefinition;
  * @FieldType(
  *   id = "cefr_level",
  *   label = @Translation("CEFR level"),
- *   description = @Translation("CEFR levels as select options"),
- *   category = @Translation("EWP select options"),
+ *   description = {
+ *     @Translation("Values stored are predefined text values"),
+ *     @Translation("For example, 'A1' => 'A1'"),
+ *     @Translation("DEPRECATED: use the CEFRL module instead"),
+ *     @Translation("see Common European Reference Framework for Languages"),
+ *   },
+ *   category = "ewp_selection_list",
  *   default_widget = "cefr_level_default",
  *   default_formatter = "cefr_level_default",
  * )
