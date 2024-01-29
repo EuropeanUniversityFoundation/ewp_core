@@ -16,8 +16,11 @@ use Drupal\Core\TypedData\DataDefinition;
  * @FieldType(
  *   id = "ascii_identifier",
  *   label = @Translation("ASCII Printable Identifier"),
- *   description = @Translation("EWP data type ASCIIPrintableIdentifier"),
- *   category = @Translation("EWP"),
+ *   description = {
+ *     @Translation("Stores a string to be used as an identifier"),
+ *     @Translation("Allows only ASCII characters"),
+ *   },
+ *   category = "ewp_core",
  *   default_widget = "ascii_identifier_default",
  *   default_formatter = "ascii_identifier_default"
  * )

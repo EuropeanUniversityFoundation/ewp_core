@@ -13,8 +13,12 @@ use Drupal\Core\TypedData\DataDefinition;
  * @FieldType(
  *   id = "eqf_level",
  *   label = @Translation("EQF level"),
- *   description = @Translation("EQF levels as select options"),
- *   category = @Translation("EWP select options"),
+ *   description = {
+ *     @Translation("Values stored are predefined integer values"),
+ *     @Translation("For example, 6 => 'EQF-6 (Bachelor)'"),
+ *     @Translation("see European Qualifications Framework"),
+ *   },
+ *   category = "ewp_selection_list",
  *   default_widget = "eqf_level_default",
  *   default_formatter = "eqf_level_default",
  * )

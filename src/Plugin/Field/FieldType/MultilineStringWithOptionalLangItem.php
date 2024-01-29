@@ -14,8 +14,12 @@ use Drupal\Core\TypedData\DataDefinition;
  * @FieldType(
  *   id = "ewp_multiline_lang",
  *   label = @Translation("Multiline string with optional lang"),
- *   description = @Translation("EWP data type MultilineStringWithOptionalLang"),
- *   category = @Translation("EWP"),
+ *   description = {
+ *     @Translation("Stores a long string"),
+ *     @Translation("Stores an optional language code"),
+ *     @Translation("For example, 'en' => 'English'"),
+ *   },
+ *   category = "ewp_lang",
  *   default_widget = "ewp_multiline_lang_default",
  *   default_formatter = "ewp_multiline_lang_default"
  * )

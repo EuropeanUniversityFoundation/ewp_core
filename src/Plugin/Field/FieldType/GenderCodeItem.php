@@ -13,8 +13,12 @@ use Drupal\Core\TypedData\DataDefinition;
  * @FieldType(
  *   id = "gender_code",
  *   label = @Translation("Gender code"),
- *   description = @Translation("Gender codes as select options"),
- *   category = @Translation("EWP select options"),
+ *   description = {
+ *     @Translation("Values stored are predefined integer values"),
+ *     @Translation("For example, 9 => 'Not applicable'"),
+ *     @Translation("see ISO/IEC 5218:2004"),
+ *   },
+ *   category = "ewp_selection_list",
  *   default_widget = "gender_code_default",
  *   default_formatter = "gender_code_default",
  * )

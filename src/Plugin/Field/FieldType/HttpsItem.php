@@ -16,8 +16,11 @@ use Drupal\Core\Url;
  * @FieldType(
  *   id = "ewp_https",
  *   label = @Translation("HTTPS"),
- *   description = @Translation("EWP data type HTTPS"),
- *   category = @Translation("EWP"),
+ *   description = {
+ *     @Translation("Stores a URL string"),
+ *     @Translation("Requires https:// protocol"),
+ *   },
+ *   category = "ewp_core",
  *   default_widget = "ewp_https_default",
  *   default_formatter = "ewp_https_default"
  * )

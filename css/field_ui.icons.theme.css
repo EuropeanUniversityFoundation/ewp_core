@@ -1,0 +1,8 @@
+/**
+ * Field UI category icon.
+ */
+.field-icon-ewp_core,
+.field-icon-ewp_selection_list,
+.field-icon-ewp_lang {
+  background-image: url(../images/icons/55565b/field_ui.svg);
+}
