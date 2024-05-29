@@ -101,6 +101,7 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
       '#type' => 'url',
       '#default_value' => $items[$delta]->uri ?? NULL,
       '#maxlength' => 2048,
+      '#attributes' => ['class' => ['inline-shrink']],
     ];
 
     $lang_options = $this->langCodeManager->getConfigOptions();

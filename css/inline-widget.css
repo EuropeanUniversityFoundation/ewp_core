@@ -3,8 +3,19 @@
   display: flex;
 }
 
+/* Separate inline elements */
 .inline-widget input,
 .inline-widget select,
 .inline-widget .form-textarea-wrapper {
   margin-right: 0.5em;
+}
+
+/* Allow the value input to shrink */
+.inline-widget .inline-shrink {
+  width: calc(100% - 0.5em);
+}
+
+/* Avoid breaking out of draggable tables */
+td > .inline-widget {
+  flex-wrap: wrap;
 }

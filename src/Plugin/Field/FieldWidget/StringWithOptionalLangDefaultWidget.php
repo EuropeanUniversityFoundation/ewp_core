@@ -130,6 +130,7 @@ class StringWithOptionalLangDefaultWidget extends WidgetBase implements Containe
       '#size' => $this->getSetting('size'),
       '#placeholder' => $this->getSetting('placeholder'),
       '#maxlength' => $this->getFieldSetting('max_length'),
+      '#attributes' => ['class' => ['inline-shrink']],
     ];
 
     $lang_options = $this->langCodeManager->getConfigOptions();
