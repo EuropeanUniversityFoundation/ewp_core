@@ -101,12 +101,12 @@ class StringWithOptionalLangDefaultWidget extends WidgetBase implements Containe
     $summary = [];
 
     $summary[] = $this->t('Textfield size: @size', [
-      '@size' => $this->getSetting('size')
+      '@size' => $this->getSetting('size'),
     ]);
 
     if (!empty($this->getSetting('placeholder'))) {
       $summary[] = $this->t('Placeholder: @placeholder', [
-        '@placeholder' => $this->getSetting('placeholder')
+        '@placeholder' => $this->getSetting('placeholder'),
       ]);
     }
 
@@ -139,7 +139,7 @@ class StringWithOptionalLangDefaultWidget extends WidgetBase implements Containe
     $default_lang = $items[$delta]->lang ?? NULL;
 
     if (!empty($default_lang)) {
-      foreach ($lang_options as $group => $list) {
+      foreach ($lang_options as $list) {
         if (\array_key_exists($default_lang, $list)) {
           $lang_exists = TRUE;
           break;

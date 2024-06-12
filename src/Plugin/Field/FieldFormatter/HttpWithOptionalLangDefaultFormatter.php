@@ -69,9 +69,7 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements Cont
    * {@inheritdoc}
    */
   public static function defaultSettings() {
-    return [
-      //
-    ] + parent::defaultSettings();
+    return parent::defaultSettings();
   }
 
   /**

@@ -5,8 +5,10 @@
  * Contains ewp_core.module.
  */
 
-use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_help().
@@ -15,10 +17,18 @@ function ewp_core_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     // Main module help for the ewp_core module.
     case 'help.page.ewp_core':
+      $url = 'https://developers.erasmuswithoutpaper.eu';
+      $link = Link::fromTextAndUrl($url, Url::fromUri($url, [
+        'attributes' => [
+          'target' => '_blank',
+        ],
+      ]));
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('EWP core data types and utilities') . '</p>';
-      $output .= '<p>' . t('Learn more at ') . '<a href="https://developers.erasmuswithoutpaper.eu" target="_blank">developers.erasmuswithoutpaper.eu</a>.</p>';
+      $output .= '<p>' . t('Learn more at @link', [
+        '@link' => $link->toString(),
+      ]) . '</p>';
       return $output;
 
     default:
@@ -42,7 +52,7 @@ function ewp_core_theme() {
   return [
     'ewp_ascii_identifier_default' => [
       'variables' => [
-        'value' => NULL
+        'value' => NULL,
       ],
     ],
     'ewp_cefr_level_default' => [

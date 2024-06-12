@@ -64,9 +64,7 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
    * {@inheritdoc}
    */
   public static function defaultSettings() {
-    return [
-      //
-    ] + parent::defaultSettings();
+    return parent::defaultSettings();
   }
 
   /**
@@ -110,7 +108,7 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
     $default_lang = $items[$delta]->lang ?? NULL;
 
     if (!empty($default_lang)) {
-      foreach ($lang_options as $group => $list) {
+      foreach ($lang_options as $list) {
         if (\array_key_exists($default_lang, $list)) {
           $lang_exists = TRUE;
           break;

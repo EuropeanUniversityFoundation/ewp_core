@@ -25,9 +25,7 @@ class HttpsSimpleFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public static function simpleSettings() {
-    return [
-      //
-    ] + parent::defaultSettings();
+    return parent::defaultSettings();
   }
 
   /**

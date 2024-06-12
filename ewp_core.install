@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Contains install, update and uninstall hooks.
+ */
+
+/**
  * Update field definition: lang code in StringWithOptionalLang not required.
  */
 function ewp_core_update_8101() {

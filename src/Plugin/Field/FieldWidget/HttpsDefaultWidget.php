@@ -24,9 +24,7 @@ class HttpsDefaultWidget extends WidgetBase {
    * {@inheritdoc}
    */
   public static function defaultSettings() {
-    return [
-      //
-    ] + parent::defaultSettings();
+    return parent::defaultSettings();
   }
 
   /**
@@ -55,7 +53,7 @@ class HttpsDefaultWidget extends WidgetBase {
       '#type' => 'url',
       '#default_value' => $items[$delta]->uri ?? NULL,
       '#maxlength' => 2048,
-      '#element_validate' => [[$this,'validateHttps']],
+      '#element_validate' => [[$this, 'validateHttps']],
     ];
 
     // If cardinality is 1, ensure a proper label is output for the field.

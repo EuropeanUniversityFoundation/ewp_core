@@ -96,7 +96,7 @@ class AsciiPrintableIdentifierItem extends FieldItemBase {
     if ($max_length = $this->getSetting('max_length')) {
       $message = $this->t('%name: may not be longer than @max characters.', [
         '%name' => $this->getFieldDefinition()->getLabel(),
-        '@max' => $max_length
+        '@max' => $max_length,
       ]);
 
       $constraint_manager = \Drupal::typedDataManager()

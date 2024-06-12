@@ -5,10 +5,7 @@ namespace Drupal\ewp_core\Plugin\Field\FieldType;
 use Drupal\link\Plugin\Field\FieldType\LinkItem;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\Core\TypedData\DataDefinition;
 use Drupal\Core\Url;
-
 
 /**
  * Plugin implementation of the 'ewp_https' field type.
@@ -31,9 +28,7 @@ class HttpsItem extends LinkItem {
    * {@inheritdoc}
    */
   public static function defaultStorageSettings() {
-    return [
-      //
-    ] + parent::defaultStorageSettings();
+    return parent::defaultStorageSettings();
   }
 
   /**

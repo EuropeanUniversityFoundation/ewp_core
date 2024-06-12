@@ -61,12 +61,12 @@ class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
     $summary = [];
 
     $summary[] = $this->t('Textfield size: @size', [
-      '@size' => $this->getSetting('size')
+      '@size' => $this->getSetting('size'),
     ]);
 
     if (!empty($this->getSetting('placeholder'))) {
       $summary[] = $this->t('Placeholder: @placeholder', [
-        '@placeholder' => $this->getSetting('placeholder')
+        '@placeholder' => $this->getSetting('placeholder'),
       ]);
     }
 
@@ -83,7 +83,7 @@ class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
       '#size' => $this->getSetting('size'),
       '#placeholder' => $this->getSetting('placeholder'),
       '#maxlength' => $this->getFieldSetting('max_length'),
-      '#element_validate' => [[$this,'validateAscii']],
+      '#element_validate' => [[$this, 'validateAscii']],
     ];
 
     // If cardinality is 1, ensure a proper label is output for the field.

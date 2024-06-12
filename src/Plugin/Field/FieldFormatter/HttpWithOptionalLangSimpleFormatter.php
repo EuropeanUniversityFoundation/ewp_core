@@ -25,9 +25,7 @@ class HttpWithOptionalLangSimpleFormatter extends FormatterBase {
    * {@inheritdoc}
    */
   public static function defaultSettings() {
-    return [
-      //
-    ] + parent::defaultSettings();
+    return parent::defaultSettings();
   }
 
   /**

@@ -9,7 +9,6 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\Core\Url;
 
-
 /**
  * Plugin implementation of the 'ewp_http_lang' field type.
  *
@@ -33,9 +32,7 @@ class HttpWithOptionalLangItem extends LinkItem {
    * {@inheritdoc}
    */
   public static function defaultStorageSettings() {
-    return [
-      //
-    ] + parent::defaultStorageSettings();
+    return parent::defaultStorageSettings();
   }
 
   /**

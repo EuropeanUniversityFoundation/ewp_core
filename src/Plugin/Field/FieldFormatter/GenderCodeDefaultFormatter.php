@@ -5,7 +5,6 @@ namespace Drupal\ewp_core\Plugin\Field\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\ewp_core\GenderCodeManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;

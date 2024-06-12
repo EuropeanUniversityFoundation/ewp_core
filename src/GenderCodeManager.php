@@ -3,8 +3,9 @@
 namespace Drupal\ewp_core;
 
 /**
- * Provides ISO/IEC 5218:2004 Codes for the representation of human sexes
- *  as Gender codes
+ * Provides ISO/IEC 5218:2004 Codes for the representation of human sexes.
+ *
+ * In EWP these are treated as Gender codes.
  */
 class GenderCodeManager {
 
