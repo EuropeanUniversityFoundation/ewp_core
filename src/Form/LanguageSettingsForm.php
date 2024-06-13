@@ -32,7 +32,7 @@ class LanguageSettingsForm extends ConfigFormBase {
 
     $list_description = '<p>' . $this
       ->t('Enter one code & language pair per line, in the format %format.', [
-        '%format' => 'code|Language name'
+        '%format' => 'code|Language name',
       ]);
     $list_description .= '<br/>' . $this
       ->t('If no name is provided, the code will also be used as the label.');
