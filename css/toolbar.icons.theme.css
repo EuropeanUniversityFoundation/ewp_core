@@ -16,3 +16,6 @@
 .adminimal-admin-toolbar .hover-intent .toolbar-icon-ewp-core-admin:before {
   background-image: url(../images/icons/ffffff/toolbar.svg);
 }
+.toolbar-button.toolbar-button--icon--ewp-core-admin:before {
+  mask-image: url(../images/icons/000000/toolbar.svg);
+}
