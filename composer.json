@@ -20,5 +20,8 @@
             "role": "Maintainer"
         }
     ],
+    "require": {
+        "toobo/bcp47": "^1.0"
+    },
     "minimum-stability": "dev"
 }

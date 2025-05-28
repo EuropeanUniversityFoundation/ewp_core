@@ -1,5 +1,4 @@
 # Schema for the configuration of the ASCII Printable Identifier field type.
-
 field.storage_settings.ascii_identifier:
   type: mapping
   label: 'ASCII Printable Identifier settings'
@@ -26,7 +25,6 @@ field.widget.settings.ascii_identifier_default:
       label: 'Placeholder'
 
 # Schema for the configuration of the HTTPS field type.
-
 field.field_settings.ewp_https:
   type: mapping
   label: 'Link settings'
@@ -39,7 +37,6 @@ field.field_settings.ewp_https:
       label: 'Allowed link type'
 
 # Schema for the configuration of the HTTP with optional lang field type.
-
 field.field_settings.ewp_http_lang:
   type: mapping
   label: 'Link settings'
@@ -52,7 +49,6 @@ field.field_settings.ewp_http_lang:
       label: 'Allowed link type'
 
 # Schema for the configuration of the Multiline string with optional lang field type.
-
 field.widget.settings.ewp_multiline_lang_default:
   type: mapping
   label: 'Textarea display format settings'
@@ -65,7 +61,6 @@ field.widget.settings.ewp_multiline_lang_default:
       label: 'Placeholder'
 
 # Schema for the configuration of the String with optional lang field type.
-
 field.storage_settings.ewp_string_lang:
   type: mapping
   label: 'String with optional lang settings'
@@ -94,19 +89,31 @@ ewp_core.settings:
       type: string
       translatable: true
       label: 'Primary language group label'
+      constraints:
+        NotBlank: ~
     lang_primary_list:
       type: sequence
       label: 'Primary language options'
+      constraints:
+        FullyValidatable: ~
       sequence:
         type: string
         translatable: true
+        constraints:
+          LanguageTagOption: ~
     lang_secondary_group_label:
       type: string
       translatable: true
       label: 'Secondary language group label'
+      constraints:
+        NotBlank: ~
     lang_secondary_list:
       type: sequence
       label: 'Secondary language options'
+      constraints:
+        FullyValidatable: ~
       sequence:
         type: string
         translatable: true
+        constraints:
+          LanguageTagOption: ~
