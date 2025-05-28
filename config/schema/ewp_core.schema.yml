@@ -90,12 +90,12 @@ ewp_core.settings:
       translatable: true
       label: 'Primary language group label'
       constraints:
-        NotBlank: ~
+        NotBlank: []
     lang_primary_list:
       type: sequence
       label: 'Primary language options'
       constraints:
-        FullyValidatable: ~
+        NotBlank: []
       sequence:
         type: string
         translatable: true
@@ -106,12 +106,12 @@ ewp_core.settings:
       translatable: true
       label: 'Secondary language group label'
       constraints:
-        NotBlank: ~
+        NotBlank: []
     lang_secondary_list:
       type: sequence
       label: 'Secondary language options'
       constraints:
-        FullyValidatable: ~
+        NotBlank: []
       sequence:
         type: string
         translatable: true

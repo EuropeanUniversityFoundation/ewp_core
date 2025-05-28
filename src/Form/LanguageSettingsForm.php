@@ -3,7 +3,9 @@
 namespace Drupal\ewp_core\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
+use Drupal\Core\Form\ConfigTarget;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\ewp_core\LangCodeManager;
 
 /**
  * Configure EWP core language typed field settings.
@@ -28,15 +30,14 @@ class LanguageSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('ewp_core.settings');
-
-    $list_description = '<p>' . $this
-      ->t('Enter one code & language pair per line, in the format %format.', [
-        '%format' => 'code|Language name',
-      ]);
-    $list_description .= '<br/>' . $this
-      ->t('If no name is provided, the code will also be used as the label.');
-    $list_description .= '</p>';
+    $help = '<p>';
+    $help .= $this->t('Enter one @item per line, in the format %format.', [
+      '@item' => 'language tag with optional label',
+      '%format' => 'tag|Label',
+    ]);
+    $help .= '<br>';
+    $help .= $this->t('If no label is provided, the tag will be the label.');
+    $help .= '</p>';
 
     $form['lang_primary'] = [
       '#title' => $this->t('Primary language settings'),
@@ -48,20 +49,20 @@ class LanguageSettingsForm extends ConfigFormBase {
     $form['lang_primary']['lang_primary_group_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Primary language group label'),
-      '#default_value' => $config->get('lang_primary_group_label') ?? NULL,
+      '#config_target' => 'ewp_core.settings:lang_primary_group_label',
     ];
-
-    $lang_primary_list = $config->get('lang_primary_list');
-    $lang_primary_text = ($lang_primary_list)
-      ? implode("\n", $lang_primary_list)
-      : '';
 
     $form['lang_primary']['lang_primary_list'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Primary language list'),
-      '#description' => $list_description,
-      '#default_value' => $lang_primary_text,
+      '#description' => $help,
       '#rows' => 5,
+      '#config_target' => new ConfigTarget(
+        'ewp_core.settings',
+        'lang_primary_list',
+        static::class . '::arrayToMultiLineString',
+        static::class . '::multiLineStringToArray',
+      ),
     ];
 
     $form['lang_secondary'] = [
@@ -74,20 +75,20 @@ class LanguageSettingsForm extends ConfigFormBase {
     $form['lang_secondary']['lang_secondary_group_label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Secondary language group label'),
-      '#default_value' => $config->get('lang_secondary_group_label') ?? NULL,
+      '#config_target' => 'ewp_core.settings:lang_secondary_group_label',
     ];
-
-    $lang_secondary_list = $config->get('lang_secondary_list');
-    $lang_secondary_text = ($lang_secondary_list)
-      ? implode("\n", $lang_secondary_list)
-      : '';
 
     $form['lang_secondary']['lang_secondary_list'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Secondary language list'),
-      '#description' => $list_description,
-      '#default_value' => $lang_secondary_text,
+      '#description' => $help,
       '#rows' => 5,
+      '#config_target' => new ConfigTarget(
+        'ewp_core.settings',
+        'lang_secondary_list',
+        static::class . '::arrayToMultiLineString',
+        static::class . '::multiLineStringToArray',
+      ),
     ];
 
     return parent::buildForm($form, $form_state);
@@ -104,34 +105,45 @@ class LanguageSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $lang_primary_label = $form_state->getValue('lang_primary_group_label');
     $lang_primary_text = $form_state->getValue('lang_primary_list');
-    $lang_primary_list = array_filter(
-      array_map(
-        'trim', explode(
-          "\n", $lang_primary_text
-        )
-      ), 'strlen'
-    );
+    if (empty($lang_primary_text)) {
+      $default = LangCodeManager::DEFAULT_PRIMARY_OPTION;
+      $form_state->setValue('lang_primary_list', $default);
+    }
 
-    $lang_secondary_label = $form_state->getValue('lang_secondary_group_label');
     $lang_secondary_text = $form_state->getValue('lang_secondary_list');
-    $lang_secondary_list = array_filter(
-      array_map(
-        'trim', explode(
-          "\n", $lang_secondary_text
-        )
-      ), 'strlen'
-    );
-
-    $this->config('ewp_core.settings')
-      ->set('lang_primary_group_label', $lang_primary_label)
-      ->set('lang_primary_list', $lang_primary_list)
-      ->set('lang_secondary_group_label', $lang_secondary_label)
-      ->set('lang_secondary_list', $lang_secondary_list)
-      ->save();
+    if (empty($lang_secondary_text)) {
+      $default = LangCodeManager::DEFAULT_SECONDARY_OPTION;
+      $form_state->setValue('lang_secondary_list', $default);
+    }
 
     parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * Prepares the submitted value to be stored in config.
+   *
+   * @param string $value
+   *   The submitted value.
+   *
+   * @return array
+   *   The value to be stored in config.
+   */
+  public static function multiLineStringToArray(string $value): array {
+    return array_map('trim', explode("\n", trim($value)));
+  }
+
+  /**
+   * Prepares the config value to be displayed in the form.
+   *
+   * @param array $value
+   *   The value saved in config.
+   *
+   * @return string
+   *   The value of the form element.
+   */
+  public static function arrayToMultiLineString(array $value): string {
+    return implode("\n", $value);
   }
 
 }

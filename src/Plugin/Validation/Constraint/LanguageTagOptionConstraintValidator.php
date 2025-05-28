@@ -17,6 +17,11 @@ final class LanguageTagOptionConstraintValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate(mixed $value, Constraint $constraint): void {
+    if (empty($value)) {
+      // Out of scope, add a NotBlank constraint if needed.
+      return;
+    }
+
     $parts = explode('|', $value, 2);
 
     if (empty($parts[0])) {

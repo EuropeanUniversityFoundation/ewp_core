@@ -11,6 +11,9 @@ use Drupal\Core\StringTranslation\TranslationInterface;
  */
 class LangCodeManager {
 
+  const DEFAULT_PRIMARY_OPTION = 'en|English';
+  const DEFAULT_SECONDARY_OPTION = 'und|Undetermined';
+
   use StringTranslationTrait;
 
   /**
@@ -67,7 +70,7 @@ class LangCodeManager {
    * @return array
    *   An array of language code => language name pairs.
    */
-  public static function getList() {
+  public static function getList(): array {
     $language_codes = [
       'EU languages' => [
         'bg' => t('Bulgarian'),
@@ -122,7 +125,7 @@ class LangCodeManager {
         'tr' => t('Turkish'),
         'uk' => t('Ukrainian'),
         'uk-Latn' => t('Ukrainian (Latin)'),
-        'xx' => t('- not listed -'),
+        'und' => t('Undetermined'),
       ],
     ];
 
@@ -137,7 +140,7 @@ class LangCodeManager {
    *
    * @see \Drupal\ewp_core\LangCodeManager::getList()
    */
-  public function getOptions() {
+  public function getOptions(): array {
     // Populate the language code list if it is not already populated.
     if (!isset($this->languageCodes)) {
       $this->languageCodes = static::getList();
@@ -237,7 +240,7 @@ class LangCodeManager {
       $lang_primary_list = (array) $config->get('lang_primary_list');
       $this->primaryList = (!empty($lang_primary_list))
         ? $lang_primary_list
-        : ['en|English'];
+        : [self::DEFAULT_PRIMARY_OPTION];
     }
 
     return $this->primaryList;
@@ -277,7 +280,7 @@ class LangCodeManager {
       $lang_secondary_list = (array) $config->get('lang_secondary_list');
       $this->secondaryList = (!empty($lang_secondary_list))
         ? $lang_secondary_list
-        : ['xx|undefined'];
+        : [DEFAULT_SECONDARY_OPTION];
     }
 
     return $this->secondaryList;
