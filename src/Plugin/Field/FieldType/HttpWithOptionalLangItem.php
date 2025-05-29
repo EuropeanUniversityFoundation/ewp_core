@@ -42,7 +42,8 @@ class HttpWithOptionalLangItem extends LinkItem {
     $properties = parent::propertyDefinitions($field_definition);
 
     $properties['lang'] = DataDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('Language tag'));
+      ->setLabel(new TranslatableMarkup('Language tag'))
+      ->addConstraint('ValidLanguageTag');
 
     return $properties;
   }
