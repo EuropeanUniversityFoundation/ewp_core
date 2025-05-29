@@ -5,7 +5,7 @@
  *
  * Available variables:
  * - string: the string component.
- * - langcode: the language code.
+ * - langtag: the language tag.
  * - langname: the language name.
  *
  * @see template_preprocess()
@@ -13,4 +13,4 @@
  * @ingroup themeable
  */
 #}
-{{ string }}{% if langcode %}&nbsp;<small><abbr title="{{ langname }}">{{ langcode }}</abbr></small>{% endif %}
+{{ string }}{% if langtag %}&nbsp;<small><abbr title="{{ langname }}">{{ langtag }}</abbr></small>{% endif %}

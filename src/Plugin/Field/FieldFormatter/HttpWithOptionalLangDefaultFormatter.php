@@ -9,7 +9,7 @@ use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\OptGroup;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\ewp_core\LangCodeManager;
+use Drupal\ewp_core\LanguageTagManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -26,11 +26,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
-   * Language code manager.
+   * Language tag manager.
    *
-   * @var \Drupal\ewp_core\LangCodeManager
+   * @var \Drupal\ewp_core\LanguageTagManagerInterface
    */
-  protected $langCodeManager;
+  protected $languageTagManager;
 
   /**
    * {@inheritdoc}
@@ -43,10 +43,10 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements Cont
     $label,
     $view_mode,
     array $third_party_settings,
-    LangCodeManager $lang_code_manager
+    LanguageTagManagerInterface $language_tag_manager
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
-    $this->langCodeManager = $lang_code_manager;
+    $this->languageTagManager = $language_tag_manager;
   }
 
   /**
@@ -61,7 +61,7 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements Cont
       $configuration['label'],
       $configuration['view_mode'],
       $configuration['third_party_settings'],
-      $container->get('ewp_core.langcode')
+      $container->get('ewp_core.language_tag')
     );
   }
 
@@ -94,9 +94,9 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements Cont
   /**
    * {@inheritdoc}
    */
-  public function viewElements(FieldItemListInterface $items, $langcode) {
-    $language_options = $this->langCodeManager->getConfigOptions();
-    $language_codes = OptGroup::flattenOptions($language_options);
+  public function viewElements(FieldItemListInterface $items, $langtag) {
+    $language_options = $this->languageTagManager->getSelectOptions();
+    $language_tags = OptGroup::flattenOptions($language_options);
 
     $elements = [];
 
@@ -108,16 +108,16 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements Cont
 
       $title = ($url_path) ? $url_host . $url_path : $url_host;
 
-      $code = $item->lang ?? NULL;
-      $name = (!empty($code) && \array_key_exists($code, $language_codes))
-        ? $language_codes[$code]
-        : $code;
+      $tag = $item->lang ?? NULL;
+      $name = (!empty($tag) && \array_key_exists($tag, $language_tags))
+        ? $language_tags[$tag]
+        : $tag;
 
       $elements[$delta] = [
         '#theme' => 'ewp_http_lang_default',
         '#url' => $url,
         '#title' => $title,
-        '#langcode' => $code,
+        '#langtag' => $tag,
         '#langname' => $name,
       ];
     }

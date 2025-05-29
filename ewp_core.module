@@ -81,21 +81,21 @@ function ewp_core_theme() {
       'variables' => [
         'url' => NULL,
         'title' => NULL,
-        'langcode' => NULL,
+        'langtag' => NULL,
         'langname' => NULL,
       ],
     ],
     'ewp_multiline_lang_default' => [
       'variables' => [
         'multiline' => NULL,
-        'langcode' => NULL,
+        'langtag' => NULL,
         'langname' => NULL,
       ],
     ],
     'ewp_string_lang_default' => [
       'variables' => [
         'string' => NULL,
-        'langcode' => NULL,
+        'langtag' => NULL,
         'langname' => NULL,
       ],
     ],
@@ -107,23 +107,4 @@ function ewp_core_theme() {
  */
 function ewp_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Any necessary changes here.
-}
-
-/**
- * Implements hook_field_info_alter().
- *
- * @todo Remove once minimum version supported is at least 10.2.0.
- */
-function ewp_core_field_info_alter(array &$info): void {
-  // Allow module to work with older versions of Drupal.
-  if (\version_compare(\Drupal::VERSION, '10.1.9999', '<')) {
-    $info['ascii_identifier']['category'] = t("EWP");
-    $info['cefr_level']['category'] = t("EWP select options");
-    $info['eqf_level']['category'] = t("EWP select options");
-    $info['gender_code']['category'] = t("EWP select options");
-    $info['ewp_http_lang']['category'] = t("EWP");
-    $info['ewp_https']['category'] = t("EWP");
-    $info['ewp_multiline_lang']['category'] = t("EWP");
-    $info['ewp_string_lang']['category'] = t("EWP");
-  }
 }

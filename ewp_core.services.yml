@@ -8,6 +8,6 @@ services:
   ewp_core.gender:
     class: Drupal\ewp_core\GenderCodeManager
     arguments: []
-  ewp_core.langcode:
-    class: Drupal\ewp_core\LangCodeManager
+  ewp_core.language_tag:
+    class: Drupal\ewp_core\LanguageTagManager
     arguments: ['@config.factory', '@string_translation']

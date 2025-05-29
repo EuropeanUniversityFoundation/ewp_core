@@ -1,4 +1,4 @@
-# ISO 639-1 languages codes
+# IEFT BCP 47 languages tags
 
 ## EU official languages
 

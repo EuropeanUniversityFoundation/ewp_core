@@ -17,7 +17,7 @@ ewp_core.settings:
 ewp_core.settings.lang:
   path: '/admin/ewp/settings/lang'
   defaults:
-    _title: 'Language settings'
-    _form: 'Drupal\ewp_core\Form\LanguageSettingsForm'
+    _title: 'Language tag settings'
+    _form: 'Drupal\ewp_core\Form\LanguageTagSettingsForm'
   requirements:
     _permission: 'administer ewp lang settings'

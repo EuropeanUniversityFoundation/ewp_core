@@ -8,7 +8,7 @@ use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\OptGroup;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\ewp_core\LangCodeManager;
+use Drupal\ewp_core\LanguageTagManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -25,11 +25,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class MultilineStringWithOptionalLangDefaultFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
-   * Language code manager.
+   * Language tag manager.
    *
-   * @var \Drupal\ewp_core\LangCodeManager
+   * @var \Drupal\ewp_core\LanguageTagManagerInterface
    */
-  protected $langCodeManager;
+  protected $languageTagManager;
 
   /**
    * {@inheritdoc}
@@ -42,10 +42,10 @@ class MultilineStringWithOptionalLangDefaultFormatter extends FormatterBase impl
     $label,
     $view_mode,
     array $third_party_settings,
-    LangCodeManager $lang_code_manager
+    LanguageTagManagerInterface $language_tag_manager
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
-    $this->langCodeManager = $lang_code_manager;
+    $this->languageTagManager = $language_tag_manager;
   }
 
   /**
@@ -60,7 +60,7 @@ class MultilineStringWithOptionalLangDefaultFormatter extends FormatterBase impl
       $configuration['label'],
       $configuration['view_mode'],
       $configuration['third_party_settings'],
-      $container->get('ewp_core.langcode')
+      $container->get('ewp_core.language_tag')
     );
   }
 
@@ -95,22 +95,22 @@ class MultilineStringWithOptionalLangDefaultFormatter extends FormatterBase impl
   /**
    * {@inheritdoc}
    */
-  public function viewElements(FieldItemListInterface $items, $langcode) {
-    $language_options = $this->langCodeManager->getConfigOptions();
-    $language_codes = OptGroup::flattenOptions($language_options);
+  public function viewElements(FieldItemListInterface $items, $langtag) {
+    $language_options = $this->languageTagManager->getSelectOptions();
+    $language_tags = OptGroup::flattenOptions($language_options);
 
     $elements = [];
 
     foreach ($items as $delta => $item) {
-      $code = $item->lang ?? NULL;
-      $name = (!empty($code) && \array_key_exists($code, $language_codes))
-        ? $language_codes[$code]
-        : $code;
+      $tag = $item->lang ?? NULL;
+      $name = (!empty($tag) && \array_key_exists($tag, $language_tags))
+        ? $language_tags[$tag]
+        : $tag;
 
       $elements[$delta] = [
         '#theme' => 'ewp_multiline_lang_default',
         '#multiline' => $item->multiline,
-        '#langcode' => $code,
+        '#langtag' => $tag,
         '#langname' => $name,
       ];
     }

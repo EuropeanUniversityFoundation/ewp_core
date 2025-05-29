@@ -10,13 +10,13 @@ use Drupal\ewp_core\LangCodeManager;
 /**
  * Configure EWP core language typed field settings.
  */
-class LanguageSettingsForm extends ConfigFormBase {
+class LanguageTagSettingsForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'ewp_core_language_settings';
+    return 'ewp_core_language_tag_settings';
   }
 
   /**
