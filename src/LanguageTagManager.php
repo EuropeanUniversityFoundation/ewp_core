@@ -10,7 +10,7 @@ use Drupal\Core\StringTranslation\TranslationInterface;
 use Toobo\Bcp47;
 
 /**
- * @todo Add class description.
+ * IETF BCP47 language tag manager.
  */
 final class LanguageTagManager implements LanguageTagManagerInterface {
 
@@ -25,21 +25,29 @@ final class LanguageTagManager implements LanguageTagManagerInterface {
 
   /**
    * Primary language group label.
+   *
+   * @var string|null
    */
   protected $primaryLabel;
 
   /**
    * Primary language list.
+   *
+   * @var array|null
    */
   protected $primaryList;
 
   /**
    * Secondary language group label.
+   *
+   * @var string|null
    */
   protected $secondaryLabel;
 
   /**
    * Secondary language list.
+   *
+   * @var array|null
    */
   protected $secondaryList;
 
@@ -101,7 +109,7 @@ final class LanguageTagManager implements LanguageTagManagerInterface {
       $lang_primary_label = $config->get('lang_primary_group_label');
       $this->primaryLabel = (!empty($lang_primary_label))
         ? $lang_primary_label
-        : $this->t(self::DEFAULT_LABEL_PRIMARY);
+        : $this->t('@label', ['label' => self::DEFAULT_LABEL_PRIMARY]);
     }
 
     return $this->primaryLabel;
@@ -139,7 +147,7 @@ final class LanguageTagManager implements LanguageTagManagerInterface {
       $lang_secondary_label = $config->get('lang_secondary_group_label');
       $this->secondaryLabel = (!empty($lang_secondary_label))
         ? $lang_secondary_label
-        : $this->t(self::DEFAULT_LABEL_SECONDARY);
+        : $this->t('@label', ['label' => self::DEFAULT_LABEL_SECONDARY]);
     }
 
     return $this->secondaryLabel;
@@ -159,7 +167,7 @@ final class LanguageTagManager implements LanguageTagManagerInterface {
       $lang_secondary_list = (array) $config->get('lang_secondary_list');
       $this->secondaryList = (!empty($lang_secondary_list))
         ? $lang_secondary_list
-        : [DEFAULT_TAG_SECONDARY];
+        : [self::DEFAULT_TAG_SECONDARY];
     }
 
     return $this->secondaryList;
@@ -180,7 +188,9 @@ final class LanguageTagManager implements LanguageTagManagerInterface {
     foreach ($list as $item) {
       $parts = explode('|', $item, 2);
       $tag = Bcp47::filterTag($parts[0]);
-      $label = (count($parts) === 2) ? $this->t($parts[1]) : $tag;
+      $label = (count($parts) === 2)
+        ? $this->t('@label', ['@label' => $parts[1]])
+        : $tag;
 
       $options[$tag] = $label;
     }

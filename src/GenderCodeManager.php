@@ -11,6 +11,8 @@ class GenderCodeManager {
 
   /**
    * An array of numeric key => Gender code pairs.
+   *
+   * @var array|null
    */
   protected $genderCodes;
 
