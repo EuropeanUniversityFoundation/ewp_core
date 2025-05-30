@@ -31,13 +31,6 @@ class HttpWithOptionalLangItem extends LinkItem {
   /**
    * {@inheritdoc}
    */
-  public static function defaultStorageSettings() {
-    return parent::defaultStorageSettings();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties = parent::propertyDefinitions($field_definition);
 

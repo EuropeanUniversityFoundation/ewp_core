@@ -40,7 +40,7 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
     FieldDefinitionInterface $field_definition,
     array $settings,
     array $third_party_settings,
-    LanguageTagManagerInterface $language_tag_manager
+    LanguageTagManagerInterface $language_tag_manager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
     $this->languageTagManager = $language_tag_manager;
@@ -58,13 +58,6 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
       $configuration['third_party_settings'],
       $container->get('ewp_core.language_tag')
     );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function defaultSettings() {
-    return parent::defaultSettings();
   }
 
   /**

@@ -43,7 +43,7 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements Cont
     $label,
     $view_mode,
     array $third_party_settings,
-    LanguageTagManagerInterface $language_tag_manager
+    LanguageTagManagerInterface $language_tag_manager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->languageTagManager = $language_tag_manager;
@@ -68,13 +68,6 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements Cont
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
-    return parent::defaultSettings();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function settingsForm(array $form, FormStateInterface $form_state) {
     return [
       // Implement settings form.
@@ -87,7 +80,6 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements Cont
   public function settingsSummary() {
     $summary = [];
     // Implement settings summary.
-
     return $summary;
   }
 

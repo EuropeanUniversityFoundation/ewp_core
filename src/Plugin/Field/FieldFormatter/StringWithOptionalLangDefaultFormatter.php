@@ -42,7 +42,7 @@ class StringWithOptionalLangDefaultFormatter extends FormatterBase implements Co
     $label,
     $view_mode,
     array $third_party_settings,
-    LanguageTagManagerInterface $language_tag_manager
+    LanguageTagManagerInterface $language_tag_manager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->languageTagManager = $language_tag_manager;
@@ -88,7 +88,6 @@ class StringWithOptionalLangDefaultFormatter extends FormatterBase implements Co
   public function settingsSummary() {
     $summary = [];
     // Implement settings summary.
-
     return $summary;
   }
 

@@ -28,13 +28,6 @@ class MultilineStringWithOptionalLangItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultStorageSettings() {
-    return parent::defaultStorageSettings();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     // Prevent early t() calls by using the TranslatableMarkup.
     $properties['multiline'] = DataDefinition::create('string')

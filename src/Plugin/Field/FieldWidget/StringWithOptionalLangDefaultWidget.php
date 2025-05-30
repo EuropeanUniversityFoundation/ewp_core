@@ -40,7 +40,7 @@ class StringWithOptionalLangDefaultWidget extends WidgetBase implements Containe
     FieldDefinitionInterface $field_definition,
     array $settings,
     array $third_party_settings,
-    LanguageTagManagerInterface $language_tag_manager
+    LanguageTagManagerInterface $language_tag_manager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
     $this->languageTagManager = $language_tag_manager;

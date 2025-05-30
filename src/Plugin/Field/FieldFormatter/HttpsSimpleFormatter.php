@@ -22,13 +22,6 @@ class HttpsSimpleFormatter extends FormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
-    return parent::defaultSettings();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function settingsForm(array $form, FormStateInterface $form_state) {
     return [
       // Implement settings form.
@@ -41,7 +34,6 @@ class HttpsSimpleFormatter extends FormatterBase {
   public function settingsSummary() {
     $summary = [];
     // Implement settings summary.
-
     return $summary;
   }
 
