@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Drupal\ewp_core\Plugin\Validation\Constraint;
 
-use Symfony\Component\Validator\Constraint;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Validation\Attribute\Constraint;
+use Symfony\Component\Validator\Constraint as SymfonyConstraint;
 
 /**
- * Provides a Language tag option constraint.
- *
- * @Constraint(
- *   id = "LanguageTagOption",
- *   label = @Translation("Language tag option", context = "Validation"),
- * )
+ * Defines a Language tag option constraint.
  */
-final class LanguageTagOptionConstraint extends Constraint {
+#[Constraint(
+  id: 'LanguageTagOption',
+  label: new TranslatableMarkup('Language tag option', [], ['context' => 'Validation'])
+)]
+final class LanguageTagOptionConstraint extends SymfonyConstraint {
 
   /**
    * The error message if the language tag is missing.

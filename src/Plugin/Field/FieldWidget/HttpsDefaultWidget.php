@@ -23,13 +23,6 @@ class HttpsDefaultWidget extends WidgetBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
-    return parent::defaultSettings();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $elements = [];
 
@@ -53,7 +46,6 @@ class HttpsDefaultWidget extends WidgetBase {
       '#type' => 'url',
       '#default_value' => $items[$delta]->uri ?? NULL,
       '#maxlength' => 2048,
-      '#element_validate' => [[$this, 'validateHttps']],
     ];
 
     // If cardinality is 1, ensure a proper label is output for the field.
@@ -66,22 +58,6 @@ class HttpsDefaultWidget extends WidgetBase {
     }
 
     return $element;
-  }
-
-  /**
-   * Validate HTTPS protocol.
-   */
-  public function validateHttps($element, FormStateInterface $form_state) {
-    $uri = $element['#value'];
-
-    if (strlen($uri) === 0) {
-      return;
-    }
-
-    if (\parse_url($uri, PHP_URL_SCHEME) !== 'https') {
-      $message = $this->t('The URL scheme must be HTTPS.');
-      $form_state->setError($element, $message);
-    }
   }
 
 }

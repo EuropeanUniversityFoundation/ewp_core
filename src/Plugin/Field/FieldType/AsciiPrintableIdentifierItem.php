@@ -64,8 +64,12 @@ class AsciiPrintableIdentifierItem extends FieldItemBase {
     // Prevent early t() calls by using the TranslatableMarkup.
     $properties['value'] = DataDefinition::create('string')
       ->setLabel(new TranslatableMarkup('Identifier'))
-      ->setSetting('case_sensitive', $field_definition->getSetting('case_sensitive'))
-      ->setRequired(TRUE);
+      ->setSetting('case_sensitive', TRUE)
+      ->setRequired(TRUE)
+      ->addConstraint('Regex', [
+        'pattern' => '/^[ -~]+$/',
+        'message' => new TranslatableMarkup('ASCII printable characters only.'),
+      ]);
 
     return $properties;
   }
@@ -77,9 +81,9 @@ class AsciiPrintableIdentifierItem extends FieldItemBase {
     $schema = [
       'columns' => [
         'value' => [
-          'type' => $field_definition->getSetting('is_ascii') === TRUE ? 'varchar_ascii' : 'varchar',
+          'type' => 'varchar_ascii',
           'length' => (int) $field_definition->getSetting('max_length'),
-          'binary' => $field_definition->getSetting('case_sensitive'),
+          'binary' => TRUE,
         ],
       ],
     ];
