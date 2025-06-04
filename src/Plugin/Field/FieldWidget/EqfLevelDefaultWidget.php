@@ -40,7 +40,7 @@ class EqfLevelDefaultWidget extends WidgetBase implements ContainerFactoryPlugin
     FieldDefinitionInterface $field_definition,
     array $settings,
     array $third_party_settings,
-    EqfLevelManager $eqf_level_manager
+    EqfLevelManager $eqf_level_manager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
     $this->eqfLevelManager = $eqf_level_manager;

@@ -5,18 +5,18 @@ namespace Drupal\ewp_core\Form;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\ConfigTarget;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\ewp_core\LangCodeManager;
+use Drupal\ewp_core\LanguageTagManager;
 
 /**
  * Configure EWP core language typed field settings.
  */
-class LanguageSettingsForm extends ConfigFormBase {
+class LanguageTagSettingsForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'ewp_core_language_settings';
+    return 'ewp_core_language_tag_settings';
   }
 
   /**
@@ -97,23 +97,16 @@ class LanguageSettingsForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
-    parent::validateForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $lang_primary_text = $form_state->getValue('lang_primary_list');
     if (empty($lang_primary_text)) {
-      $default = LangCodeManager::DEFAULT_PRIMARY_OPTION;
+      $default = LanguageTagManager::DEFAULT_TAG_PRIMARY;
       $form_state->setValue('lang_primary_list', $default);
     }
 
     $lang_secondary_text = $form_state->getValue('lang_secondary_list');
     if (empty($lang_secondary_text)) {
-      $default = LangCodeManager::DEFAULT_SECONDARY_OPTION;
+      $default = LanguageTagManager::DEFAULT_TAG_SECONDARY;
       $form_state->setValue('lang_secondary_list', $default);
     }
 

@@ -16,8 +16,8 @@ use Drupal\Core\TypedData\DataDefinition;
  *   label = @Translation("String with optional lang"),
  *   description = {
  *     @Translation("Stores a short string"),
- *     @Translation("Stores an optional language code"),
- *     @Translation("For example, 'en' => 'English'"),
+ *     @Translation("Stores an optional IETF BCP 47 language tag"),
+ *     @Translation("e.g. el for Greek, el-Latn for Greek in Latin script."),
  *   },
  *   category = "ewp_lang",
  *   default_widget = "ewp_string_lang_default",
@@ -64,7 +64,8 @@ class StringWithOptionalLangItem extends FieldItemBase {
       ->setRequired(TRUE);
 
     $properties['lang'] = DataDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('Language code'));
+      ->setLabel(new TranslatableMarkup('Language tag'))
+      ->addConstraint('ValidLanguageTag');
 
     return $properties;
   }

@@ -9,6 +9,8 @@ class EqfLevelManager {
 
   /**
    * An array of numeric key => EQF level pairs.
+   *
+   * @var array|null
    */
   protected $eqfLevels;
 

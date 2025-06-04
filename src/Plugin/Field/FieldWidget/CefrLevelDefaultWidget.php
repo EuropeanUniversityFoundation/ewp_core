@@ -40,7 +40,7 @@ class CefrLevelDefaultWidget extends WidgetBase implements ContainerFactoryPlugi
     FieldDefinitionInterface $field_definition,
     array $settings,
     array $third_party_settings,
-    CefrLevelManager $cefr_level_manager
+    CefrLevelManager $cefr_level_manager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
     $this->cefrLevelManager = $cefr_level_manager;

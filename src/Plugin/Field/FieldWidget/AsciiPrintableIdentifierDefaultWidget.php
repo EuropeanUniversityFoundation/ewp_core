@@ -83,7 +83,6 @@ class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
       '#size' => $this->getSetting('size'),
       '#placeholder' => $this->getSetting('placeholder'),
       '#maxlength' => $this->getFieldSetting('max_length'),
-      '#element_validate' => [[$this, 'validateAscii']],
     ];
 
     // If cardinality is 1, ensure a proper label is output for the field.
@@ -99,22 +98,6 @@ class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
     $element['#attached']['library'][] = 'ewp_core/ascii_id';
 
     return $element;
-  }
-
-  /**
-   * Validate ASCII string.
-   */
-  public function validateAscii($element, FormStateInterface $form_state) {
-    $value = $element['#value'];
-
-    if (strlen($value) === 0) {
-      return;
-    }
-
-    if (!\ctype_print($value)) {
-      $message = $this->t('The identifier must only contain printable ASCII characters.');
-      $form_state->setError($element, $message);
-    }
   }
 
 }

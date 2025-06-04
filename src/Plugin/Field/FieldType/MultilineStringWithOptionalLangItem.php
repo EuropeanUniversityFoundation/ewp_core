@@ -15,8 +15,8 @@ use Drupal\Core\TypedData\DataDefinition;
  *   label = @Translation("Multiline string with optional lang"),
  *   description = {
  *     @Translation("Stores a long string"),
- *     @Translation("Stores an optional language code"),
- *     @Translation("For example, 'en' => 'English'"),
+ *     @Translation("Stores an optional IETF BCP 47 language tag"),
+ *     @Translation("e.g. el for Greek, el-Latn for Greek in Latin script."),
  *   },
  *   category = "ewp_lang",
  *   default_widget = "ewp_multiline_lang_default",
@@ -28,13 +28,6 @@ class MultilineStringWithOptionalLangItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultStorageSettings() {
-    return parent::defaultStorageSettings();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     // Prevent early t() calls by using the TranslatableMarkup.
     $properties['multiline'] = DataDefinition::create('string')
@@ -42,7 +35,8 @@ class MultilineStringWithOptionalLangItem extends FieldItemBase {
       ->setRequired(TRUE);
 
     $properties['lang'] = DataDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('Language code'));
+      ->setLabel(new TranslatableMarkup('Language tag'))
+      ->addConstraint('ValidLanguageTag');
 
     return $properties;
   }

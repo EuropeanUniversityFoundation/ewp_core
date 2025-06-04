@@ -40,7 +40,7 @@ class GenderCodeDefaultFormatter extends FormatterBase implements ContainerFacto
     $label,
     $view_mode,
     array $third_party_settings,
-    GenderCodeManager $gender_code_manager
+    GenderCodeManager $gender_code_manager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->genderCodeManager = $gender_code_manager;
@@ -73,7 +73,7 @@ class GenderCodeDefaultFormatter extends FormatterBase implements ContainerFacto
     foreach ($items as $delta => $item) {
       $elements[$delta] = [
         '#theme' => 'ewp_gender_code_default',
-        '#value' => ($item->value) ? $gender_codes[$item->value] : NULL,
+        '#value' => $gender_codes[$item->value] ?? NULL,
       ];
     }
 

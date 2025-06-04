@@ -41,7 +41,7 @@ class CefrLevelDefaultFormatter extends FormatterBase implements ContainerFactor
     $label,
     $view_mode,
     array $third_party_settings,
-    CefrLevelManager $cefr_level_manager
+    CefrLevelManager $cefr_level_manager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->cefrLevelManager = $cefr_level_manager;

@@ -9,6 +9,8 @@ class CefrLevelManager {
 
   /**
    * An array of CEFR level => CEFR level pairs.
+   *
+   * @var array|null
    */
   protected $cefrLevels;
 

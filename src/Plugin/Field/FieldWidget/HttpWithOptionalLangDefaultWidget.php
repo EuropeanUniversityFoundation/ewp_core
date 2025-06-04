@@ -7,7 +7,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\ewp_core\LangCodeManager;
+use Drupal\ewp_core\LanguageTagManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -25,11 +25,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerFactoryPluginInterface {
 
   /**
-   * Language code manager.
+   * Language tag manager.
    *
-   * @var \Drupal\ewp_core\LangCodeManager
+   * @var \Drupal\ewp_core\LanguageTagManagerInterface
    */
-  protected $langCodeManager;
+  protected $languageTagManager;
 
   /**
    * {@inheritdoc}
@@ -40,10 +40,10 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
     FieldDefinitionInterface $field_definition,
     array $settings,
     array $third_party_settings,
-    LangCodeManager $lang_code_manager
+    LanguageTagManagerInterface $language_tag_manager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
-    $this->langCodeManager = $lang_code_manager;
+    $this->languageTagManager = $language_tag_manager;
   }
 
   /**
@@ -56,15 +56,8 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
       $configuration['field_definition'],
       $configuration['settings'],
       $configuration['third_party_settings'],
-      $container->get('ewp_core.langcode')
+      $container->get('ewp_core.language_tag')
     );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function defaultSettings() {
-    return parent::defaultSettings();
   }
 
   /**
@@ -102,7 +95,7 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
       '#attributes' => ['class' => ['inline-shrink']],
     ];
 
-    $lang_options = $this->langCodeManager->getConfigOptions();
+    $lang_options = $this->languageTagManager->getSelectOptions();
     $lang_exists = FALSE;
 
     $default_lang = $items[$delta]->lang ?? NULL;

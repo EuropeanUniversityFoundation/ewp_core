@@ -29,8 +29,9 @@ class EqfLevelItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
-    $properties['value'] = DataDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('EQF level'));
+    $properties['value'] = DataDefinition::create('integer')
+      ->setLabel(new TranslatableMarkup('EQF level'))
+      ->addConstraint('Range', ['min' => '1', 'max' => '8']);
 
     return $properties;
   }
@@ -42,9 +43,9 @@ class EqfLevelItem extends FieldItemBase {
     return [
       'columns' => [
         'value' => [
-          'type' => 'char',
-          'length' => 255,
-          'not null' => FALSE,
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'size' => 'tiny',
         ],
       ],
       'indexes' => [

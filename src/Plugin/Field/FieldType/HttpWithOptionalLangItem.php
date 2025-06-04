@@ -18,8 +18,8 @@ use Drupal\Core\Url;
  *   description = {
  *     @Translation("Stores a URL string"),
  *     @Translation("Allows http:// and https:// protocols"),
- *     @Translation("Stores an optional language code"),
- *     @Translation("For example, 'en' => 'English'"),
+ *     @Translation("Stores an optional IETF BCP 47 language tag"),
+ *     @Translation("e.g. el for Greek, el-Latn for Greek in Latin script."),
  *   },
  *   category = "ewp_lang",
  *   default_widget = "ewp_http_lang_default",
@@ -31,18 +31,12 @@ class HttpWithOptionalLangItem extends LinkItem {
   /**
    * {@inheritdoc}
    */
-  public static function defaultStorageSettings() {
-    return parent::defaultStorageSettings();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties = parent::propertyDefinitions($field_definition);
 
     $properties['lang'] = DataDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('Language code'));
+      ->setLabel(new TranslatableMarkup('Language tag'))
+      ->addConstraint('ValidLanguageTag');
 
     return $properties;
   }

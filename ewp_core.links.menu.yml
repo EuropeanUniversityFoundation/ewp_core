@@ -13,7 +13,7 @@ ewp_core.settings:
   weight: 100
 
 ewp_core.settings.lang:
-  title: 'Language settings'
+  title: 'Language tag settings'
   description: 'Settings for language typed fields'
   route_name: 'ewp_core.settings.lang'
   parent: 'ewp_core.settings'
