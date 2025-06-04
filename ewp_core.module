@@ -5,6 +5,7 @@
  * Contains ewp_core.module.
  */
 
+use Drupal\Core\Entity\Sql\SqlContentEntityStorageException;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -107,4 +108,99 @@ function ewp_core_theme() {
  */
 function ewp_core_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Any necessary changes here.
+}
+
+/**
+ * Helper function to update the field schema to current.
+ *
+ * Source: https://gist.github.com/JPustkuchen/ce53d40303a51ca5f17ce7f48c363b9b
+ *
+ * Updates the field schema of all fields from the given $field_type_id
+ * to the current schema, preserving existing data by recreating the
+ * field tables & field revision tables.
+ * Hopefully this will one day be replaced by a similar core helper function.
+ * See https://www.drupal.org/project/entity_access_by_role_field/issues/336357
+ * core issue for future replacement field schema helper implementation.
+ *
+ * @param string $field_type_id
+ *   The @FieldType id, e.g. "entity_access_by_role_field".
+ */
+function _ewp_core_field_type_schema_column_spec_change_helper(string $field_type_id): void {
+  $entity_field_manager = \Drupal::service('entity_field.manager');
+  $entity_field_map = $entity_field_manager->getFieldMapByFieldType($field_type_id);
+
+  $entity_type_manager = \Drupal::entityTypeManager();
+  foreach ($entity_field_map as $entity_type_id => $field_map) {
+    // This is always an SQL Entity Storage Interface:
+    /** @var \Drupal\Core\Entity\Sql\SqlEntityStorageInterface $entity_storage*/
+    $entity_storage = $entity_type_manager->getStorage($entity_type_id);
+    $entity_type = $entity_type_manager->getDefinition($entity_type_id);
+    $field_storage_definitions = $entity_field_manager->getFieldStorageDefinitions($entity_type_id);
+    /** @var Drupal\Core\Entity\Sql\DefaultTableMapping $table_mapping */
+    $table_mapping = $entity_storage->getTableMapping($field_storage_definitions);
+    // Only need field storage definitions of our field type:
+    /** @var \Drupal\Core\Field\FieldStorageDefinitionInterface $field_storage_definition */
+    foreach (array_intersect_key($field_storage_definitions, $field_map) as $field_storage_definition) {
+      $field_name = $field_storage_definition->getName();
+      $tables = [];
+      try {
+        $table = $table_mapping->getFieldTableName($field_name);
+        $tables[] = $table;
+      }
+      catch (SqlContentEntityStorageException $e) {
+        // Custom storage? Broken site? No matter what, if there is no table
+        // there's little we can do.
+        continue;
+      }
+      // See if the field has a revision table.
+      $revision_table = NULL;
+      if ($entity_type->isRevisionable() && $field_storage_definition->isRevisionable()) {
+        if ($table_mapping->requiresDedicatedTableStorage($field_storage_definition)) {
+          $revision_table = $table_mapping->getDedicatedRevisionTableName($field_storage_definition);
+          $tables[] = $revision_table;
+        }
+        elseif ($table_mapping->allowsSharedTableStorage($field_storage_definition)) {
+          $revision_table = $entity_type->getRevisionDataTable() ?: $entity_type->getRevisionTable();
+          $tables[] = $revision_table;
+        }
+      }
+
+      $database = \Drupal::database();
+      $existing_data = [];
+      foreach ($tables as $table) {
+        // Get the old data.
+        $existing_data[$table] = $database->select($table)
+          ->fields($table)
+          ->execute()
+          ->fetchAll(PDO::FETCH_ASSOC);
+
+        // Wipe it.
+        $database->truncate($table)->execute();
+      }
+
+      $manager = \Drupal::entityDefinitionUpdateManager();
+      $manager->updateFieldStorageDefinition($manager->getFieldStorageDefinition($field_name, $entity_type_id));
+
+      // Restore the data.
+      foreach ($tables as $table) {
+        if (empty($existing_data[$table])) {
+          // Skip if there are no rows:
+          continue;
+        }
+        $first_row = reset($existing_data[$table]);
+        if (empty($first_row)) {
+          // Skip if there is no data:
+          continue;
+        }
+        $fields = array_keys($first_row);
+        $insert_query = $database
+          ->insert($table)
+          ->fields($fields);
+        foreach ($existing_data[$table] as $row) {
+          $insert_query->values(array_values($row));
+        }
+        $insert_query->execute();
+      }
+    }
+  }
 }

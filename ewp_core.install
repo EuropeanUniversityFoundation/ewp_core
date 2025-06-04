@@ -64,3 +64,22 @@ function ewp_core_update_8103() {
     $entity_definition_update_manager->updateFieldStorageDefinition($field_storage_definition);
   }
 }
+
+/**
+ * Update field definitions: EQF Level and Gender code have integer values.
+ */
+function ewp_core_update_10104() {
+  $target_field_types = ['eqf_level', 'gender_code'];
+
+  foreach ($target_field_types as $field_type) {
+    // Check if there are any configured fields of this type.
+    $field_configs = \Drupal::entityTypeManager()
+      ->getStorage('field_config')
+      ->loadByProperties(['field_type' => $field_type]);
+
+    if (!empty($field_configs)) {
+      // See helper method in .module file.
+      _ewp_core_field_type_schema_column_spec_change_helper($field_type);
+    }
+  }
+}

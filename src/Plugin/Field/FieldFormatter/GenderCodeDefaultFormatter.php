@@ -73,7 +73,7 @@ class GenderCodeDefaultFormatter extends FormatterBase implements ContainerFacto
     foreach ($items as $delta => $item) {
       $elements[$delta] = [
         '#theme' => 'ewp_gender_code_default',
-        '#value' => ($item->value) ? $gender_codes[$item->value] : NULL,
+        '#value' => $gender_codes[$item->value] ?? NULL,
       ];
     }
 

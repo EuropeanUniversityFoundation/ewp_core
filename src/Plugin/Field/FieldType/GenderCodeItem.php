@@ -29,8 +29,9 @@ class GenderCodeItem extends FieldItemBase {
    * {@inheritdoc}
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
-    $properties['value'] = DataDefinition::create('string')
-      ->setLabel(new TranslatableMarkup('Gender code'));
+    $properties['value'] = DataDefinition::create('integer')
+      ->setLabel(new TranslatableMarkup('Gender code'))
+      ->addConstraint('Choice', ['0', '1', '2', '9']);
 
     return $properties;
   }
@@ -42,9 +43,9 @@ class GenderCodeItem extends FieldItemBase {
     return [
       'columns' => [
         'value' => [
-          'type' => 'char',
-          'length' => 255,
-          'not null' => FALSE,
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'size' => 'tiny',
         ],
       ],
       'indexes' => [
