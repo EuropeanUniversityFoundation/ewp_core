@@ -6,7 +6,7 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\ewp_core\GenderCodeManager;
+use Drupal\ewp_core\SelectOptionsProviderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -25,7 +25,7 @@ class GenderCodeDefaultFormatter extends FormatterBase implements ContainerFacto
   /**
    * Gender code manager.
    *
-   * @var \Drupal\ewp_core\GenderCodeManager
+   * @var \Drupal\ewp_core\SelectOptionsProviderInterface
    */
   protected $genderCodeManager;
 
@@ -40,7 +40,7 @@ class GenderCodeDefaultFormatter extends FormatterBase implements ContainerFacto
     $label,
     $view_mode,
     array $third_party_settings,
-    GenderCodeManager $gender_code_manager,
+    SelectOptionsProviderInterface $gender_code_manager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->genderCodeManager = $gender_code_manager;

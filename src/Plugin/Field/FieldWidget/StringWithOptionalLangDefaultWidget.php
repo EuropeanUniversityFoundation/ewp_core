@@ -7,7 +7,7 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\ewp_core\LanguageTagManagerInterface;
+use Drupal\ewp_core\SelectOptionsProviderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -27,7 +27,7 @@ class StringWithOptionalLangDefaultWidget extends WidgetBase implements Containe
   /**
    * Language tag manager.
    *
-   * @var \Drupal\ewp_core\LanguageTagManagerInterface
+   * @var \Drupal\ewp_core\SelectOptionsProviderInterface
    */
   protected $languageTagManager;
 
@@ -40,7 +40,7 @@ class StringWithOptionalLangDefaultWidget extends WidgetBase implements Containe
     FieldDefinitionInterface $field_definition,
     array $settings,
     array $third_party_settings,
-    LanguageTagManagerInterface $language_tag_manager,
+    SelectOptionsProviderInterface $language_tag_manager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
     $this->languageTagManager = $language_tag_manager;

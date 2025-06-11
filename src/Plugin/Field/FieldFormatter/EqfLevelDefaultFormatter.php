@@ -6,7 +6,7 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\ewp_core\EqfLevelManager;
+use Drupal\ewp_core\SelectOptionsProviderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -25,7 +25,7 @@ class EqfLevelDefaultFormatter extends FormatterBase implements ContainerFactory
   /**
    * EQF level manager.
    *
-   * @var \Drupal\ewp_core\EqfLevelManager
+   * @var \Drupal\ewp_core\SelectOptionsProviderInterface
    */
   protected $eqfLevelManager;
 
@@ -40,7 +40,7 @@ class EqfLevelDefaultFormatter extends FormatterBase implements ContainerFactory
     $label,
     $view_mode,
     array $third_party_settings,
-    EqfLevelManager $eqf_level_manager,
+    SelectOptionsProviderInterface $eqf_level_manager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->eqfLevelManager = $eqf_level_manager;
