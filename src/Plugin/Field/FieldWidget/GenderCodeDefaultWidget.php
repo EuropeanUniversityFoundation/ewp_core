@@ -66,7 +66,7 @@ class GenderCodeDefaultWidget extends WidgetBase implements ContainerFactoryPlug
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element['value'] = $element + [
       '#type' => 'select',
-      '#options' => $this->genderCodeManager->getOptions(),
+      '#options' => $this->genderCodeManager->getSelectOptions(),
       '#empty_value' => '',
       '#default_value' => $items[$delta]->value ?? NULL,
     ];

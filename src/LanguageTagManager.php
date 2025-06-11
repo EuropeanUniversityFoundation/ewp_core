@@ -12,7 +12,7 @@ use Toobo\Bcp47;
 /**
  * IETF BCP47 language tag manager.
  */
-final class LanguageTagManager implements LanguageTagManagerInterface {
+final class LanguageTagManager implements SelectOptionsProviderInterface {
 
   const CONFIG_OBJECT = 'ewp_core.settings';
 

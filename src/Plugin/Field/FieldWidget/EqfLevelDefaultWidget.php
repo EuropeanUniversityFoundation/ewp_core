@@ -66,7 +66,7 @@ class EqfLevelDefaultWidget extends WidgetBase implements ContainerFactoryPlugin
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element['value'] = $element + [
       '#type' => 'select',
-      '#options' => $this->eqfLevelManager->getOptions(),
+      '#options' => $this->eqfLevelManager->getSelectOptions(),
       '#empty_value' => '',
       '#default_value' => $items[$delta]->value ?? NULL,
     ];

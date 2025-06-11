@@ -66,7 +66,7 @@ class EqfLevelDefaultFormatter extends FormatterBase implements ContainerFactory
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $eqf_levels = $this->eqfLevelManager->getOptions();
+    $eqf_levels = $this->eqfLevelManager->getSelectOptions();
 
     $elements = [];
 

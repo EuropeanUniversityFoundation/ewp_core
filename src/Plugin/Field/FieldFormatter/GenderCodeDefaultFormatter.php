@@ -66,7 +66,7 @@ class GenderCodeDefaultFormatter extends FormatterBase implements ContainerFacto
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $gender_codes = $this->genderCodeManager->getOptions();
+    $gender_codes = $this->genderCodeManager->getSelectOptions();
 
     $elements = [];
 

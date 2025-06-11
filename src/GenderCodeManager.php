@@ -7,7 +7,7 @@ namespace Drupal\ewp_core;
  *
  * In EWP these are treated as Gender codes.
  */
-class GenderCodeManager {
+class GenderCodeManager implements SelectOptionsProviderInterface {
 
   /**
    * An array of numeric key => Gender code pairs.
@@ -41,7 +41,7 @@ class GenderCodeManager {
    *
    * @see \Drupal\ewp_core\GenderCodeManager::getList()
    */
-  public function getOptions() {
+  public function getSelectOptions(): array {
     // Populate the Gender code list if it is not already populated.
     if (!isset($this->genderCodes)) {
       $this->genderCodes = static::getList();
