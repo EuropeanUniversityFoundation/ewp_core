@@ -64,10 +64,26 @@ final class LanguageTagListResource extends ResourceBase {
    */
   public function get(): ResourceResponse {
     $config = $this->configFactory->get('ewp_core.settings');
-    $resource = $config->getRawData();
+    $raw = $config->getRawData();
 
     foreach (['_core', 'langcode'] as $key) {
-      unset($resource[$key]);
+      unset($raw[$key]);
+    }
+
+    $resource = [];
+
+    foreach ($raw as $key => $value) {
+      if (is_array($value)) {
+        $resource[$key] = [];
+
+        foreach ($value as $item) {
+          $parts = explode('|', $item, 2);
+          $resource[$key][$parts[0]] = $parts[1] ?? $parts[0];
+        }
+      }
+      else {
+        $resource[$key] = $value;
+      }
     }
 
     return new ResourceResponse($resource);
