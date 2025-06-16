@@ -2,6 +2,7 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldType;
 
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -10,20 +11,20 @@ use Drupal\Core\TypedData\DataDefinition;
 
 /**
  * Plugin implementation of the 'ewp_string_lang' field type.
- *
- * @FieldType(
- *   id = "ewp_string_lang",
- *   label = @Translation("String with optional lang"),
- *   description = {
- *     @Translation("Stores a short string"),
- *     @Translation("Stores an optional IETF BCP 47 language tag"),
- *     @Translation("e.g. el for Greek, el-Latn for Greek in Latin script."),
- *   },
- *   category = "ewp_lang",
- *   default_widget = "ewp_string_lang_default",
- *   default_formatter = "ewp_string_lang_default"
- * )
  */
+#[FieldType(
+  id: "ewp_string_lang",
+  module: "ewp_core",
+  label: new TranslatableMarkup("String with optional lang"),
+  description: [
+    new TranslatableMarkup("Stores a short string."),
+    new TranslatableMarkup("Stores an optional IETF BCP 47 language tag."),
+    new TranslatableMarkup("e.g. el for Greek, el-Latn for Greek in Latin script."),
+  ],
+  category: "ewp_lang",
+  default_widget: "ewp_string_lang_default",
+  default_formatter: "ewp_string_lang_default",
+)]
 class StringWithOptionalLangItem extends FieldItemBase {
 
   /**

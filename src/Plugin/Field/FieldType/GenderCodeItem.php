@@ -2,6 +2,7 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldType;
 
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -9,20 +10,20 @@ use Drupal\Core\TypedData\DataDefinition;
 
 /**
  * Plugin implementation of the 'gender_code' field type.
- *
- * @FieldType(
- *   id = "gender_code",
- *   label = @Translation("Gender code"),
- *   description = {
- *     @Translation("Values stored are predefined integer values"),
- *     @Translation("For example, 9 => 'Not applicable'"),
- *     @Translation("see ISO/IEC 5218:2004"),
- *   },
- *   category = "ewp_selection_list",
- *   default_widget = "gender_code_default",
- *   default_formatter = "gender_code_default",
- * )
  */
+#[FieldType(
+  id: "gender_code",
+  module: "ewp_core",
+  label: new TranslatableMarkup("Gender code"),
+  description: [
+    new TranslatableMarkup("Values stored are predefined integer values."),
+    new TranslatableMarkup("For example, 9 => 'Not applicable'."),
+    new TranslatableMarkup("See ISO/IEC 5218:2004."),
+  ],
+  category: "ewp_selection_list",
+  default_widget: "gender_code_default",
+  default_formatter: "gender_code_default",
+)]
 class GenderCodeItem extends FieldItemBase {
 
   /**
