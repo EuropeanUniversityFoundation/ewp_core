@@ -2,25 +2,26 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\OptGroup;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ewp_core\CefrLevelManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'cefr_level_simple' formatter.
- *
- * @FieldFormatter(
- *   id = "cefr_level_simple",
- *   label = @Translation("Simple (code only)"),
- *   field_types = {
- *     "cefr_level"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'cefr_level_simple',
+  label: new TranslatableMarkup('Simple (code only)'),
+  field_types: [
+    'cefr_level',
+  ],
+)]
 class CefrLevelSimpleFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**

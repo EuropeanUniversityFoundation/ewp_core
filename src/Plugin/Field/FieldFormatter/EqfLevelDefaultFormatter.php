@@ -2,24 +2,25 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ewp_core\SelectOptionsProviderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'eqf_level_default' formatter.
- *
- * @FieldFormatter(
- *   id = "eqf_level_default",
- *   label = @Translation("Default"),
- *   field_types = {
- *     "eqf_level"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'eqf_level_default',
+  label: new TranslatableMarkup('Default'),
+  field_types: [
+    'eqf_level',
+  ],
+)]
 class EqfLevelDefaultFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**

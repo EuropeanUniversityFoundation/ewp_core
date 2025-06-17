@@ -2,21 +2,22 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'ewp_https_simple' formatter.
- *
- * @FieldFormatter(
- *   id = "ewp_https_simple",
- *   label = @Translation("Simple (plain text)"),
- *   field_types = {
- *     "ewp_https"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'ewp_https_simple',
+  label: new TranslatableMarkup('Simple (plain text)'),
+  field_types: [
+    'ewp_https',
+  ],
+)]
 class HttpsSimpleFormatter extends FormatterBase {
 
   /**

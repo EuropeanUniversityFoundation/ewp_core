@@ -2,20 +2,21 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'eqf_level_simple' formatter.
- *
- * @FieldFormatter(
- *   id = "eqf_level_simple",
- *   label = @Translation("Simple (number only)"),
- *   field_types = {
- *     "eqf_level"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'eqf_level_simple',
+  label: new TranslatableMarkup('Simple (number only)'),
+  field_types: [
+    'eqf_level',
+  ],
+)]
 class EqfLevelSimpleFormatter extends FormatterBase {
 
   /**

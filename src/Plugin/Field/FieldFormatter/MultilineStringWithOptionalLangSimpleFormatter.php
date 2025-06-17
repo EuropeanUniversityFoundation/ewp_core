@@ -3,21 +3,22 @@
 namespace Drupal\ewp_core\Plugin\Field\FieldFormatter;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'ewp_multiline_lang_simple' formatter.
- *
- * @FieldFormatter(
- *   id = "ewp_multiline_lang_simple",
- *   label = @Translation("Simple"),
- *   field_types = {
- *     "ewp_multiline_lang"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'ewp_multiline_lang_simple',
+  label: new TranslatableMarkup('Simple'),
+  field_types: [
+    'ewp_multiline_lang',
+  ],
+)]
 class MultilineStringWithOptionalLangSimpleFormatter extends FormatterBase {
 
   /**
