@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\ewp_core\Plugin\rest\resource;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\rest\Attribute\RestResource;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
