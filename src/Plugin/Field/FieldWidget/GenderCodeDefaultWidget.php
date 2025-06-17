@@ -2,26 +2,24 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ewp_core\SelectOptionsProviderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'gender_code_default' widget.
- *
- * @FieldWidget(
- *   id = "gender_code_default",
- *   module = "ewp_core",
- *   label = @Translation("Select list"),
- *   field_types = {
- *     "gender_code"
- *   }
- * )
  */
+#[FieldWidget(
+  id: 'gender_code_default',
+  label: new TranslatableMarkup('Select list'),
+  field_types: ['gender_code'],
+)]
 class GenderCodeDefaultWidget extends WidgetBase implements ContainerFactoryPluginInterface {
 
   /**

@@ -2,26 +2,24 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ewp_core\SelectOptionsProviderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'ewp_multiline_lang_default' widget.
- *
- * @FieldWidget(
- *   id = "ewp_multiline_lang_default",
- *   module = "ewp_core",
- *   label = @Translation("Default"),
- *   field_types = {
- *     "ewp_multiline_lang"
- *   }
- * )
  */
+#[FieldWidget(
+  id: 'ewp_multiline_lang_default',
+  label: new TranslatableMarkup('Default'),
+  field_types: ['ewp_multiline_lang'],
+)]
 class MultilineStringWithOptionalLangDefaultWidget extends WidgetBase implements ContainerFactoryPluginInterface {
 
   /**
