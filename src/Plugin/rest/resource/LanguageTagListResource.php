@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\ewp_core\Plugin\rest\resource;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\rest\Attribute\RestResource;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
 use Psr\Log\LoggerInterface;
@@ -12,15 +13,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Represents Language tag config objects as resources.
- *
- * @RestResource (
- *   id = "ewp_core_language_tag_list",
- *   label = @Translation("Language tag list"),
- *   uri_paths = {
- *     "canonical" = "/api/ewp/core/lang"
- *   }
- * )
  */
+#[RestResource(
+  id: "ewp_core_language_tag_list",
+  label: new TranslatableMarkup("Language tag list"),
+  uri_paths: [
+    "canonical" => "/api/ewp/core/lang",
+  ],
+)]
 final class LanguageTagListResource extends ResourceBase {
 
   /**
