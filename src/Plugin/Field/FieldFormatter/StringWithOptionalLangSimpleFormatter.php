@@ -2,21 +2,22 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'ewp_string_lang_simple' formatter.
- *
- * @FieldFormatter(
- *   id = "ewp_string_lang_simple",
- *   label = @Translation("Simple (text only)"),
- *   field_types = {
- *     "ewp_string_lang"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'ewp_string_lang_simple',
+  label: new TranslatableMarkup('Simple (text only)'),
+  field_types: [
+    'ewp_string_lang',
+  ],
+)]
 class StringWithOptionalLangSimpleFormatter extends FormatterBase {
 
   /**

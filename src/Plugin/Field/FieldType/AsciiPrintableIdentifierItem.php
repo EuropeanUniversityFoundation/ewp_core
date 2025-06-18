@@ -3,6 +3,7 @@
 namespace Drupal\ewp_core\Plugin\Field\FieldType;
 
 use Drupal\Component\Utility\Random;
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -12,19 +13,19 @@ use Drupal\Core\TypedData\DataDefinition;
 
 /**
  * Plugin implementation of the 'ascii_identifier' field type.
- *
- * @FieldType(
- *   id = "ascii_identifier",
- *   label = @Translation("ASCII Printable Identifier"),
- *   description = {
- *     @Translation("Stores a string to be used as an identifier"),
- *     @Translation("Allows only ASCII characters"),
- *   },
- *   category = "ewp_core",
- *   default_widget = "ascii_identifier_default",
- *   default_formatter = "ascii_identifier_default"
- * )
  */
+#[FieldType(
+  id: "ascii_identifier",
+  module: "ewp_core",
+  label: new TranslatableMarkup("ASCII Printable Identifier"),
+  description: [
+    new TranslatableMarkup("Stores a string to be used as an identifier."),
+    new TranslatableMarkup("Allows only ASCII printable characters."),
+  ],
+  category: "ewp_core",
+  default_widget: "ascii_identifier_default",
+  default_formatter: "ascii_identifier_default",
+)]
 class AsciiPrintableIdentifierItem extends FieldItemBase {
 
   /**

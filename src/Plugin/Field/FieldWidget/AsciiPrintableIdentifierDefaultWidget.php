@@ -2,22 +2,20 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'ascii_identifier_default' widget.
- *
- * @FieldWidget(
- *   id = "ascii_identifier_default",
- *   module = "ewp_core",
- *   label = @Translation("Default"),
- *   field_types = {
- *     "ascii_identifier"
- *   }
- * )
  */
+#[FieldWidget(
+  id: 'ascii_identifier_default',
+  label: new TranslatableMarkup('Default'),
+  field_types: ['ascii_identifier'],
+)]
 class AsciiPrintableIdentifierDefaultWidget extends WidgetBase {
 
   /**

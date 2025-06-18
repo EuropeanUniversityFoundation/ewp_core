@@ -2,30 +2,31 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldType;
 
-use Drupal\link\Plugin\Field\FieldType\LinkItem;
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\Core\Url;
+use Drupal\link\Plugin\Field\FieldType\LinkItem;
 
 /**
  * Plugin implementation of the 'ewp_http_lang' field type.
- *
- * @FieldType(
- *   id = "ewp_http_lang",
- *   label = @Translation("HTTP with optional lang"),
- *   description = {
- *     @Translation("Stores a URL string"),
- *     @Translation("Allows http:// and https:// protocols"),
- *     @Translation("Stores an optional IETF BCP 47 language tag"),
- *     @Translation("e.g. el for Greek, el-Latn for Greek in Latin script."),
- *   },
- *   category = "ewp_lang",
- *   default_widget = "ewp_http_lang_default",
- *   default_formatter = "ewp_http_lang_default"
- * )
  */
+#[FieldType(
+  id: "ewp_http_lang",
+  module: "ewp_core",
+  label: new TranslatableMarkup("HTTP with optional lang"),
+  description: [
+    new TranslatableMarkup("Stores a URL string."),
+    new TranslatableMarkup("Allows http:// and https:// protocols."),
+    new TranslatableMarkup("Stores an optional IETF BCP 47 language tag."),
+    new TranslatableMarkup("e.g. el for Greek, el-Latn for Greek in Latin script."),
+  ],
+  category: "ewp_lang",
+  default_widget: "ewp_http_lang_default",
+  default_formatter: "ewp_http_lang_default",
+)]
 class HttpWithOptionalLangItem extends LinkItem {
 
   /**

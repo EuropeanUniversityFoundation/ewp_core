@@ -2,21 +2,22 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'ascii_identifier_default' formatter.
- *
- * @FieldFormatter(
- *   id = "ascii_identifier_default",
- *   label = @Translation("Default (monospace)"),
- *   field_types = {
- *     "ascii_identifier"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'ascii_identifier_default',
+  label: new TranslatableMarkup('Default (monospace)'),
+  field_types: [
+    'ascii_identifier',
+  ],
+)]
 class AsciiPrintableIdentifierDefaultFormatter extends FormatterBase {
 
   /**

@@ -2,21 +2,22 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'ascii_identifier_simple' formatter.
- *
- * @FieldFormatter(
- *   id = "ascii_identifier_simple",
- *   label = @Translation("Simple (plain text)"),
- *   field_types = {
- *     "ascii_identifier"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'ascii_identifier_simple',
+  label: new TranslatableMarkup('Simple (plain text)'),
+  field_types: [
+    'ascii_identifier',
+  ],
+)]
 class AsciiPrintableIdentifierSimpleFormatter extends FormatterBase {
 
   /**

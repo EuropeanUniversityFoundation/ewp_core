@@ -3,32 +3,33 @@
 namespace Drupal\ewp_core\Plugin\Field\FieldFormatter;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Form\OptGroup;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\ewp_core\LanguageTagManagerInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ewp_core\SelectOptionsProviderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'ewp_http_lang_default' formatter.
- *
- * @FieldFormatter(
- *   id = "ewp_http_lang_default",
- *   label = @Translation("Link (clean URL)"),
- *   field_types = {
- *     "ewp_http_lang"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'ewp_http_lang_default',
+  label: new TranslatableMarkup('Link (clean URL)'),
+  field_types: [
+    'ewp_http_lang',
+  ],
+)]
 class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
    * Language tag manager.
    *
-   * @var \Drupal\ewp_core\LanguageTagManagerInterface
+   * @var \Drupal\ewp_core\SelectOptionsProviderInterface
    */
   protected $languageTagManager;
 
@@ -43,7 +44,7 @@ class HttpWithOptionalLangDefaultFormatter extends FormatterBase implements Cont
     $label,
     $view_mode,
     array $third_party_settings,
-    LanguageTagManagerInterface $language_tag_manager,
+    SelectOptionsProviderInterface $language_tag_manager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->languageTagManager = $language_tag_manager;

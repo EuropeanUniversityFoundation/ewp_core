@@ -2,32 +2,30 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\ewp_core\GenderCodeManager;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ewp_core\SelectOptionsProviderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'gender_code_default' widget.
- *
- * @FieldWidget(
- *   id = "gender_code_default",
- *   module = "ewp_core",
- *   label = @Translation("Select list"),
- *   field_types = {
- *     "gender_code"
- *   }
- * )
  */
+#[FieldWidget(
+  id: 'gender_code_default',
+  label: new TranslatableMarkup('Select list'),
+  field_types: ['gender_code'],
+)]
 class GenderCodeDefaultWidget extends WidgetBase implements ContainerFactoryPluginInterface {
 
   /**
    * Gender code manager.
    *
-   * @var \Drupal\ewp_core\GenderCodeManager
+   * @var \Drupal\ewp_core\SelectOptionsProviderInterface
    */
   protected $genderCodeManager;
 
@@ -40,7 +38,7 @@ class GenderCodeDefaultWidget extends WidgetBase implements ContainerFactoryPlug
     FieldDefinitionInterface $field_definition,
     array $settings,
     array $third_party_settings,
-    GenderCodeManager $gender_code_manager,
+    SelectOptionsProviderInterface $gender_code_manager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
     $this->genderCodeManager = $gender_code_manager;
@@ -66,7 +64,7 @@ class GenderCodeDefaultWidget extends WidgetBase implements ContainerFactoryPlug
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $element['value'] = $element + [
       '#type' => 'select',
-      '#options' => $this->genderCodeManager->getOptions(),
+      '#options' => $this->genderCodeManager->getSelectOptions(),
       '#empty_value' => '',
       '#default_value' => $items[$delta]->value ?? NULL,
     ];

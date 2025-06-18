@@ -2,30 +2,31 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\ewp_core\GenderCodeManager;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\ewp_core\SelectOptionsProviderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'gender_code_default' formatter.
- *
- * @FieldFormatter(
- *   id = "gender_code_default",
- *   label = @Translation("Default"),
- *   field_types = {
- *     "gender_code"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'gender_code_default',
+  label: new TranslatableMarkup('Default'),
+  field_types: [
+    'gender_code',
+  ],
+)]
 class GenderCodeDefaultFormatter extends FormatterBase implements ContainerFactoryPluginInterface {
 
   /**
    * Gender code manager.
    *
-   * @var \Drupal\ewp_core\GenderCodeManager
+   * @var \Drupal\ewp_core\SelectOptionsProviderInterface
    */
   protected $genderCodeManager;
 
@@ -40,7 +41,7 @@ class GenderCodeDefaultFormatter extends FormatterBase implements ContainerFacto
     $label,
     $view_mode,
     array $third_party_settings,
-    GenderCodeManager $gender_code_manager,
+    SelectOptionsProviderInterface $gender_code_manager,
   ) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $label, $view_mode, $third_party_settings);
     $this->genderCodeManager = $gender_code_manager;
@@ -66,7 +67,7 @@ class GenderCodeDefaultFormatter extends FormatterBase implements ContainerFacto
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $gender_codes = $this->genderCodeManager->getOptions();
+    $gender_codes = $this->genderCodeManager->getSelectOptions();
 
     $elements = [];
 

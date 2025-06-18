@@ -2,6 +2,7 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldType;
 
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
@@ -24,6 +25,20 @@ use Drupal\Core\TypedData\DataDefinition;
  *   default_formatter = "cefr_level_default",
  * )
  */
+#[FieldType(
+  id: "cefr_level",
+  module: "ewp_core",
+  label: new TranslatableMarkup("CEFR level"),
+  description: [
+    new TranslatableMarkup("DEPRECATED: use the CEFRL module instead."),
+    new TranslatableMarkup("Values stored are predefined text values."),
+    new TranslatableMarkup("For example, 'A1' => 'A1'."),
+    new TranslatableMarkup("See Common European Reference Framework for Languages."),
+  ],
+  category: "ewp_selection_list",
+  default_widget: "cefr_level_default",
+  default_formatter: "cefr_level_default",
+)]
 class CefrLevelItem extends FieldItemBase {
 
   /**

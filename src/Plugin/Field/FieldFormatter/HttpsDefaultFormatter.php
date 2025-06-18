@@ -2,22 +2,23 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldFormatter;
 
+use Drupal\Core\Field\Attribute\FieldFormatter;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'ewp_https_default' formatter.
- *
- * @FieldFormatter(
- *   id = "ewp_https_default",
- *   label = @Translation("Link (clean URL)"),
- *   field_types = {
- *     "ewp_https"
- *   }
- * )
  */
+#[FieldFormatter(
+  id: 'ewp_https_default',
+  label: new TranslatableMarkup('Link (clean URL)'),
+  field_types: [
+    'ewp_https',
+  ],
+)]
 class HttpsDefaultFormatter extends FormatterBase {
 
   /**

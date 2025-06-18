@@ -2,25 +2,27 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldType;
 
+use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\link\Plugin\Field\FieldType\LinkItem;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Plugin implementation of the 'ewp_https' field type.
- *
- * @FieldType(
- *   id = "ewp_https",
- *   label = @Translation("HTTPS"),
- *   description = {
- *     @Translation("Stores a URL string"),
- *     @Translation("Requires https:// protocol"),
- *   },
- *   category = "ewp_core",
- *   default_widget = "ewp_https_default",
- *   default_formatter = "ewp_https_default"
- * )
  */
+#[FieldType(
+  id: "ewp_https",
+  module: "ewp_core",
+  label: new TranslatableMarkup("HTTPS"),
+  description: [
+    new TranslatableMarkup("Stores a URL string."),
+    new TranslatableMarkup("Requires https:// protocol."),
+  ],
+  category: "ewp_core",
+  default_widget: "ewp_https_default",
+  default_formatter: "ewp_https_default",
+)]
 class HttpsItem extends LinkItem {
 
   /**

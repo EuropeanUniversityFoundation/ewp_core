@@ -2,26 +2,24 @@
 
 namespace Drupal\ewp_core\Plugin\Field\FieldWidget;
 
+use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ewp_core\CefrLevelManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Plugin implementation of the 'cefr_level_default' widget.
- *
- * @FieldWidget(
- *   id = "cefr_level_default",
- *   module = "ewp_core",
- *   label = @Translation("Select list"),
- *   field_types = {
- *     "cefr_level"
- *   }
- * )
  */
+#[FieldWidget(
+  id: 'cefr_level_default',
+  label: new TranslatableMarkup('Select list'),
+  field_types: ['cefr_level'],
+)]
 class CefrLevelDefaultWidget extends WidgetBase implements ContainerFactoryPluginInterface {
 
   /**
