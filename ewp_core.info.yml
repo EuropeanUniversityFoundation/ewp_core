@@ -7,4 +7,5 @@ dependencies:
   - drupal:field
   - drupal:link
   - drupal:options
+  - drupal:rest
   - drupal:text
