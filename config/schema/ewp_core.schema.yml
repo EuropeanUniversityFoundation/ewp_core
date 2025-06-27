@@ -1,4 +1,12 @@
 # Schema for the configuration of the ASCII Printable Identifier field type.
+field.value.ascii_identifier:
+  type: mapping
+  label: Default value
+  mapping:
+    value:
+      type: label
+      label: Value
+
 field.storage_settings.ascii_identifier:
   type: mapping
   label: 'ASCII Printable Identifier settings'
@@ -24,7 +32,75 @@ field.widget.settings.ascii_identifier_default:
       type: label
       label: 'Placeholder'
 
+# Schema for the configuration of the CEFR level field type.
+field.value.cefr_level:
+  type: mapping
+  label: Default value
+  mapping:
+    value:
+      type: label
+      label: Value
+
+# Schema for the configuration of the EQF level field type.
+field.value.eqf_level:
+  type: mapping
+  label: Default value
+  mapping:
+    value:
+      type: label
+      label: Value
+
+# Schema for the configuration of the Gender code field type.
+field.value.gender_code:
+  type: mapping
+  label: Default value
+  mapping:
+    value:
+      type: label
+      label: Value
+
 # Schema for the configuration of the HTTPS field type.
+field.value.ewp_https:
+  type: mapping
+  label: 'Default value'
+  mapping:
+    attributes:
+      type: mapping
+      label: 'Link attributes'
+      mapping:
+        title:
+          type: label
+          label: 'Link text'
+    uri:
+      type: string
+      label: 'URL'
+    title:
+      type: label
+      label: 'Link text'
+    options:
+      type: mapping
+      label: 'Link options'
+      mapping:
+        query:
+          type: sequence
+          label: 'URL query key value pairs'
+          sequence:
+            type: string
+        fragment:
+          type: string
+          label: 'URL fragment'
+        absolute:
+          type: boolean
+          label: 'Whether to force the output to be an absolute link (beginning with http: or https:)'
+        https:
+          type: boolean
+          label: 'Whether to force this URL to point to a secure location (beginning with https:)'
+        attributes:
+          type: sequence
+          label: 'Link attributes'
+          sequence:
+            type: string
+
 field.field_settings.ewp_https:
   type: mapping
   label: 'Link settings'
@@ -37,6 +113,54 @@ field.field_settings.ewp_https:
       label: 'Allowed link type'
 
 # Schema for the configuration of the HTTP with optional lang field type.
+field.value.ewp_http_lang:
+  type: mapping
+  label: Default value
+  mapping:
+    attributes:
+      type: mapping
+      label: 'Link attributes'
+      mapping:
+        title:
+          type: label
+          label: 'Link text'
+    uri:
+      type: label
+      label: URI
+      constraints:
+        NotBlank: []
+    lang:
+      type: string
+      label: Language
+      constraints:
+        ValidLanguageTag: ~
+    title:
+      type: label
+      label: 'Link text'
+    options:
+      type: mapping
+      label: 'Link options'
+      mapping:
+        query:
+          type: sequence
+          label: 'URL query key value pairs'
+          sequence:
+            type: string
+        fragment:
+          type: string
+          label: 'URL fragment'
+        absolute:
+          type: boolean
+          label: 'Whether to force the output to be an absolute link (beginning with http: or https:)'
+        https:
+          type: boolean
+          label: 'Whether to force this URL to point to a secure location (beginning with https:)'
+        attributes:
+          type: sequence
+          label: 'Link attributes'
+          sequence:
+            type: string
+
 field.field_settings.ewp_http_lang:
   type: mapping
   label: 'Link settings'
@@ -48,7 +172,33 @@ field.field_settings.ewp_http_lang:
       type: integer
       label: 'Allowed link type'
 
+# Schema for the configuration of the Language tag field type.
+field.value.ewp_lang:
+  type: mapping
+  label: Default value
+  mapping:
+    lang:
+      type: string
+      label: Language
+      constraints:
+        ValidLanguageTag: ~
+
 # Schema for the configuration of the Multiline string with optional lang field type.
+field.value.ewp_multiline_lang:
+  type: mapping
+  label: Default value
+  mapping:
+    multiline:
+      type: string
+      label: Text
+      constraints:
+        NotBlank: []
+    lang:
+      type: string
+      label: Language
+      constraints:
+        ValidLanguageTag: ~
+
 field.widget.settings.ewp_multiline_lang_default:
   type: mapping
   label: 'Textarea display format settings'
@@ -61,6 +211,21 @@ field.widget.settings.ewp_multiline_lang_default:
       label: 'Placeholder'
 
 # Schema for the configuration of the String with optional lang field type.
+field.value.ewp_string_lang:
+  type: mapping
+  label: Default value
+  mapping:
+    string:
+      type: string
+      label: String
+      constraints:
+        NotBlank: []
+    lang:
+      type: string
+      label: Language
+      constraints:
+        ValidLanguageTag: ~
+
 field.storage_settings.ewp_string_lang:
   type: mapping
   label: 'String with optional lang settings'
