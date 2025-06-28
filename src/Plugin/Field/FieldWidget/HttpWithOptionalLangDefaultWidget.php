@@ -123,7 +123,11 @@ class HttpWithOptionalLangDefaultWidget extends LinkWidget implements ContainerF
    */
   public static function validateTitleElement(&$element, FormStateInterface $form_state, $form) {
     if ($element['inline']['uri']['#value'] !== '' && $element['title']['#value'] === '') {
-      $form_state->setError($element['title'], new TranslatableMarkup('@title field is required if there is @uri input.', ['@title' => $element['title']['#title'], '@uri' => $element['uri']['#title']]));
+      $message = new TranslatableMarkup('@title field is required if there is @uri input.', [
+        '@title' => $element['title']['#title'],
+        '@uri' => $element['uri']['#title'],
+      ]);
+      $form_state->setError($element['title'], $message);
     }
   }
 
@@ -132,7 +136,11 @@ class HttpWithOptionalLangDefaultWidget extends LinkWidget implements ContainerF
    */
   public static function validateTitleNoLink(&$element, FormStateInterface $form_state, $form) {
     if ($element['inline']['uri']['#value'] === '' && $element['title']['#value'] !== '') {
-      $form_state->setError($element['inline']['uri'], new TranslatableMarkup('The @uri field is required when the @title field is specified.', ['@title' => $element['title']['#title'], '@uri' => $element['uri']['#title']]));
+      $message = new TranslatableMarkup('The @uri field is required when the @title field is specified.', [
+        '@title' => $element['title']['#title'],
+        '@uri' => $element['uri']['#title'],
+      ]);
+      $form_state->setError($element['inline']['uri'], $message);
     }
   }
 
