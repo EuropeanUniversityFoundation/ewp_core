@@ -4,8 +4,12 @@ field.value.ascii_identifier:
   label: Default value
   mapping:
     value:
-      type: label
-      label: Value
+      type: string
+      label: Identifier
+      constraints:
+        Regex:
+          pattern: '/^[ -~]+$/'
+          message: 'ASCII printable characters only.'
 
 field.storage_settings.ascii_identifier:
   type: mapping
@@ -28,6 +32,9 @@ field.widget.settings.ascii_identifier_default:
     size:
       type: integer
       label: 'Size of textfield'
+      constraints:
+        Range:
+          min: 0
     placeholder:
       type: label
       label: 'Placeholder'
@@ -38,8 +45,11 @@ field.value.cefr_level:
   label: Default value
   mapping:
     value:
-      type: label
+      type: string
       label: Value
+      constraints:
+        Regex:
+          pattern: '/^[ABC][12]$/'
 
 # Schema for the configuration of the EQF level field type.
 field.value.eqf_level:
@@ -47,8 +57,12 @@ field.value.eqf_level:
   label: Default value
   mapping:
     value:
-      type: label
+      type: integer
       label: Value
+      constraints:
+        Range:
+          min: 1
+          max: 8
 
 # Schema for the configuration of the Gender code field type.
 field.value.gender_code:
@@ -56,8 +70,14 @@ field.value.gender_code:
   label: Default value
   mapping:
     value:
-      type: label
+      type: integer
       label: Value
+      constraints:
+        Choice:
+          - 0
+          - 1
+          - 2
+          - 9
 
 # Schema for the configuration of the HTTPS field type.
 field.value.ewp_https:
@@ -74,6 +94,9 @@ field.value.ewp_https:
     uri:
       type: string
       label: 'URL'
+      constraints:
+        Regex:
+          pattern: '/^https:\/\//'
     title:
       type: label
       label: 'Link text'
@@ -108,9 +131,36 @@ field.field_settings.ewp_https:
     title:
       type: integer
       label: 'Allow link text'
+      constraints:
+        Choice:
+          - 0
+          - 1
+          - 2
     link_type:
       type: integer
       label: 'Allowed link type'
+      constraints:
+        Choice:
+          - 0x01
+          - 0x10
+          - 0x11
+
+field.widget.settings.ewp_https_default:
+  type: mapping
+  label: 'Link format settings'
+  mapping:
+    placeholder_url:
+      type: string
+      label: 'Placeholder for URL'
+      constraints:
+        Length:
+          min: 0
+    placeholder_title:
+      type: label
+      label: 'Placeholder for link text'
+      constraints:
+        Length:
+          min: 0
 
 # Schema for the configuration of the HTTP with optional lang field type.
 field.value.ewp_http_lang:
@@ -168,9 +218,36 @@ field.field_settings.ewp_http_lang:
     title:
       type: integer
       label: 'Allow link text'
+      constraints:
+        Choice:
+          - 0
+          - 1
+          - 2
     link_type:
       type: integer
       label: 'Allowed link type'
+      constraints:
+        Choice:
+          - 0x01
+          - 0x10
+          - 0x11
+
+field.widget.settings.ewp_http_lang_default:
+  type: mapping
+  label: 'Link format settings'
+  mapping:
+    placeholder_url:
+      type: string
+      label: 'Placeholder for URL'
+      constraints:
+        Length:
+          min: 0
+    placeholder_title:
+      type: label
+      label: 'Placeholder for link text'
+      constraints:
+        Length:
+          min: 0
 
 # Schema for the configuration of the Language tag field type.
 field.value.ewp_lang:
@@ -206,6 +283,9 @@ field.widget.settings.ewp_multiline_lang_default:
     rows:
       type: integer
       label: 'Rows'
+      constraints:
+        Range:
+          min: 1
     placeholder:
       type: label
       label: 'Placeholder'
@@ -241,6 +321,9 @@ field.widget.settings.ewp_string_lang_default:
     size:
       type: integer
       label: 'Size of textfield'
+      constraints:
+        Range:
+          min: 0
     placeholder:
       type: label
       label: 'Placeholder'

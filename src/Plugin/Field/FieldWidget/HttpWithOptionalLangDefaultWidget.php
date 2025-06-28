@@ -5,10 +5,10 @@ namespace Drupal\ewp_core\Plugin\Field\FieldWidget;
 use Drupal\Core\Field\Attribute\FieldWidget;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\link\Plugin\Field\FieldWidget\LinkWidget;
 use Drupal\ewp_core\SelectOptionsProviderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -20,7 +20,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
   label: new TranslatableMarkup('Default'),
   field_types: ['ewp_http_lang'],
 )]
-class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerFactoryPluginInterface {
+class HttpWithOptionalLangDefaultWidget extends LinkWidget implements ContainerFactoryPluginInterface {
 
   /**
    * Language tag manager.
@@ -61,37 +61,20 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
   /**
    * {@inheritdoc}
    */
-  public function settingsForm(array $form, FormStateInterface $form_state) {
-    $elements = [];
-
-    return $elements;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function settingsSummary() {
-    $summary = [];
-
-    return $summary;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $element = $element + [
+    $element = parent::formElement($items, $delta, $element, $form, $form_state);
+
+    $element['inline'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['inline-widget']],
+      '#tree' => TRUE,
+      '#weight' => -100,
     ];
     $element['#attached']['library'][] = 'ewp_core/inline_widget';
 
-    $element['uri'] = [
-      '#type' => 'url',
-      '#default_value' => $items[$delta]->uri ?? NULL,
-      '#maxlength' => 2048,
-      '#attributes' => ['class' => ['inline-shrink']],
-    ];
+    $element['uri']['#attributes']['class'] = ['inline-shrink'];
+    $element['inline']['uri'] = $element['uri'];
+    unset($element['uri']);
 
     $lang_options = $this->languageTagManager->getSelectOptions();
     $lang_exists = FALSE;
@@ -114,7 +97,7 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
       $lang_options = \array_merge($extra_group, $lang_options);
     }
 
-    $element['lang'] = [
+    $element['inline']['lang'] = [
       '#type' => 'select',
       '#options' => $lang_options,
       '#empty_option' => '- ' . $this->t('Language') . ' -',
@@ -129,11 +112,42 @@ class HttpWithOptionalLangDefaultWidget extends WidgetBase implements ContainerF
       ->getCardinality();
 
     if ($cardinality === 1) {
-      $element['uri']['#title'] = $element['#title'];
-      $element['lang']['#title'] = '&nbsp;';
+      $element['inline']['lang']['#title'] = '&nbsp;';
     }
 
     return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function validateTitleElement(&$element, FormStateInterface $form_state, $form) {
+    if ($element['inline']['uri']['#value'] !== '' && $element['title']['#value'] === '') {
+      $form_state->setError($element['title'], new TranslatableMarkup('@title field is required if there is @uri input.', ['@title' => $element['title']['#title'], '@uri' => $element['uri']['#title']]));
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function validateTitleNoLink(&$element, FormStateInterface $form_state, $form) {
+    if ($element['inline']['uri']['#value'] === '' && $element['title']['#value'] !== '') {
+      $form_state->setError($element['inline']['uri'], new TranslatableMarkup('The @uri field is required when the @title field is specified.', ['@title' => $element['title']['#title'], '@uri' => $element['uri']['#title']]));
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
+    foreach ($values as &$value) {
+      foreach ($value['inline'] as $key => $prop) {
+        $value[$key] = $prop;
+      }
+      unset($value['inline']);
+    }
+
+    return parent::massageFormValues($values, $form, $form_state);
   }
 
 }

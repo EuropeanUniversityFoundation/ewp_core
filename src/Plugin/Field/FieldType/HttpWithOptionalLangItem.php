@@ -4,10 +4,8 @@ namespace Drupal\ewp_core\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\TypedData\DataDefinition;
-use Drupal\Core\Url;
 use Drupal\link\Plugin\Field\FieldType\LinkItem;
 
 /**
@@ -61,25 +59,9 @@ class HttpWithOptionalLangItem extends LinkItem {
   /**
    * {@inheritdoc}
    */
-  public function fieldSettingsForm(array $form, FormStateInterface $form_state) {
-    $element = [];
-
-    return $element;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function isEmpty() {
     $value = $this->get('uri')->getValue();
     return $value === NULL || $value === '';
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getUrl() {
-    return Url::fromUri($this->uri, (array) $this->options);
   }
 
 }
