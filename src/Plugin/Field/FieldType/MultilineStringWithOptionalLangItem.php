@@ -65,6 +65,13 @@ class MultilineStringWithOptionalLangItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
+  public static function mainPropertyName() {
+    return 'multiline';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function isEmpty() {
     $value = $this->get('multiline')->getValue();
     return $value === NULL || $value === '';

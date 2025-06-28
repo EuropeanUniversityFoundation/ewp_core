@@ -57,6 +57,13 @@ class LangItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
+  public static function mainPropertyName() {
+    return 'lang';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function isEmpty() {
     $value = $this->get('lang')->getValue();
     return $value === NULL || $value === '';
