@@ -62,4 +62,8 @@ class LangItem extends FieldItemBase {
     return $value === NULL || $value === '';
   }
 
+  public static function mainPropertyName() {
+    return 'lang';
+  }
+
 }
