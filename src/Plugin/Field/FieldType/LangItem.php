@@ -69,11 +69,4 @@ class LangItem extends FieldItemBase {
     return $value === NULL || $value === '';
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public static function mainPropertyName() {
-    return 'lang';
-  }
-
 }
