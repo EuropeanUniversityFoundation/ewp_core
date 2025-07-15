@@ -5,7 +5,6 @@ namespace Drupal\ewp_core\Plugin\Field\FieldType;
 use Drupal\Core\Field\Attribute\FieldType;
 use Drupal\link\Plugin\Field\FieldType\LinkItem;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
@@ -16,12 +15,18 @@ use Drupal\Core\StringTranslation\TranslatableMarkup;
   module: "ewp_core",
   label: new TranslatableMarkup("HTTPS"),
   description: [
-    new TranslatableMarkup("Stores a URL string."),
+    new TranslatableMarkup("Stores a URL string, optional varchar link text, and optional blob of attributes to assemble a link."),
     new TranslatableMarkup("Requires https:// protocol."),
   ],
   category: "ewp_core",
   default_widget: "ewp_https_default",
   default_formatter: "ewp_https_default",
+  constraints: [
+    "LinkType" => [],
+    "LinkAccess" => [],
+    "LinkExternalProtocols" => [],
+    "LinkNotExistingInternal" => [],
+  ]
 )]
 class HttpsItem extends LinkItem {
 
@@ -34,15 +39,6 @@ class HttpsItem extends LinkItem {
     $properties['uri']->addConstraint('LinkHttps', []);
 
     return $properties;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function fieldSettingsForm(array $form, FormStateInterface $form_state) {
-    $element = [];
-
-    return $element;
   }
 
 }

@@ -122,6 +122,13 @@ class StringWithOptionalLangItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
+  public static function mainPropertyName() {
+    return 'string';
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function isEmpty() {
     $value = $this->get('string')->getValue();
     return $value === NULL || $value === '';
