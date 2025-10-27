@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\ewp_core\Functional;
 
+use Drupal\user\Entity\User;
 use Drupal\Tests\BrowserTestBase;
 
 /**
@@ -9,7 +10,7 @@ use Drupal\Tests\BrowserTestBase;
  *
  * @group ewp_core
  */
-class SettingsFormTest extends BrowserTestBase {
+class LanguageTagSettingsFormTest extends BrowserTestBase {
 
   const CONFIG_KEY = 'ewp_core.settings';
   const FORM_PATH = 'admin/ewp/settings/lang';
@@ -26,18 +27,30 @@ class SettingsFormTest extends BrowserTestBase {
   protected static $modules = ['user', 'ewp_core'];
 
   /**
+   * Admin user account.
+   */
+  protected User $admin;
+
+  /**
+   * Authenticated user account.
+   */
+  protected User $user;
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp(): void {
     parent::setUp();
+
+    $this->user = $this->drupalCreateUser(['access content']);
+    $this->admin = $this->drupalCreateUser([self::PERMISSION]);
   }
 
   /**
-   * Tests access to the settings form by a non-privileged user.
+   * Tests access to the language tag settings form by a non-privileged user.
    */
-  public function testSettingsFormWithoutPermission() {
-    $account = $this->drupalCreateUser(['access content']);
-    $this->drupalLogin($account);
+  public function testLanguageTagSettingsFormWithoutPermission() {
+    $this->drupalLogin($this->user);
 
     $this->drupalGet(self::FORM_PATH);
     $this->assertSession()
@@ -45,11 +58,10 @@ class SettingsFormTest extends BrowserTestBase {
   }
 
   /**
-   * Tests the settings form as a privileged user.
+   * Tests the language tag settings form as a privileged user.
    */
-  public function testSettingsForm() {
-    $account = $this->drupalCreateUser([self::PERMISSION]);
-    $this->drupalLogin($account);
+  public function testLanguageTagSettingsForm() {
+    $this->drupalLogin($this->admin);
 
     // Test the default configuration.
     $default_config = $this->config(self::CONFIG_KEY);
@@ -66,7 +78,7 @@ class SettingsFormTest extends BrowserTestBase {
     $lang_secondary_list = $default_config->get('lang_secondary_list');
     $this->assertContains('tr|Turkish', $lang_secondary_list);
 
-    // Test access to the settings form.
+    // Test access to the language tag settings form.
     $this->drupalGet(self::FORM_PATH);
     $this->assertSession()
       ->statusCodeEquals(200);
@@ -121,6 +133,65 @@ class SettingsFormTest extends BrowserTestBase {
       ->pageTextMatchesCount(2, '/Portuguese/');
     $this->assertSession()
       ->pageTextMatchesCount(2, '/Spanish/');
+
+  }
+
+  /**
+   * Tests incorrect inputs in the language tag settings form.
+   */
+  public function testLanguageTagSettingsFormErrors() {
+    $this->drupalLogin($this->admin);
+
+    $this->drupalGet(self::FORM_PATH);
+
+    // Some correct data to begin with.
+    $correct_data = [
+      'lang_primary_group_label' => 'Primary',
+      'lang_primary_list' => 'en|English',
+      'lang_secondary_group_label' => 'Secondary',
+      'lang_secondary_list' => 'und|undefined',
+    ];
+    $this->submitForm($correct_data, 'Save configuration');
+    $this->assertSession()
+      ->pageTextContains('The configuration options have been saved.');
+
+    // Test values cannot be empty.
+    $bad_data = $correct_data;
+    $bad_data['lang_primary_group_label'] = '';
+    $this->submitForm($bad_data, 'Save configuration');
+    $this->assertSession()
+      ->pageTextContains('This value should not be blank.');
+
+    $bad_data = $correct_data;
+    $bad_data['lang_primary_list'] = '';
+    $this->submitForm($bad_data, 'Save configuration');
+    $this->assertSession()
+      ->pageTextContains('This value should not be blank.');
+
+    $bad_data = $correct_data;
+    $bad_data['lang_secondary_group_label'] = '';
+    $this->submitForm($bad_data, 'Save configuration');
+    $this->assertSession()
+      ->pageTextContains('This value should not be blank.');
+
+    $bad_data = $correct_data;
+    $bad_data['lang_secondary_list'] = '';
+    $this->submitForm($bad_data, 'Save configuration');
+    $this->assertSession()
+      ->pageTextContains('This value should not be blank.');
+
+    // Test language tags must be valid.
+    $bad_data = $correct_data;
+    $bad_data['lang_primary_list'] = 'xyz';
+    $this->submitForm($bad_data, 'Save configuration');
+    $this->assertSession()
+      ->pageTextContains("'xyz' is not a valid language tag.");
+
+    $bad_data = $correct_data;
+    $bad_data['lang_secondary_list'] = 'pt-Madeira';
+    $this->submitForm($bad_data, 'Save configuration');
+    $this->assertSession()
+      ->pageTextContains("'pt-Madeira' is not a valid language tag.");
 
   }
 
