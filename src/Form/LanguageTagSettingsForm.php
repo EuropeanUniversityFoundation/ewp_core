@@ -116,27 +116,27 @@ class LanguageTagSettingsForm extends ConfigFormBase {
   /**
    * Prepares the submitted value to be stored in config.
    *
-   * @param string $value
+   * @param string|null $value
    *   The submitted value.
    *
    * @return array
    *   The value to be stored in config.
    */
-  public static function multiLineStringToArray(string $value): array {
-    return array_filter(array_map('trim', explode("\n", trim($value))));
+  public static function multiLineStringToArray(?string $value): array {
+    return array_filter(array_map('trim', explode("\n", trim($value ?? ''))));
   }
 
   /**
    * Prepares the config value to be displayed in the form.
    *
-   * @param array $value
+   * @param array|null $value
    *   The value saved in config.
    *
    * @return string
    *   The value of the form element.
    */
-  public static function arrayToMultiLineString(array $value): string {
-    return implode("\n", $value);
+  public static function arrayToMultiLineString(?array $value): string {
+    return implode("\n", $value ?? []);
   }
 
 }
