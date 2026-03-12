@@ -328,6 +328,44 @@ field.widget.settings.ewp_string_lang_default:
       type: label
       label: 'Placeholder'
 
+# Schema for Views filters.
+views.filter_value.eqf_level:
+  type: mapping
+  label: 'EQF level'
+  mapping:
+    value:
+      type: string
+      label: 'Value'
+
+views.filter.eqf_level:
+  type: views_filter
+  label: 'EQF level'
+  mapping:
+    operator:
+      type: string
+      label: 'Operator'
+    value:
+      type: sequence
+      constraints:
+        FullyValidatable: ~
+      label: 'Values'
+      sequence:
+        type: string
+        label: 'Value'
+    expose:
+      type: mapping
+      label: 'Expose'
+      mapping:
+        reduce:
+          type: boolean
+          label: 'Reduce'
+    group_info:
+      mapping:
+        group_items:
+          sequence:
+            type: views.filter.group_item.eqf_level
+            label: 'Group item'
+
 # Schema for the configuration files of the EWP core module.
 ewp_core.settings:
   type: config_object
