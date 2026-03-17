@@ -134,4 +134,16 @@ class StringWithOptionalLangItem extends FieldItemBase {
     return $value === NULL || $value === '';
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function preSave() {
+    parent::preSave();
+
+    // If the 'lang' property is an empty string, set it to NULL.
+    if ($this->get('lang')->getValue() === '') {
+      $this->set('lang', NULL);
+    }
+  }
+
 }
